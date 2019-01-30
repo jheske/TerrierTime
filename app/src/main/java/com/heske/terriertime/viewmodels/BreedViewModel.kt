@@ -6,6 +6,7 @@ import androidx.lifecycle.*
 import com.heske.terriertime.TerrierBreeds
 import com.heske.terriertime.database.BreedDao
 import com.heske.terriertime.network.FlickrApi
+import com.heske.terriertime.network.flickr.FlickrImageItem
 import kotlinx.coroutines.*
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
@@ -60,10 +61,19 @@ class BreedViewModel(
      * Response backing property plus its external val
      */
     // The internal MutableLiveData String that stores the most recent response
-    private val _response = MutableLiveData<String>()
+    private val _status = MutableLiveData<String>()
     // The external immutable LiveData for the response String
-    val response: LiveData<String>
-        get() = _response
+    val status: LiveData<String>
+        get() = _status
+
+    // Internally, we use a MutableLiveData, because we will be updating the MarsProperty with
+    // new values
+    //private val _properties = MutableLiveData<HashMap<String,String>>()
+    private val _properties = MutableLiveData<List<String>>()
+
+    // The external LiveData interface to the property is immutable, so only this class can modify
+    val properties: LiveData<List<String>>
+        get() = _properties
 
     // BreedDao call returns a LiveData
     val breedCountString = Transformations.map(breedCount) {count ->
@@ -97,13 +107,31 @@ class BreedViewModel(
             try {
                 // Await the completion of our Retrofit request
                 val listResult = getPropertiesDeferred.await()
-                _response.value = "Success: ${listResult.imageList.size} Images retrieved"
+
+                _status.value = "Success: ${listResult.imageList.size} Images retrieved"
+                if (listResult.imageList.size > 0) {
+                    val imageFilesMap = listResult.imageList[0].media   //.getValue("m")
+                    _properties.value = getImageUrlList(listResult.imageList)
+                }
             } catch (e: Exception) {
-                _response.value = "Failure: ${e.message}"
+                _status.value = "Failure: ${e.message}"
             }
         }
     }
 
+    /***
+     * Return an ArrayList containing string values from [flickrImageList] item
+     * media field.
+     */
+    fun getImageUrlList(flickrImageList: ArrayList<FlickrImageItem>): ArrayList<String> {
+        val imageList = ArrayList<String>()
+
+        flickrImageList.forEachIndexed { index, flickrListItem ->
+            val imageFileName = flickrListItem.media.getValue("m")
+            imageList.add(imageFileName)
+        }
+        return imageList
+    }
 
 //    private suspend fun insertAll() {
 //        withContext(Dispatchers.IO) {
