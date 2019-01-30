@@ -1,0 +1,76 @@
+<resources>
+    <string name="app_name">Terrier Time</string>
+    <string name="txt_no_null_activity">Activity must not be null</string>
+    <string name="txt_breed">Breed</string>
+    <string name="txt_guess">Can you guess what kind of terrier this is?</string>
+    <string name="txt_guess_hint">Enter terrier breed</string>
+    <string name="txt_more_pix">More {breed}s</string>
+    <string name="txt_no_summary">There is no additional information for this breed.  It\'s possible
+        there was an error connecting to or retrieving the data from Wiki.
+        Make sure you are connected to the network and try rerunning the app.</string>
+    <string name="txt_no_network">You are not connected to the network.  You must have a network connection
+        to retrieve addition breed details from Wiki.</string>
+    <string name="txt_tools_summary">Called the King of Terriers because of its size. Did
+        you know that one of this breed was the very first celebrity dog? President Harding had
+        one named Laddie Boy, who was a media darling and even had his own hand-carved chair!
+        Can you guess what kind of terrier this is?
+    </string>
+    <string name="txt_tools_breed"> Airedale Terrier</string>
+    <string name="txt_dog_breed">Dog Breed</string>
+    <string name="txt_btn_guess">Guess</string>
+    <string name="txt_btn_give_up">I give up</string>
+    <string name="txt_btn_more">Learn more</string>
+    <string name="txt_img_photo">Terrier Breed</string>
+    <string name="txt_empty_flickr_list">There are no Flickr Pix to display.</string>
+    <string name="txt_wrong_answer">Try checking the spelling.</string>
+    <string name="txt_no_answer">Please enter your guess in the space provided.</string>
+    <string name="txt_no_answer_title">You didn\'t guess!</string>
+    <string name="txt_wrong_answer_title">{breed} is not correct</string>
+    <string name="txt_alphabet">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</string>
+    <string name="txt_ok">OK</string>
+
+    <!-- terrier breeds -->
+    <string name="airedale">Airedale Terrier</string>
+    <string name="bull_terrier">Bull Terrier</string>
+    <string name="black_russian_terrier">Black Russian Terrier</string>
+    <string name="irish_terrier">Irish Terrier</string>
+    <string name="boston_terrier">Boston Terrier</string>
+    <string name="fox_terrier">Fox Terrier</string>
+    <string name="manchester_terrier">Manchester Terrier</string>
+    <string name="scottish_terrier">Scottish Terrier</string>
+    <string name="skye_terrier">Skye Terrier</string>
+    <string name="schnauzer">Schnauzer</string>
+    <string name="teddy_roosevelt_terrier">Teddy Roosevelt Terrier</string>
+    <string name="welsh_terrier">Welsh Terrier</string>
+    <string name="yorkshire_terrier">Yorkshire Terrier</string>
+    <!-- facts -->
+    <string name="airedale_fact">Called the King of Terriers because of its size. Did
+        you know that one of this breed was the very first celebrity dog? President Harding had
+        one named Laddie Boy, who was a media darling and even had his own hand-carved chair!</string>
+    <string name="bull_terrier_fact">You know him as the Bud Light mascot Spuds Mackenzie.</string>
+    <string name="black_russian_terrier_fact">While terrier is in his name,
+        in his country of origin he\'s actually known as a Russian shepherd.</string>
+    <string name="boston_terrier_fact">This dog was the first breed developed in America.
+        In 1970 he was designated the State Dog of Massachusetts.</string>
+    <string name="fox_terrier_fact">The wirehaired version of this dog has won Best in Show at
+    Westminster 14 times, more than any other breed.</string>
+    <string name="irish_terrier_fact">Thought to be developed in Ireland,
+        this is one of the oldest terrier breeds. Though now a great pet and vermin catcher,
+        this dog served as a messenger dog during WWI.</string>
+    <string name="manchester_terrier_fact">This dog, an ancestor of the Doberman,
+        comes in two sizes, Standard and Toy.</string>
+    <string name="scottish_terrier_fact">This dog was a favorite of the Bush family. You might remember
+        George W\'s Barney, who tried to take a chunk out of a TV reporter.</string>
+    <string name="skye_terrier_fact">Named for an island off the northwest coast of Scotland,
+        this breed was a favorite of Queen Victoria of England and Queen Alexandra of Denmark.</string>
+    <string name="schnauzer_fact">While \'Terrier\' is not in this breed\'s name,
+        the mini variety is in the Terrier Group.  Two other varieties, Standard and Giant,
+        are classified as Working Dogs.</string>
+    <string name="teddy_rossevelt_terrier_fact">Named after a 20th century
+        U.S. president, this dog is bully!</string>
+    <string name="welsh_terrier_fact">He looks like a mini Airedale, but is much more stubborn!
+        This dog comes from Wales and is thought to be the oldest breed in the United Kingdom.</string>
+    <string name="yorkshire_terrier_fact">Originally bred as a rat catcher, this companion dog is actually a
+        member of the Non-Sporting group.</string>
+    <string name="txt_flickr_pix">View Pix</string>
+</resources>

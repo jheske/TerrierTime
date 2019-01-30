@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<layout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--xmlns:tools="http://schemas.android.com/tools"-->
+<!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="match_parent"-->
+<!--android:orientation="vertical"-->
+<!--android:layout_margin="@dimen/spacing_medium">-->
+
+<!--<androidx.recyclerview.widget.RecyclerView-->
+<!--android:id="@+id/rv_breed_list"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="match_parent"-->
+<!--android:layout_margin="@dimen/spacing_medium"-->
+<!--app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--tools:listitem="@layout/listitem_breed"/>-->
+<!--</layout>-->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context="com.example.android.navigation.BreedFragment">
+
+    <!-- Data to make available to the XML via data binding. In this case,
+     the whole ViewModel, so that we can access the LiveData,
+     click handlers, and state variables. -->
+    <data>
+        <variable
+                name="breedViewModel"
+                type="com.heske.terriertime.viewmodels.BreedViewModel"/>
+    </data>
+
+    <TextView
+            android:id="@+id/breedCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/horizontal_margin"
+            android:layout_marginTop="@dimen/horizontal_margin"
+            android:layout_marginEnd="@dimen/horizontal_margin"
+            tools:text="THIS IS WHERE THE COUNT GOES"
+            android:text="@{breedViewModel.response}"/>
+    <!--<androidx.recyclerview.widget.RecyclerView-->
+    <!--android:id="@+id/rv_breed_list"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_margin="@dimen/spacing_medium"-->
+    <!--app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+    <!--tools:listitem="@layout/listitem_breed"/>-->
+
+</layout>

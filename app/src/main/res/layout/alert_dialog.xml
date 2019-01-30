@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/vertical_margin"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_alert_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/spacing_large"
+        android:text="@string/txt_wrong_answer_title"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/tv_alert_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="@dimen/title_size"
+        android:layout_marginBottom="@dimen/large_content_separator"
+        android:layout_marginTop="@dimen/large_content_separator"
+        android:gravity="center"
+        android:text="@string/txt_wrong_answer" />
+
+    <Button
+        android:id="@+id/btn_alert_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/spacing_large"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/txt_ok"
+        android:textColor="@android:color/white" />
+</LinearLayout>

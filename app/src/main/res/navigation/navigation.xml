@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/navigation" app:startDestination="@id/breedFragment">
+
+    <fragment android:id="@+id/breedFragment" android:name="com.heske.terriertime.fragments.BreedFragment"
+              android:label="BreedFragment">
+        <action android:id="@+id/action_breedFragment_to_detailFragment" app:destination="@id/detailFragment"/>
+    </fragment>
+    <fragment android:id="@+id/detailFragment" android:name="com.heske.terriertime.fragments.DetailFragment"
+              android:label="DetailFragment"/>
+</navigation>
