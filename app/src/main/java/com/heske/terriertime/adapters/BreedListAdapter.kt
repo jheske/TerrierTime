@@ -1,4 +1,4 @@
-package com.heske.terriertime
+package com.heske.terriertime.adapters
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 

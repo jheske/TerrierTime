@@ -1,5 +1,7 @@
-package com.heske.terriertime
+package com.heske.terriertime.utils
 
+import com.heske.terriertime.R
+import com.heske.terriertime.TerrierApp
 import com.heske.terriertime.database.Breed
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.

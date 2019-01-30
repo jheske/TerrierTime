@@ -1,7 +1,6 @@
 package com.heske.terriertime
 
 import android.app.Application
-import androidx.room.Room
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 

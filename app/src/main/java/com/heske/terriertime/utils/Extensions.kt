@@ -3,7 +3,7 @@
  * Copyright (c) All rights reserved
  */
 
-package com.heske.terriertime
+package com.heske.terriertime.utils
 
 import android.app.Activity
 import android.content.Context

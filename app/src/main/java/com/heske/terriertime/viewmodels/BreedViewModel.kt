@@ -3,7 +3,7 @@ package com.heske.terriertime.viewmodels
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
-import com.heske.terriertime.TerrierBreeds
+import com.heske.terriertime.utils.TerrierBreeds
 import com.heske.terriertime.database.BreedDao
 import com.heske.terriertime.network.FlickrApi
 import com.heske.terriertime.network.flickr.FlickrImageItem
@@ -69,11 +69,11 @@ class BreedViewModel(
     // Internally, we use a MutableLiveData, because we will be updating the MarsProperty with
     // new values
     //private val _properties = MutableLiveData<HashMap<String,String>>()
-    private val _properties = MutableLiveData<List<String>>()
+    private val _imageUrlList = MutableLiveData<List<String>>()
 
     // The external LiveData interface to the property is immutable, so only this class can modify
-    val properties: LiveData<List<String>>
-        get() = _properties
+    val imageUrlList: LiveData<List<String>>
+        get() = _imageUrlList
 
     // BreedDao call returns a LiveData
     val breedCountString = Transformations.map(breedCount) {count ->
@@ -111,7 +111,7 @@ class BreedViewModel(
                 _status.value = "Success: ${listResult.imageList.size} Images retrieved"
                 if (listResult.imageList.size > 0) {
                     val imageFilesMap = listResult.imageList[0].media   //.getValue("m")
-                    _properties.value = getImageUrlList(listResult.imageList)
+                    _imageUrlList.value = getImageUrlList(listResult.imageList)
                 }
             } catch (e: Exception) {
                 _status.value = "Failure: ${e.message}"

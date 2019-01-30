@@ -8,12 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
-import com.heske.terriertime.PhotoGridAdapter
+import com.heske.terriertime.adapters.PhotoGridAdapter
 import com.heske.terriertime.database.Breed
 import com.heske.terriertime.database.BreedDatabase
+import com.heske.terriertime.databinding.FragmentBreedBinding
 import com.heske.terriertime.viewmodels.BreedViewModel
 import com.heske.terriertime.viewmodels.BreedViewModelFactory
-import kotlinx.android.synthetic.main.fragment_breed.view.*
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -56,11 +56,12 @@ class BreedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-       // val binding: FragmentBreedBinding = DataBindingUtil.inflate(
-       //     inflater, R.layout.fragment_breed, container, false
-       // )
+        // This one only helps with binding the TextView to LiveData in the view model
+        // val binding: FragmentBreedBinding = DataBindingUtil.inflate(
+        //     inflater, R.layout.fragment_breed, container, false)
 
-        val binding = com.heske.terriertime.databinding.FragmentBreedBinding.inflate(inflater)
+        // This binding provides access to photos_recycler in fragment_breed
+        val binding = FragmentBreedBinding.inflate(inflater)
 
         val application = requireNotNull(this.activity).application
         val dataSource = BreedDatabase.getInstance(application).breedDatabaseDao
@@ -72,7 +73,7 @@ class BreedFragment : Fragment() {
             ).get(BreedViewModel::class.java)
 
         binding.breedViewModel = breedViewModel
-        binding.photosGrid.adapter = PhotoGridAdapter()
+        binding.photosRecycler.adapter = PhotoGridAdapter()
 
         binding.setLifecycleOwner(this)
         return binding.root
