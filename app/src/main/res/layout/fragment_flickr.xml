@@ -9,8 +9,8 @@
      click handlers, and state variables. -->
     <data>
         <variable
-                name="breedViewModel"
-                type="com.heske.terriertime.viewmodels.BreedViewModel"/>
+                name="flickrViewModel"
+                type="com.heske.terriertime.viewmodels.FlickrViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,7 +28,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:listData="@{breedViewModel.imageUrlList}"
+                app:listData="@{flickrViewModel.imageUrlList}"
                 app:spanCount="2"
                 tools:itemCount="16"
                 tools:listitem="@layout/flickr_image_row_item" />

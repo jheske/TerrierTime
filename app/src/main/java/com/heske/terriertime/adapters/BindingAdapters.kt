@@ -42,7 +42,7 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<String>?) {
 
 /**
  * Uses the Glide library to load an image by URL into an [ImageView]
- * See grid_row_item dog_image app:imageUrl attribute
+ * See flickr_image_row_item dog_image app:imageUrl attribute
  */
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {

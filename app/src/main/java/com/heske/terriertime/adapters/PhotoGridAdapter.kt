@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.heske.terriertime.databinding.GridRowItemBinding
+import com.heske.terriertime.databinding.FlickrImageRowItemBinding
 
 /**
  * This class implements a [RecyclerView] [ListAdapter] which uses Data Binding to present [List]
@@ -19,7 +19,7 @@ class PhotoGridAdapter() :
      * GridViewItem, which nicely gives it access to the full object information,
      * in this case it's just a String.
      */
-    class PhotoViewHolder(private var binding: GridRowItemBinding):
+    class PhotoViewHolder(private var binding: FlickrImageRowItemBinding):
             RecyclerView.ViewHolder(binding.root) {
         fun bind(imageUrl: String) {
             binding.dogImageUrl = imageUrl
@@ -49,7 +49,7 @@ class PhotoGridAdapter() :
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): PhotoViewHolder {
         return PhotoViewHolder(
-            GridRowItemBinding.inflate(
+            FlickrImageRowItemBinding.inflate(
                 LayoutInflater.from(
                     parent.context
                 )
@@ -62,8 +62,9 @@ class PhotoGridAdapter() :
      */
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
         val imageUrl = getItem(position)
+// TODO Implement onClick to display FullSizeImageFragment
 //        holder.itemView.setOnClickListener {
-//            onClickListener.onClick(marsProperty)
+//            onClickListener.onClick(imageUrl)
 //        }
         holder.bind(imageUrl)
     }
