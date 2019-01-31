@@ -17,29 +17,29 @@
   ~
   -->
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+>
+
+    <!-- See PhotoGridAdapter.kt for dogImageUrl binding -->
     <data>
         <variable
-            name="dogImageUrl"
-            type="String" />
+                name="dogImageUrl"
+                type="String"/>
     </data>
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <TextView
+
+        <!-- See BindingsAdapter.kt for app:imageUrl binding -->
+        <ImageView
+                android:id="@+id/dog_image"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{dogImageUrl}" />
+                android:layout_height="170dp"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:padding="2dp"
+                app:imageUrl="@{dogImageUrl}"
+                tools:src="@tools:sample/backgrounds/scenic"/>
     </LinearLayout>
-    <!--<ImageView-->
-        <!--android:id="@+id/mars_image"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="170dp"-->
-        <!--android:scaleType="centerCrop"-->
-        <!--android:adjustViewBounds="true"-->
-        <!--android:padding="2dp"-->
-        <!--tools:src="@tools:sample/backgrounds/scenic"/>-->
-    <!--app:imageUrl="@{property.imgSrcUrl}"-->
 </layout>

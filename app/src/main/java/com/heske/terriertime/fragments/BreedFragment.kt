@@ -57,6 +57,7 @@ class BreedFragment : Fragment() {
     ): View? {
 
         // This one only helps with binding the TextView to LiveData in the view model
+        // It doesn't help with binding list items in the recycler
         // val binding: FragmentBreedBinding = DataBindingUtil.inflate(
         //     inflater, R.layout.fragment_breed, container, false)
 

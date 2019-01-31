@@ -1,7 +1,12 @@
 package com.heske.terriertime.adapters
 
+import android.widget.ImageView
+import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.heske.terriertime.R
 import com.heske.terriertime.adapters.PhotoGridAdapter
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
@@ -37,20 +42,21 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<String>?) {
 
 /**
  * Uses the Glide library to load an image by URL into an [ImageView]
+ * See grid_row_item dog_image app:imageUrl attribute
  */
-//@BindingAdapter("imageUrl")
-//fun bindImage(imgView: ImageView, imgUrl: String?) {
-//    imgUrl?.let {
-//        val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
-//        Glide.with(imgView.context)
-//            .load(imgUri)
-//            .apply(
-//                RequestOptions()
-//                .placeholder(R.drawable.terrier_placeholder)
-//                .error(R.drawable.terrier_placeholder))
-//            .into(imgView)
-//    }
-//}
+@BindingAdapter("imageUrl")
+fun bindImage(imgView: ImageView, imgUrl: String?) {
+    imgUrl?.let {
+        val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
+        Glide.with(imgView.context)
+            .load(imgUri)
+            .apply(
+                RequestOptions()
+                .placeholder(R.drawable.terrier_placeholder)
+                .error(R.drawable.terrier_placeholder))
+            .into(imgView)
+    }
+}
 
 
 /**
