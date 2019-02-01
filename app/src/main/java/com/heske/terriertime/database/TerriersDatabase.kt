@@ -28,25 +28,25 @@ import androidx.room.RoomDatabase
  */
 
 /**
- * A database that stores Breed information.
+ * A database that stores Terriers information.
  * And a global method to get access to the database.
  *
  * This pattern is pretty much the same for any database,
  * so you can reuse it.
  */
-@Database(entities = [Breed::class], version = 1, exportSchema = false)
-abstract class BreedDatabase : RoomDatabase() {
+@Database(entities = [Terrier::class], version = 1, exportSchema = false)
+abstract class TerriersDatabase : RoomDatabase() {
 
     /**
      * Connects the database to the DAO.
      */
-    abstract val breedDatabaseDao: BreedDao
+    abstract val terriersDatabaseDao: TerriersDao
 
     /**
-     * Define a companion object, this allows us to add functions on the BreedDatabase class.
+     * Define a companion object, this allows us to add functions on the TerriersDatabase class.
      *
-     * For example, clients can call `BreedDatabase.getInstance(context)` to instantiate
-     * a new BreedDatabase.
+     * For example, clients can call `TerriersDatabase.getInstance(context)` to instantiate
+     * a new TerriersDatabase.
      */
     companion object {
         /**
@@ -59,7 +59,7 @@ abstract class BreedDatabase : RoomDatabase() {
          *  thread to shared data are visible to other threads.
          */
         @Volatile
-        private var INSTANCE: BreedDatabase? = null
+        private var INSTANCE: TerriersDatabase? = null
 
         /**
          * Helper function to get the database.
@@ -78,7 +78,7 @@ abstract class BreedDatabase : RoomDatabase() {
          *
          * @param context The application context Singleton, used to get access to the filesystem.
          */
-        fun getInstance(context: Context): BreedDatabase {
+        fun getInstance(context: Context): TerriersDatabase {
             // Multiple threads can ask for the database at the same time, ensure we only initialize
             // it once by using synchronized. Only one thread may enter a synchronized block at a
             // time.
@@ -90,7 +90,7 @@ abstract class BreedDatabase : RoomDatabase() {
                 if (instance == null) {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
-                        BreedDatabase::class.java,
+                        TerriersDatabase::class.java,
                         "terrier_breeds_database"
                     )
                         // Wipes and rebuilds instead of migrating if no Migration object.

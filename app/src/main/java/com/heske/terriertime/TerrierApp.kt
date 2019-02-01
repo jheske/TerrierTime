@@ -1,6 +1,7 @@
 package com.heske.terriertime
 
 import android.app.Application
+import com.heske.terriertime.utils.isNetworkConnected
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -25,9 +26,9 @@ import android.app.Application
  */
 class TerrierApp : Application() {
     private val TAG = TerrierApp::class.java.simpleName
+    var isNetworkConnected: Boolean = false
 
     companion object {
-   //     var database: TerrierDatabase? = null
         lateinit var instance: TerrierApp
             private set
     }
@@ -36,10 +37,6 @@ class TerrierApp : Application() {
         super.onCreate()
 
         instance = this
-
-       /* Room.databaseBuilder(this,
-            TerrierDatabase::class.java, "terriers-db")
-            .build()
-        TerrierApp.database = TerrierDatabase.getInstance(this)*/
+        isNetworkConnected = isNetworkConnected()
     }
 }

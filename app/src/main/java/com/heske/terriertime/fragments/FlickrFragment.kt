@@ -11,10 +11,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import com.heske.terriertime.adapters.PhotoGridAdapter
+import com.heske.terriertime.adapters.FlickrRvAdapter
+import com.heske.terriertime.database.TerriersDatabase
 import com.heske.terriertime.databinding.FragmentFlickrBinding
 import com.heske.terriertime.viewmodels.FlickrViewModel
 import com.heske.terriertime.viewmodels.FlickrViewModelFactory
+import com.heske.terriertime.viewmodels.SplashViewModelFactory
 
 /**
  * Retrieve the list of paths to Flickr images and display
@@ -27,27 +29,19 @@ class FlickrFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        // This one only helps with binding the TextView to LiveData in the view model
-        // It doesn't help with binding list items in the recycler
-        // val binding: FragmentBreedBinding = DataBindingUtil.inflate(
-        //     inflater, R.layout.fragment_breed, container, false)
-
         // This binding exposes access to photos_recycler in fragment_flickr
-        val binding
-                = FragmentFlickrBinding.inflate(inflater)
+        val binding = FragmentFlickrBinding.inflate(inflater)
 
         val application = requireNotNull(this.activity).application
+        val dataSource = TerriersDatabase.getInstance(application).terriersDatabaseDao
 
-        // ??? DO I REALLY NEED application ???
-        val viewModelFactory = FlickrViewModelFactory(application)
+        val viewModelFactory = FlickrViewModelFactory(dataSource)
 
         val flickrViewModel =
-            ViewModelProviders.of(
-                this, viewModelFactory
-            ).get(FlickrViewModel::class.java)
+            ViewModelProviders.of(this,viewModelFactory).get(FlickrViewModel::class.java)
 
         binding.flickrViewModel = flickrViewModel
-        binding.photosRecycler.adapter = PhotoGridAdapter()
+        binding.photosRecycler.adapter = FlickrRvAdapter()
 
         binding.setLifecycleOwner(this)
         return binding.root

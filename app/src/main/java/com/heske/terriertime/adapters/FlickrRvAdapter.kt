@@ -5,21 +5,21 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.heske.terriertime.databinding.FlickrImageRowItemBinding
+import com.heske.terriertime.databinding.FlickrImageListitemBinding
 
 /**
  * This class implements a [RecyclerView] [ListAdapter] which uses Data Binding to present [List]
  * data, including computing diffs between lists.
  * @param onClick a lambda that takes the
  */
-class PhotoGridAdapter() :
-        ListAdapter<String, PhotoGridAdapter.PhotoViewHolder>(DiffCallback) {
+class FlickrRvAdapter() :
+        ListAdapter<String, FlickrRvAdapter.PhotoViewHolder>(DiffCallback) {
     /**
      * The PhotoViewHolder constructor takes the binding variable from the associated
      * GridViewItem, which nicely gives it access to the full object information,
      * in this case it's just a String.
      */
-    class PhotoViewHolder(private var binding: FlickrImageRowItemBinding):
+    class PhotoViewHolder(private var binding: FlickrImageListitemBinding):
             RecyclerView.ViewHolder(binding.root) {
         fun bind(imageUrl: String) {
             binding.dogImageUrl = imageUrl
@@ -49,7 +49,7 @@ class PhotoGridAdapter() :
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): PhotoViewHolder {
         return PhotoViewHolder(
-            FlickrImageRowItemBinding.inflate(
+            FlickrImageListitemBinding.inflate(
                 LayoutInflater.from(
                     parent.context
                 )

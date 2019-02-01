@@ -1,10 +1,9 @@
-package com.heske.terriertime.database
+package com.heske.terriertime.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy.REPLACE
-import androidx.room.Query
+import android.app.Application
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.heske.terriertime.database.TerriersDao
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -27,33 +26,16 @@ import androidx.room.Query
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-@Dao
-interface BreedDao {
-    @Insert
-    fun insertAll(breeds: ArrayList<Breed>)
+class SplashViewModelFactory(
+    private val application: Application,
+    private val dataSource: TerriersDao
+) : ViewModelProvider.Factory {
 
-    @Insert(onConflict = REPLACE)
-    fun insert(breed: Breed) : Long
-
-    @Query("select summary from breed where name = :breedName")
-    fun selectSummary(breedName: String) : String
-
-    @Query("select * from breed  ORDER BY name ASC")
-    fun getAllBreeds(): LiveData<List<Breed>>
-
-    @Query("select count(*) from breed")
-    fun getCount(): LiveData<Int>
-
-    @Query("select count(*) from breed where summary is not null or summary != '' ")
-    fun getSummaryCount(): Int
-
-    @Query("delete from breed")
-    fun deleteAll(): Int
-
-    @Query("select * from breed where name = :breedName")
-    fun selectBreed(breedName: String): Breed
-
-    @Query("UPDATE breed SET summary = :summary WHERE name = :breedName")
-    fun updateSummary(breedName: String, summary: String?): Long
+    @Suppress("unchecked_cast")
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(SplashViewModel::class.java)) {
+            return SplashViewModel(application,dataSource) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
 }
-

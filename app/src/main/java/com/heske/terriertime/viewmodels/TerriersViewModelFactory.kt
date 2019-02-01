@@ -1,4 +1,9 @@
-package com.heske.terriertime.adapters
+package com.heske.terriertime.viewmodels
+
+import android.app.Application
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.heske.terriertime.database.TerriersDao
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -21,6 +26,21 @@ package com.heske.terriertime.adapters
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-class BreedListAdapter {
+/**
+ * This is pretty much boiler plate code for a ViewModel Factory.
+ *
+ * Provides the SleepDatabaseDao and context to the ViewModel.
+ */
+class TerriersViewModelFactory(
+    private val dataSource: TerriersDao,
+    private val application: Application
+) : ViewModelProvider.Factory {
 
+    @Suppress("unchecked_cast")
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(TerriersViewModel::class.java)) {
+            return TerriersViewModel(dataSource, application) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
 }

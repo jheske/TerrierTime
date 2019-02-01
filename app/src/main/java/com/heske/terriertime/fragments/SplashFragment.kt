@@ -5,9 +5,20 @@
 
 package com.heske.terriertime.fragments
 
-//import android.arch.lifecycle.Observer
-//import android.arch.lifecycle.ViewModelProviders
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.NavHostFragment
+import com.heske.terriertime.database.TerriersDatabase
+import com.heske.terriertime.viewmodels.SplashViewModel
+import com.heske.terriertime.viewmodels.SplashViewModelFactory
+import kotlin.text.Typography.times
+
 
 /**
  * The splash screen is shown for this delay before MainActivity is called. The splash screen
@@ -25,4 +36,42 @@ import androidx.fragment.app.Fragment
  * without having to restart the app.
  */
 class SplashFragment : Fragment() {
+    private val TAG = SplashFragment::class.java.simpleName
+    lateinit var splashViewModel: ViewModel
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        val view = inflater.inflate(com.heske.terriertime.R.layout.fragment_splash, container, false)
+
+        val application = requireNotNull(this.activity).application
+
+        val dataSource = TerriersDatabase.getInstance(application).terriersDatabaseDao
+        val viewModelFactory = SplashViewModelFactory(application,dataSource)
+
+        val viewModel =
+            ViewModelProviders.of(
+                this, viewModelFactory
+            ).get(SplashViewModel::class.java)
+
+        /**
+         *  ViewModel emits the closeSplashScreen event when its timer times out,
+         *  which means it's time to navigate to the TerrierFragment.
+         */
+        // TODO could I use this same event after viewModel finishes initializing the db.
+        viewModel.eventCloseSplashScreen.observe(this, Observer { closeSplashScreen ->
+            // Navigate to TerrierFragment
+            if (closeSplashScreen) {
+                //SplashFragmenDirections and actionSplashFragmentToBreedFragment are generated
+                val action = SplashFragmentDirections.actionSplashFragmentToBreedFragment()
+                NavHostFragment.findNavController(this).navigate(action)
+                // TODO Do I need something like this????
+               // viewModel.onGameFinishComplete()
+            }
+        })
+
+        return view
+    }
 }

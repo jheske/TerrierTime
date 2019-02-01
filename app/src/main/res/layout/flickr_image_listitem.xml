@@ -21,7 +21,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
 >
 
-    <!-- See PhotoGridAdapter.kt for dogImageUrl binding -->
+    <!-- See FlickrRvAdapter.ktfor dogImageUrl binding -->
     <data>
         <variable
                 name="dogImageUrl"

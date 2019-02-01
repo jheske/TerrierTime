@@ -27,21 +27,21 @@ import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
 /**
- * Represents one row in the Breed table.  Breed names in the database are treated
+ * Represents one row in the Terriers table.  Terriers names in the database are treated
  * as Wikipedia tags and are used to retrieve information about the
  * breed, such as summary text, so their exact spelling has to conform to Wiki.
  */
 @Entity(tableName = "breed")
-data class Breed(@PrimaryKey(autoGenerate = true)
+data class Terrier(@PrimaryKey(autoGenerate = true)
                  @ColumnInfo(index = true, name = "_id")
                  var id: Long,
-                 @ColumnInfo(name = "name")
+                   @ColumnInfo(name = "name")
                  var name: String,
-                 @ColumnInfo(name = "fact")
+                   @ColumnInfo(name = "fact")
                  var fact: String,
-                 @ColumnInfo(name = "summary")
+                   @ColumnInfo(name = "summary")
                  var summary: String? = null,
-                 @Ignore
+                   @Ignore
                  var imageList: ArrayList<String>? = null) {
     constructor() : this(0, "", "", "", null)
 

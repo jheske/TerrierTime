@@ -1,12 +1,11 @@
 package com.heske.terriertime.viewmodels
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
-import com.heske.terriertime.database.BreedDao
+import com.bumptech.glide.Glide.init
+import com.heske.terriertime.database.TerriersDao
 import com.heske.terriertime.network.FlickrApi
 import com.heske.terriertime.network.flickr.FlickrImageItem
-import com.heske.terriertime.utils.TerrierBreeds
 import kotlinx.coroutines.*
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
@@ -30,19 +29,15 @@ import kotlinx.coroutines.*
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-class FlickrViewModel(
-    application: Application
-) : AndroidViewModel(application) {
+class FlickrViewModel(dataSource: TerriersDao): ViewModel() {
 
     /** Coroutine vals for running db operations off UI thread. */
 
     // Allows us to cancel coroutines
     private var viewModelJob = Job()
 
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
     // the Coroutine runs using the Main (UI) dispatcher
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main )
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     /** Response backing properties and their external vals */
 
@@ -67,7 +62,7 @@ class FlickrViewModel(
      * Mars properties retrieved.
      */
     private fun getFlickrImages() {
-        coroutineScope.launch {
+        uiScope.launch {
             // Get the Deferred object for our Retrofit request
             val getPropertiesDeferred
                     = FlickrApi.retrofitService.getFlickImageList("Airedale")

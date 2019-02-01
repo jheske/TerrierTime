@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.heske.terriertime.R
-import com.heske.terriertime.adapters.PhotoGridAdapter
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -36,13 +35,13 @@ import com.heske.terriertime.adapters.PhotoGridAdapter
  */
 @BindingAdapter("listData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<String>?) {
-    val adapter = recyclerView.adapter as PhotoGridAdapter
+    val adapter = recyclerView.adapter as FlickrRvAdapter
     adapter.submitList(data)
 }
 
 /**
  * Uses the Glide library to load an image by URL into an [ImageView]
- * See flickr_image_row_item dog_image app:imageUrl attribute
+ * See flickr_image_listitem dog_image app:imageUrl attribute
  */
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {

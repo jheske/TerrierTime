@@ -1,9 +1,10 @@
-package com.heske.terriertime.viewmodels
+package com.heske.terriertime.database
 
-import android.app.Application
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.heske.terriertime.database.BreedDao
+import androidx.lifecycle.LiveData
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy.REPLACE
+import androidx.room.Query
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -26,21 +27,33 @@ import com.heske.terriertime.database.BreedDao
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-/**
- * This is pretty much boiler plate code for a ViewModel Factory.
- *
- * Provides the SleepDatabaseDao and context to the ViewModel.
- */
-class BreedViewModelFactory(
-    private val dataSource: BreedDao,
-    private val application: Application
-) : ViewModelProvider.Factory {
+@Dao
+interface TerriersDao {
+    @Insert
+    fun insertAll(terriers: ArrayList<Terrier>)
 
-    @Suppress("unchecked_cast")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(BreedViewModel::class.java)) {
-            return BreedViewModel(dataSource, application) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
+    @Insert(onConflict = REPLACE)
+    fun insert(terriers: Terrier) : Long
+
+    @Query("select summary from breed where name = :breedName")
+    fun selectSummary(breedName: String) : String
+
+    @Query("select * from breed  ORDER BY name ASC")
+    fun getAll(): LiveData<List<Terrier>>
+
+    @Query("select count(*) from breed")
+    fun getRowCount(): Int
+
+    @Query("select count(*) from breed where summary is not null or summary != '' ")
+    fun getSummaryCount(): Int
+
+    @Query("delete from breed")
+    fun deleteAll(): Int
+
+    @Query("select * from breed where name = :breedName")
+    fun selectBreed(breedName: String): Terrier
+
+    @Query("UPDATE breed SET summary = :summary WHERE name = :breedName")
+    fun updateSummary(breedName: String, summary: String?): Long
 }
+

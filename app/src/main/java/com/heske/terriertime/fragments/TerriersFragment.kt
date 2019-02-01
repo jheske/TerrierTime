@@ -8,12 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
-import com.heske.terriertime.adapters.PhotoGridAdapter
-import com.heske.terriertime.database.Breed
-import com.heske.terriertime.database.BreedDatabase
-import com.heske.terriertime.databinding.FragmentBreedBinding
-import com.heske.terriertime.viewmodels.BreedViewModel
-import com.heske.terriertime.viewmodels.BreedViewModelFactory
+import com.heske.terriertime.adapters.FlickrRvAdapter
+import com.heske.terriertime.database.Terrier
+import com.heske.terriertime.database.TerriersDatabase
+import com.heske.terriertime.databinding.FragmentTerriersBinding
+import com.heske.terriertime.viewmodels.TerriersViewModel
+import com.heske.terriertime.viewmodels.TerriersViewModelFactory
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -38,14 +38,14 @@ import com.heske.terriertime.viewmodels.BreedViewModelFactory
  *
  */
 
-class BreedFragment : Fragment() {
-    private val TAG = BreedFragment::class.java.simpleName
-    //    private var mBreedList = ArrayList<Breed>()
+class TerriersFragment : Fragment() {
+    private val TAG = TerriersFragment::class.java.simpleName
+    //    private var mBreedList = ArrayList<Terriers>()
     private var lastPosition = 0
     private var sharedPreferences = "SharedPrefs"
     //lateinit var context: Context
-    //    lateinit var mBreedListAdapter: BreedListAdapter
-    private var breedMap = HashMap<String, Breed>()
+    //    lateinit var mBreedListAdapter: TerriersRvAdapter
+    private var breedMap = HashMap<String, Terrier>()
     lateinit var breedViewModel: ViewModel
     lateinit var soundPool: SoundPool
     var growlSound: Int? = null
@@ -59,22 +59,22 @@ class BreedFragment : Fragment() {
         // This one only helps with binding the TextView to LiveData in the view model
         // It doesn't help with binding list items in the recycler
         // val binding: FragmentBreedBinding = DataBindingUtil.inflate(
-        //     inflater, R.layout.fragment_breed, container, false)
+        //     inflater, R.layout.fragment_terriers, container, false)
 
-        // This binding provides access to photos_recycler in fragment_breed
-        val binding = FragmentBreedBinding.inflate(inflater)
+        // TODO This binding provides access to terriers_recycler in fragment_terriers
+        val binding = FragmentTerriersBinding.inflate(inflater)
 
         val application = requireNotNull(this.activity).application
-        val dataSource = BreedDatabase.getInstance(application).breedDatabaseDao
-        val viewModelFactory = BreedViewModelFactory(dataSource, application)
+        val dataSource = TerriersDatabase.getInstance(application).terriersDatabaseDao
+        val viewModelFactory = TerriersViewModelFactory(dataSource, application)
 
         val breedViewModel =
             ViewModelProviders.of(
                 this, viewModelFactory
-            ).get(BreedViewModel::class.java)
+            ).get(TerriersViewModel::class.java)
 
-        binding.breedViewModel = breedViewModel
-        binding.photosRecycler.adapter = PhotoGridAdapter()
+        binding.terriersViewModel = breedViewModel
+        binding.photosRecycler.adapter = FlickrRvAdapter()
 
         binding.setLifecycleOwner(this)
         return binding.root

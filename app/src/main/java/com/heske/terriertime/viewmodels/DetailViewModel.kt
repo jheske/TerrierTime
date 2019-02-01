@@ -4,7 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
 import com.heske.terriertime.utils.TerrierBreeds
-import com.heske.terriertime.database.BreedDao
+import com.heske.terriertime.database.TerriersDao
 import com.heske.terriertime.network.FlickrApi
 import kotlinx.coroutines.*
 
@@ -30,14 +30,12 @@ import kotlinx.coroutines.*
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 class DetailViewModel(
-    val breedTableDao: BreedDao,
+    val terriersTableDao: TerriersDao,
     application: Application
 ) : AndroidViewModel(application) {
 
-        val breedList = ArrayList(TerrierBreeds.breedMap.values)
+        val breedList = ArrayList(TerrierBreeds.terriersMap.values)
         private val breedListSize = breedList.size
-        var breedCount = breedTableDao.getCount()
-
         /**
          * Coroutine vals for running db operations off UI thread.
          */
@@ -67,24 +65,12 @@ class DetailViewModel(
         val properties: LiveData<HashMap<String, String>>
         get() = _properties
 
-        // BreedDao call returns a LiveData
-        val breedCountString = Transformations.map(breedCount) { count ->
-            formatBreedCount(count)
-        }
-
-        //val breeds = breedTableDao.getAllBreeds()
-
-        init {
+           init {
             uiScope.launch {
                 //  getBreedCount()
                 getFlickrImages()
                 //  insertAll()
             }
-        }
-
-        private fun formatBreedCount(breedCount: Int?): String {
-            Log.d("ViewModel","count = ${breedCount.toString()}")
-            return (breedCount.toString())
         }
 
         /**
@@ -114,16 +100,16 @@ class DetailViewModel(
 
 //    private suspend fun insertAll() {
 //        withContext(Dispatchers.IO) {
-//            val rowCount = breedTableDao.getCount()
+//            val rowCount = terriersTableDao.getCount()
 //            if (rowCount != breedListSize) {
-//                breedTableDao.insertAll(breedList)
+//                terriersTableDao.insertAll(breedList)
 //            }
 //        }
 //    }
 
-        private suspend fun getBreedCount(): Int {
+        private suspend fun getTerrierTableRowCount(): Int {
             return withContext(Dispatchers.IO) {
-                val count = breedTableDao.getCount()
+                val count = terriersTableDao.getRowCount()
                 Log.d("ViewModel","count = $count")
             }
         }
@@ -140,7 +126,7 @@ class DetailViewModel(
          */
 //   private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-//   private var tonight = MutableLiveData<Breed?>()
+//   private var tonight = MutableLiveData<Terriers?>()
 
 //    init {
 //        initializeTonight()
@@ -159,7 +145,7 @@ class DetailViewModel(
          *  If the start time and end time are not the same, then we do not have an unfinished
          *  recording.
          */
-//    private suspend fun getBreedFromDatabase(): Breed? {
+//    private suspend fun getBreedFromDatabase(): Terriers? {
 //        return withContext(Dispatchers.IO) {
 //            var night = breedTable.getTonight()
 //

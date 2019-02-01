@@ -1,6 +1,6 @@
 package com.heske.terriertime.network
 
-import com.heske.terriertime.network.flickr.FlickrImageListResponse
+import com.heske.terriertime.network.wiki.WikiSummaryListResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
 import retrofit2.Retrofit
@@ -9,7 +9,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -17,10 +17,10 @@ import retrofit2.http.Query
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- *
+ * 
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- *
+ * 
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -30,7 +30,7 @@ import retrofit2.http.Query
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-private const val BASE_URL = "https://api.flickr.com/services/feeds/"
+private const val BASE_URL = "https://en.wikipedia.org/w/"
 
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(GsonConverterFactory.create())
@@ -41,28 +41,25 @@ private val retrofit = Retrofit.Builder()
 /**
  * A public interface that exposes the [getProperties] method
  */
-interface FlickrApiService {
+interface WikiApiSevice {
     /**
      * Returns a Coroutine [Deferred] [List] which can be fetched with await() if
      * in a Coroutine scope.
+     *
+     * String breed names together with | symbol
+     *  "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=Scottish_Terrier")
      */
-
-    /**
-     * Download list of image paths related to Flickr search [tags]
-     *  Sample  request
-     *    https://api.flickr.com/services/feeds/photos_public.gne?tags=airedale&format=json
-     */
-    @GET("photos_public.gne?&format=json&nojsoncallback=1")
-    fun getFlickImageList(@Query("tags") tags: String):
-           Deferred<FlickrImageListResponse>
+    @GET("api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1")
+    fun getWikiBreedSummaryList(@Query("titles") titles: String)
+            : Deferred<WikiSummaryListResponse>
 }
 
 /**
  * A public Api object that exposes the lazy-initialized Retrofit service
  */
-object FlickrApi {
+object WikiApi {
     val retrofitService :
-            FlickrApiService by lazy { retrofit.create(
-        FlickrApiService::class.java) }
+            WikiApiSevice by lazy { retrofit.create(
+        WikiApiSevice::class.java) }
 }
 

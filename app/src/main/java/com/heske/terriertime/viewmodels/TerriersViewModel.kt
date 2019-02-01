@@ -4,7 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
 import com.heske.terriertime.utils.TerrierBreeds
-import com.heske.terriertime.database.BreedDao
+import com.heske.terriertime.database.TerriersDao
 import com.heske.terriertime.network.FlickrApi
 import com.heske.terriertime.network.flickr.FlickrImageItem
 import kotlinx.coroutines.*
@@ -35,15 +35,14 @@ import kotlinx.coroutines.*
  * Provides functions for calling Wikipedia and Flickr APIs
  */
 /**
- * ViewModel for SleepTrackerFragment.
+ * ViewModel for TerriersFragment.
  */
-class BreedViewModel(
-    val breedTableDao: BreedDao,
+class TerriersViewModel(
+    val terriersTableDao: TerriersDao,
     application: Application) : AndroidViewModel(application) {
 
-    val breedList = ArrayList(TerrierBreeds.breedMap.values)
+    val breedList = ArrayList(TerrierBreeds.terriersMap.values)
     private val breedListSize = breedList.size
-    var breedCount = breedTableDao.getCount()
 
     /**
      * Coroutine vals for running db operations off UI thread.
@@ -53,9 +52,6 @@ class BreedViewModel(
     private var viewModelJob = Job()
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
-    // the Coroutine runs using the Main (UI) dispatcher
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main )
 
     /**
      * Response backing property plus its external val
@@ -75,12 +71,6 @@ class BreedViewModel(
     val imageUrlList: LiveData<List<String>>
         get() = _imageUrlList
 
-    // BreedDao call returns a LiveData
-    val breedCountString = Transformations.map(breedCount) {count ->
-        formatBreedCount(count)
-    }
-
-    //val breeds = breedTableDao.getAllBreeds()
 
     init {
         uiScope.launch {
@@ -90,17 +80,12 @@ class BreedViewModel(
         }
     }
 
-    private fun formatBreedCount(breedCount: Int?): String {
-        Log.d("ViewModel","count = ${breedCount.toString()}")
-        return (breedCount.toString())
-    }
-
     /**
-     * Sets the value of the response LiveData to the Mars API status or the successful number of
-     * Mars properties retrieved.
+     * Sets the value of the response LiveData to the Flickr API status or the successful number of
+     * images retrieved.
      */
     private fun getFlickrImages() {
-        coroutineScope.launch {
+        uiScope.launch {
             // Get the Deferred object for our Retrofit request
             val getPropertiesDeferred
                     = FlickrApi.retrofitService.getFlickImageList("Airedale")
@@ -133,91 +118,6 @@ class BreedViewModel(
         return imageList
     }
 
-//    private suspend fun insertAll() {
-//        withContext(Dispatchers.IO) {
-//            val rowCount = breedTableDao.getCount()
-//            if (rowCount != breedListSize) {
-//                breedTableDao.insertAll(breedList)
-//            }
-//        }
-//    }
-
-    private suspend fun getBreedCount(): Int {
-        return withContext(Dispatchers.IO) {
-            val count = breedTableDao.getCount()
-            Log.d("ViewModel","count = $count")
-        }
-    }
-
-    /**
-     * A [CoroutineScope] keeps track of all coroutines started by this ViewModel.
-     *
-     * Because we pass it [viewModelJob], any coroutine started in this uiScope can be cancelled
-     * by calling `viewModelJob.cancel()`
-     *
-     * By default, all coroutines started in uiScope will launch in [Dispatchers.Main] which is
-     * the main thread on Android. This is a sensible default because most coroutines started by
-     * a [ViewModel] update the UI after performing some processing.
-     */
-//   private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
-//   private var tonight = MutableLiveData<Breed?>()
-
-//    init {
-//        initializeTonight()
-//    }
-
-//    private fun initializeTonight() {
-//        uiScope.launch {
-//            tonight.value = getTonightFromDatabase()
-//        }
-//    }
-
-    /**
-     *  Handling the case of the stopped app or forgotten recording,
-     *  the start and end times will be the same.j
-     *
-     *  If the start time and end time are not the same, then we do not have an unfinished
-     *  recording.
-     */
-//    private suspend fun getBreedFromDatabase(): Breed? {
-//        return withContext(Dispatchers.IO) {
-//            var night = breedTable.getTonight()
-//
-//            night
-//        }
-//    }
-
-//    private suspend fun insert(night: SleepNight) {
-//        withContext(Dispatchers.IO) {
-//            breedTable.insert(night)
-//        }
-//    }
-//
-//    private suspend fun update(night: SleepNight) {
-//        withContext(Dispatchers.IO) {
-//            breedTable.update(night)
-//        }
-//    }
-
-//    private suspend fun clear() {
-//        withContext(Dispatchers.IO) {
-//            breedTable.clear()
-//        }
-//    }
-
-    /**
-     * Executes when the CLEAR button is clicked.
-     */
-//    fun onClear() {
-//        uiScope.launch {
-//            // Clear the database table.
-//            clear()
-//
-//            // And clear tonight since it's no longer in the database
-//            tonight.value = null
-//        }
-//    }
 
     /**
      * Called when the ViewModel is dismantled.
@@ -227,8 +127,5 @@ class BreedViewModel(
      */
     override fun onCleared() {
         super.onCleared()
-        viewModelJob.cancel()
     }
-
-
 }
