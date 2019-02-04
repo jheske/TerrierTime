@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
-import com.heske.terriertime.adapters.FlickrRvAdapter
+import com.heske.terriertime.adapters.TerriersRvAdapter
 import com.heske.terriertime.database.Terrier
 import com.heske.terriertime.database.TerriersDatabase
 import com.heske.terriertime.databinding.FragmentTerriersBinding
@@ -38,15 +38,13 @@ import com.heske.terriertime.viewmodels.TerriersViewModelFactory
  *
  */
 
-class TerriersFragment : Fragment() {
-    private val TAG = TerriersFragment::class.java.simpleName
-    //    private var mBreedList = ArrayList<Terriers>()
+class TerrierFragment : Fragment() {
+    private val TAG = TerrierFragment::class.java.simpleName
     private var lastPosition = 0
     private var sharedPreferences = "SharedPrefs"
     //lateinit var context: Context
     //    lateinit var mBreedListAdapter: TerriersRvAdapter
     private var breedMap = HashMap<String, Terrier>()
-    lateinit var breedViewModel: ViewModel
     lateinit var soundPool: SoundPool
     var growlSound: Int? = null
     var barkSound: Int? = null
@@ -68,13 +66,15 @@ class TerriersFragment : Fragment() {
         val dataSource = TerriersDatabase.getInstance(application).terriersDatabaseDao
         val viewModelFactory = TerriersViewModelFactory(dataSource, application)
 
-        val breedViewModel =
+        val viewModel =
             ViewModelProviders.of(
                 this, viewModelFactory
             ).get(TerriersViewModel::class.java)
 
-        binding.terriersViewModel = breedViewModel
-        binding.photosRecycler.adapter = FlickrRvAdapter()
+        binding.terriersViewModel = viewModel
+        binding.terriersRecycler.adapter = TerriersRvAdapter()
+
+        // TODO add observer to play sounds
 
         binding.setLifecycleOwner(this)
         return binding.root

@@ -27,6 +27,12 @@ import androidx.room.Query
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
+/**
+ * A Terrier object represents one item in the hard-coded
+ * TerrierBreeds.terriersMap, plus a url for the main image (stored in assets),
+ * and a list of Flickr image urls.
+ */
 @Dao
 interface TerriersDao {
     @Insert
@@ -39,7 +45,7 @@ interface TerriersDao {
     fun selectSummary(breedName: String) : String
 
     @Query("select * from breed  ORDER BY name ASC")
-    fun getAll(): LiveData<List<Terrier>>
+    fun getAllTerriers(): LiveData<List<Terrier>>
 
     @Query("select count(*) from breed")
     fun getRowCount(): Int

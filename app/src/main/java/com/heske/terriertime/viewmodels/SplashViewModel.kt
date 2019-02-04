@@ -60,13 +60,12 @@ class SplashViewModel(
     private val TAG = SplashViewModel::class.java.simpleName
 
     companion object {
-
-        // This is when the game is over
+        // This is set when splash screen timer runs out.
         private const val DONE = 0L
-        // This is the number of milliseconds in a second
+        // Number of milliseconds in a second
         private const val ONE_SECOND = 1000L
-        // This is the total time of the game
-        private const val COUNTDOWN_TIME = 2000L
+        // Total time (in milliseconds) splash screen displays
+        private const val COUNTDOWN_TIME = 30000L
     }
 
     private val timer: CountDownTimer
@@ -87,10 +86,6 @@ class SplashViewModel(
     val status: LiveData<String>
         get() = _status
 
-    private val _currentTime = MutableLiveData<Long>()
-    val currentTime: LiveData<Long>
-        get() = _currentTime
-
     // Event which triggers the end of the game
     private val _eventCloseSplashScreen = MutableLiveData<Boolean>()
     val eventCloseSplashScreen: LiveData<Boolean>
@@ -98,15 +93,12 @@ class SplashViewModel(
 
     init {
         //Create a timer that will trigger navigation to next fragment
+        //after briefly showing the Splash screen to the user.
         timer = object : CountDownTimer(COUNTDOWN_TIME, ONE_SECOND) {
-
             override fun onTick(millisUntilFinished: Long) {
             }
 
             override fun onFinish() {
-                // Done stops the timer.
-                _currentTime.postValue(DONE)
-                // Tells observer(s) it's time to close the splash screen
                 _eventCloseSplashScreen.postValue(true)
             }
         }
@@ -123,6 +115,10 @@ class SplashViewModel(
                 _eventCloseSplashScreen.postValue(true)
             }
         }
+    }
+
+    fun onSplashScreenTimedOut() {
+        _eventCloseSplashScreen.value = false
     }
 
     private suspend fun dbGetTableRowCount(): Int {

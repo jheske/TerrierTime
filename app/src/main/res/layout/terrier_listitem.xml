@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
->
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- See TerriersRvAdapter.kt for bindingings to
+         this layout and all its Views -->
+    <data>
+        <variable
+                name="terrier"
+                type="com.heske.terriertime.database.Terrier" />
+    </data>
+
     <androidx.cardview.widget.CardView
             android:id="@+id/card_list_item"
             android:layout_width="match_parent"
@@ -19,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:padding="4dp">
 
-            <!-- tv_fact -->
+            <!-- tv_fun_fact -->
             <FrameLayout
                     android:id="@+id/frame_summary"
                     android:layout_width="wrap_content"
@@ -28,10 +36,11 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                        android:id="@+id/tv_fact"
+                        android:id="@+id/tv_fun_fact"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@string/txt_tools_summary"
+                        android:text="@{terrier.fact}"
+                        tools:text="@string/airedale_fact"
                         android:textSize="@dimen/main_text_size"/>
             </FrameLayout>
 
@@ -41,9 +50,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/spacing_large"
                     android:layout_marginTop="@dimen/spacing_small"
-                    android:text="@string/txt_guess"
+                    tools:text="@string/txt_guess"
                     android:textSize="@dimen/main_text_size"
                     android:textStyle="bold"
+                    android:text="@{terrier.name}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/frame_summary"/>
@@ -70,6 +80,7 @@
                     android:contentDescription="@string/txt_dog_breed"
                     android:layout_marginTop="@dimen/spacing_small"
                     tools:src="@drawable/terrier_placeholder"
+                    app:terrierImageUrl="@{terrier.name}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/et_guess_txt"

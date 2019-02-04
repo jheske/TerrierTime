@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.heske.terriertime.R
+import com.heske.terriertime.database.Terrier
+import com.heske.terriertime.utils.toAssetPath
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -31,7 +33,9 @@ import com.heske.terriertime.R
  */
 
 /**
- * When there is no Mars property data (data is null), hide the [RecyclerView], otherwise show it.
+ *
+ * When there is no data (data is null), hide the [RecyclerView],
+ * otherwise show it.
  */
 @BindingAdapter("listData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<String>?) {
@@ -51,12 +55,12 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
             .load(imgUri)
             .apply(
                 RequestOptions()
-                .placeholder(R.drawable.terrier_placeholder)
-                .error(R.drawable.terrier_placeholder))
+                    .placeholder(R.drawable.terrier_placeholder)
+                    .error(R.drawable.terrier_placeholder)
+            )
             .into(imgView)
     }
 }
-
 
 /**
  * Adapter for the RecyclerView that displays the list of terriers,
@@ -74,4 +78,39 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
  * data, including computing diffs between lists.
  * @param onClick a lambda that takes the
  */
+
+/**
+ * This is connected to the RecyclerView in fragment_terriers.
+ * The RecyclerView has a data binding to TerriersViewModel.
+ * Whenever TerriersViewModel.listOfTerriers LiveData changes,
+ * this gets called to refresh the recycler's data.
+ * When there is no data (data is null), hide the [RecyclerView],
+ * otherwise show it.
+ */
+@BindingAdapter("terrierRecyclerListData")
+fun bindTerriersRecyclerView(recyclerView: RecyclerView, data: List<Terrier>?) {
+    val adapter = recyclerView.adapter as TerriersRvAdapter
+    adapter.submitList(data)
+}
+
+
+/**
+ * Uses the Glide library to load an image from assets folder into
+ * an [ImageView] See terrier_listitem app:terrierImageUrl="@{terrier.name}"
+ */
+@BindingAdapter("terrierImageUrl")
+fun bindTerrierImage(imgView: ImageView, terrierBreedName: String?) {
+    terrierBreedName?.let {
+        val assetPath = it.toAssetPath()
+        Glide.with(imgView.context)
+            .load(assetPath)
+            .apply(
+                RequestOptions()
+                    .placeholder(R.drawable.terrier_placeholder)
+                    .error(R.drawable.terrier_placeholder)
+            )
+            .into(imgView)
+    }
+}
+
 

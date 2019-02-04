@@ -12,7 +12,7 @@ import com.heske.terriertime.databinding.FlickrImageListitemBinding
  * data, including computing diffs between lists.
  * @param onClick a lambda that takes the
  */
-class FlickrRvAdapter() :
+class FlickrRvAdapter :
         ListAdapter<String, FlickrRvAdapter.PhotoViewHolder>(DiffCallback) {
     /**
      * The PhotoViewHolder constructor takes the binding variable from the associated
@@ -30,8 +30,8 @@ class FlickrRvAdapter() :
     }
 
     /**
-     * Allows the RecyclerView to determine which items have changed when the [List] of [MarsProperty]
-     * has been updated.
+     * Allows the RecyclerView to determine which items have changed when the [List] of
+     * images has been updated.
      */
     companion object DiffCallback : DiffUtil.ItemCallback<String>() {
         override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
@@ -70,9 +70,9 @@ class FlickrRvAdapter() :
     }
 
     /**
-     * Custom listener that handles clicks on [RecyclerView] items.  Passes the [MarsProperty]
+     * Custom listener that handles clicks on [RecyclerView] items.  Passes the object
      * associated with the current item to the [onClick] function.
-     * @param clickListener lambda that will be called with the current [MarsProperty]
+     * @param clickListener lambda that will be called with the current object
      */
     class OnClickListener(val clickListener: (imageUrl:String) -> Unit) {
         fun onClick(imageUrl:String) = clickListener(imageUrl)

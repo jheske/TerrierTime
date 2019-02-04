@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context="com.example.android.navigation.BreedFragment">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- Data to make available to the XML via data binding. In this case,
      the whole ViewModel, so that we can access the LiveData,
@@ -18,7 +17,7 @@
             android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/photos_recycler"
+                android:id="@+id/terriers_recycler"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:padding="6dp"
@@ -28,10 +27,10 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:listData="@{terriersViewModel.imageUrlList}"
+                app:terrierRecyclerListData="@{terriersViewModel.listOfTerriers}"
                 app:spanCount="2"
                 tools:itemCount="16"
-                tools:listitem="@layout/flickr_image_listitem" />
+                tools:listitem="@layout/terrier_listitem" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

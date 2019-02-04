@@ -1,12 +1,12 @@
 package com.heske.terriertime.viewmodels
 
 import android.app.Application
-import android.util.Log
-import androidx.lifecycle.*
-import com.heske.terriertime.utils.TerrierBreeds
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.bumptech.glide.Glide.init
+import com.heske.terriertime.database.Terrier
 import com.heske.terriertime.database.TerriersDao
-import com.heske.terriertime.network.FlickrApi
-import com.heske.terriertime.network.flickr.FlickrImageItem
 import kotlinx.coroutines.*
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
@@ -38,94 +38,15 @@ import kotlinx.coroutines.*
  * ViewModel for TerriersFragment.
  */
 class TerriersViewModel(
-    val terriersTableDao: TerriersDao,
-    application: Application) : AndroidViewModel(application) {
+    terriersTableDao: TerriersDao,
+    application: Application
+) : AndroidViewModel(application) {
 
-    val breedList = ArrayList(TerrierBreeds.terriersMap.values)
-    private val breedListSize = breedList.size
-
-    /**
-     * Coroutine vals for running db operations off UI thread.
-     */
-
-    // Allows us to cancel coroutines
-    private var viewModelJob = Job()
-
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+ //   private val _listOfTerriers = MutableLiveData<List<Terrier>>()
 
     /**
-     * Response backing property plus its external val
+     * terrier_recycler listOfTerriers attribute has a data binding to
+     * this LiveData, so it gets reset whenever the LiveData changes.
      */
-    // The internal MutableLiveData String that stores the most recent response
-    private val _status = MutableLiveData<String>()
-    // The external immutable LiveData for the response String
-    val status: LiveData<String>
-        get() = _status
-
-    // Internally, we use a MutableLiveData, because we will be updating the MarsProperty with
-    // new values
-    //private val _properties = MutableLiveData<HashMap<String,String>>()
-    private val _imageUrlList = MutableLiveData<List<String>>()
-
-    // The external LiveData interface to the property is immutable, so only this class can modify
-    val imageUrlList: LiveData<List<String>>
-        get() = _imageUrlList
-
-
-    init {
-        uiScope.launch {
-          //  getBreedCount()
-            getFlickrImages()
-            //  insertAll()
-        }
-    }
-
-    /**
-     * Sets the value of the response LiveData to the Flickr API status or the successful number of
-     * images retrieved.
-     */
-    private fun getFlickrImages() {
-        uiScope.launch {
-            // Get the Deferred object for our Retrofit request
-            val getPropertiesDeferred
-                    = FlickrApi.retrofitService.getFlickImageList("Airedale")
-            try {
-                // Await the completion of our Retrofit request
-                val listResult = getPropertiesDeferred.await()
-
-                _status.value = "Success: ${listResult.imageList.size} Images retrieved"
-                if (listResult.imageList.size > 0) {
-                    val imageFilesMap = listResult.imageList[0].media   //.getValue("m")
-                    _imageUrlList.value = getImageUrlList(listResult.imageList)
-                }
-            } catch (e: Exception) {
-                _status.value = "Failure: ${e.message}"
-            }
-        }
-    }
-
-    /***
-     * Return an ArrayList containing string values from [flickrImageList] item
-     * media field.
-     */
-    fun getImageUrlList(flickrImageList: ArrayList<FlickrImageItem>): ArrayList<String> {
-        val imageList = ArrayList<String>()
-
-        flickrImageList.forEachIndexed { index, flickrListItem ->
-            val imageFileName = flickrListItem.media.getValue("m")
-            imageList.add(imageFileName)
-        }
-        return imageList
-    }
-
-
-    /**
-     * Called when the ViewModel is dismantled.
-     * At this point, we want to cancel all coroutines;
-     * otherwise we end up with processes that have nowhere to return to
-     * using memory and resources.
-     */
-    override fun onCleared() {
-        super.onCleared()
-    }
+    val listOfTerriers = terriersTableDao.getAllTerriers()
 }

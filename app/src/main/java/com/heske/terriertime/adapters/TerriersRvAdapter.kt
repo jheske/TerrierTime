@@ -1,5 +1,13 @@
 package com.heske.terriertime.adapters
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.heske.terriertime.database.Terrier
+import com.heske.terriertime.databinding.TerrierListitemBinding
+
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -21,6 +29,79 @@ package com.heske.terriertime.adapters
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-class TerriersRvAdapter {
 
+/**
+ * This class implements a [RecyclerView] [ListAdapter] which uses Data Binding
+ * to present [List] of [Terrier] data, including computing diffs between lists.
+ */
+class TerriersRvAdapter :
+    ListAdapter<Terrier, TerriersRvAdapter.TerrierViewHolder>(TerriersRvAdapter) {
+    /**
+     * The TerrierViewHolder constructor takes the binding variable from the associated
+     * list item, which nicely gives it access to the full object information,
+     * in this case it's a [Terrier] object.
+     * See terrier_listitem.xml for all the views associated with each
+     * row in terriers_recycler.
+     *
+     * binding.terrier - defined in terrier_listitem <data> block
+     * terrierListItem - the object to be displayed in this row
+     */
+    class TerrierViewHolder(private var binding: TerrierListitemBinding):
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(terrierListItem: Terrier) {
+            binding.terrier = terrierListItem
+            // This is important, because it forces the data binding to execute immediately,
+            // which allows the RecyclerView to make the correct view size measurements
+            binding.executePendingBindings()
+        }
+    }
+
+    /**
+     * Allows the RecyclerView to determine which items have changed
+     * when the [List] of [Terrier] objects has been updated.
+     */
+    companion object DiffCallback : DiffUtil.ItemCallback<Terrier>() {
+        override fun areItemsTheSame(oldItem: Terrier, newItem: Terrier): Boolean {
+            return oldItem === newItem
+        }
+
+        override fun areContentsTheSame(oldItem: Terrier, newItem: Terrier): Boolean {
+            return oldItem == newItem
+        }
+    }
+
+    /**
+     * Create new [RecyclerView] item views (invoked by the layout manager)
+     */
+    override fun onCreateViewHolder(parent: ViewGroup,
+                                    viewType: Int): TerrierViewHolder {
+        return TerrierViewHolder(
+            TerrierListitemBinding.inflate(
+                LayoutInflater.from(
+                    parent.context
+                )
+            )
+        )
+    }
+
+    /**
+     * Replaces the contents of a view (invoked by the layout manager)
+     */
+    override fun onBindViewHolder(holder: TerrierViewHolder, position: Int) {
+        val terrierListItem = getItem(position)
+// TODO Implement onClick to display DetailFragment
+//        holder.itemView.setOnClickListener {
+//            onClickListener.onClick(imageUrl)
+//        }
+        holder.bind(terrierListItem)
+    }
+
+    /**
+     * Custom listener that handles clicks on [RecyclerView] items.  Passes the object
+     * associated with the current item to the [onClick] function.
+     * @param clickListener lambda that will be called with the current [MarsProperty]
+     */
+    class OnClickListener(val clickListener: (imageUrl:String) -> Unit) {
+        fun onClick(imageUrl:String) = clickListener(imageUrl)
+    }
 }

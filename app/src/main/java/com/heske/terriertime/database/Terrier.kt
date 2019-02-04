@@ -1,4 +1,5 @@
 package com.heske.terriertime.database
+
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -32,17 +33,22 @@ import androidx.room.PrimaryKey
  * breed, such as summary text, so their exact spelling has to conform to Wiki.
  */
 @Entity(tableName = "breed")
-data class Terrier(@PrimaryKey(autoGenerate = true)
-                 @ColumnInfo(index = true, name = "_id")
-                 var id: Long,
-                   @ColumnInfo(name = "name")
-                 var name: String,
-                   @ColumnInfo(name = "fact")
-                 var fact: String,
-                   @ColumnInfo(name = "summary")
-                 var summary: String? = null,
-                   @Ignore
-                 var imageList: ArrayList<String>? = null) {
+data class Terrier(
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(index = true, name = "_id")
+    var id: Long,
+    @ColumnInfo(name = "name")
+    var name: String,
+    @ColumnInfo(name = "fact")
+    var fact: String,
+    @ColumnInfo(name = "summary")
+    var summary: String? = null,
+   // @ColumnInfo(name="main_url")
+   // var mainImageUrl: String? = null,
+    // The List of Flickr image urls will go here.
+    @Ignore
+    var imageList: ArrayList<String>? = null
+) {
     constructor() : this(0, "", "", "", null)
 
     /**
