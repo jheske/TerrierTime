@@ -12,6 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@string/txt_img_photo"
-        tools:src="@drawable/terrier_splash" />
+        tools:src="@drawable/splash_image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

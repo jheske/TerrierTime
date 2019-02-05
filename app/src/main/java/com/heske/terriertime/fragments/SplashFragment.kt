@@ -11,11 +11,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.findNavController
 import com.heske.terriertime.R
 import com.heske.terriertime.database.TerriersDatabase
+import com.heske.terriertime.databinding.FragmentSplashBinding
+import com.heske.terriertime.fragments.SplashFragmentDirections.actionSplashToTerriers
 import com.heske.terriertime.viewmodels.SplashViewModel
 import com.heske.terriertime.viewmodels.SplashViewModelFactory
 
@@ -37,17 +39,21 @@ import com.heske.terriertime.viewmodels.SplashViewModelFactory
  */
 class SplashFragment : Fragment() {
     private val TAG = SplashFragment::class.java.simpleName
-    lateinit var splashViewModel: ViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(
-            R.layout.fragment_splash,
-            container, false
-        )
+//        val view = inflater.inflate(
+//            R.layout.fragment_splash,
+//            container, false
+//        )
+
+        val binding = FragmentSplashBinding.inflate(inflater)
+
+        // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
+        binding.setLifecycleOwner(this)
 
         val application = requireNotNull(this.activity).application
 
@@ -69,14 +75,16 @@ class SplashFragment : Fragment() {
             .observe(this, Observer { closeSplashScreen ->
                 // Navigate to TerrierFragment
                 if (closeSplashScreen) {
-                    //SplashFragmenDirections and actionSplashFragmentToBreedFragment are generated
-                    val action = SplashFragmentDirections
-                        .actionSplashFragmentToBreedFragment()
-                    findNavController(this).navigate(action)
-                    viewModel.onSplashScreenTimedOut()
+                    //SplashFragmenDirections and actionSplashFragmentToTerriersFragment are generated
+                    //this.findNavController().navigate(actionSplashToTerriers())
+                    //this.findNavController().navigate(SplashFragmentDirections.actionSplashToTerriers())
+                    this.findNavController().navigate(SplashFragmentDirections.actionSplashToTerriers())
+                    // Tell the ViewModel we've made the navigate call to prevent multiple navigation
+                    // !!!!!Otherwise app will crash when Back button is clicked from destination fragment!!!!!
+                    viewModel.onEventCloseSplashScreenComplete()
                 }
             })
 
-        return view
+        return binding.root
     }
 }

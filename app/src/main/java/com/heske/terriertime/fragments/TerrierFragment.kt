@@ -59,7 +59,7 @@ class TerrierFragment : Fragment() {
         // val binding: FragmentBreedBinding = DataBindingUtil.inflate(
         //     inflater, R.layout.fragment_terriers, container, false)
 
-        // TODO This binding provides access to terriers_recycler in fragment_terriers
+        // This binding provides access to terriers_recycler in fragment_terriers
         val binding = FragmentTerriersBinding.inflate(inflater)
 
         val application = requireNotNull(this.activity).application

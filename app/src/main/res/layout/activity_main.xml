@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- The <layout> outer layout is required for data binding. -->
+<!-- To get Splash image to work correctly and not show a white
+     background while the first fragment loads
+     https://plus.google.com/+AndroidDevelopers/posts/Z1Wwainpjhd -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 

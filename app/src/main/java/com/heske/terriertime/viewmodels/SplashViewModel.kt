@@ -1,11 +1,14 @@
 package com.heske.terriertime.viewmodels
 
 import android.app.Application
-import android.os.CountDownTimer
+import android.os.Handler
 import android.util.Log
+import android.view.View
+import androidx.core.os.postDelayed
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.heske.terriertime.database.Terrier
 import com.heske.terriertime.database.TerriersDao
 import com.heske.terriertime.network.WikiApi
 import com.heske.terriertime.network.wiki.WikiBreedSummaryItem
@@ -60,15 +63,11 @@ class SplashViewModel(
     private val TAG = SplashViewModel::class.java.simpleName
 
     companion object {
-        // This is set when splash screen timer runs out.
-        private const val DONE = 0L
-        // Number of milliseconds in a second
-        private const val ONE_SECOND = 1000L
-        // Total time (in milliseconds) splash screen displays
-        private const val COUNTDOWN_TIME = 30000L
+        private val SPLASH_DISPLAY_LENGTH = 1500L
     }
 
-    private val timer: CountDownTimer
+    private var handler: Handler? = Handler()
+    private val closeSplashScreen = Runnable { closeSplashScreen() }
 
     private var terrierMap = TerrierBreeds.terriersMap
     private val terrierList = ArrayList(terrierMap.values)
@@ -80,44 +79,45 @@ class SplashViewModel(
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    /** External vals and their backing properties **/
-
-    private val _status = MutableLiveData<String>()
-    val status: LiveData<String>
-        get() = _status
-
-    // Event which triggers the end of the game
+    // Event for closing the Splash screen
     private val _eventCloseSplashScreen = MutableLiveData<Boolean>()
     val eventCloseSplashScreen: LiveData<Boolean>
         get() = _eventCloseSplashScreen
 
+    // Internally, we use a MutableLiveData to handle navigation to the selected property
+    private val _navigateToTerriers = MutableLiveData<Terrier>()
+
+    // The external immutable LiveData for the navigation property
+    val navigateToTerriers: LiveData<Terrier>
+        get() = _navigateToTerriers
+
     init {
-        //Create a timer that will trigger navigation to next fragment
-        //after briefly showing the Splash screen to the user.
-        timer = object : CountDownTimer(COUNTDOWN_TIME, ONE_SECOND) {
-            override fun onTick(millisUntilFinished: Long) {
-            }
-
-            override fun onFinish() {
-                _eventCloseSplashScreen.postValue(true)
-            }
-        }
-
-        if (!application.isNetworkConnected()) {
-            //Start the timer to allow the splash screen to display
-            //for a few seconds before navigating to TerriersFragment
-            timer.start()
-        } else {
+        if (application.isNetworkConnected()) {
+            //Display Splash screen for a few seconds before
+            //navigating to TerriersFragment
             uiScope.launch {
                 //Clear the db just for testing
                 //dbDeleteAll()
                 initializeDatabase(dbGetTableRowCount(), dbGetSummaryCount())
-                _eventCloseSplashScreen.postValue(true)
+                _eventCloseSplashScreen.value = true
             }
+        } else {
+            handler?.postDelayed(closeSplashScreen, SPLASH_DISPLAY_LENGTH)
         }
     }
 
-    fun onSplashScreenTimedOut() {
+    /**
+     * Hide the progress wheel and move on to MainActivity.
+     * This can probably be handled by ??? navigation ???
+     */
+    private fun closeSplashScreen() {
+        _eventCloseSplashScreen.value = true
+    }
+
+    // Called from Fragment to tell the ViewModel we've made the navigate call,
+    // to prevent multiple navigation.
+    // !!!!!Otherwise app will crash when Back button is clicked from destination fragment!!!!!
+    fun onEventCloseSplashScreenComplete() {
         _eventCloseSplashScreen.value = false
     }
 
@@ -205,12 +205,12 @@ class SplashViewModel(
                 Log.d(TAG, "[loadWikiSummaries] " + "listSize = $listSize")
                 dbUpdateSummaries(ArrayList(wikiBreedSummaryList.values))
             }
-            _status.value = "Success: ${listSize} items retrieved"
+            //_status.value = "Success: ${listSize} items retrieved"
             if (listSize > 0) {
                 Log.d(TAG, "[loadWikiSummaries] " + "There are $listSize summaries")
             }
         } catch (e: Exception) {
-            _status.value = "Failure: ${e.message}"
+            //_status.value = "Failure: ${e.message}"
         }
     }
 
@@ -234,13 +234,5 @@ class SplashViewModel(
                 Log.d(TAG, "Can't find ${wikiListItem.breed}")
             }
         }
-    }
-
-    /**
-     * Hide the progress wheel and move on to MainActivity.
-     * This can probably be handled by ??? navigation ???
-     */
-    private fun goToMainActivity() {
-
     }
 }

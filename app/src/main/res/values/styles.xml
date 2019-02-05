@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -8,6 +8,13 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
         <item name="buttonStyle">@style/Widget.AppCompat.Button.Colored</item>
+    </style>
+
+     The launcher theme. It sets the main window background to the splash_image drawable
+    <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@drawable/launch_screen</item>
+        <!-- Optional, on Android 5+ you can modify the colorPrimaryDark color to match the windowBackground color for further branding-->
+         <!--<item name="colorPrimaryDark">@color/colorPrimary</item>-->
     </style>
 
     <style name="AppTheme.NoActionAndStatusBar" parent="Widget.AppCompat.Button">

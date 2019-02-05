@@ -29,6 +29,10 @@ import com.heske.terriertime.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        //This app has an AppTheme.Launcher theme, so if there's a delay
+        //while the app loads, the user will see something nicer than
+        //a plain white screen. Now change back to the original AppTheme.
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         @Suppress("UNUSED_VARIABLE")
         val binding = DataBindingUtil
