@@ -1,9 +1,6 @@
-package com.heske.terriertime.viewmodels
+package com.heske.terriertime.flickr
 
-import android.app.Application
 import androidx.lifecycle.*
-import com.bumptech.glide.Glide.init
-import com.heske.terriertime.database.TerriersDao
 import com.heske.terriertime.network.FlickrApi
 import com.heske.terriertime.network.flickr.FlickrImageItem
 import kotlinx.coroutines.*
@@ -29,7 +26,7 @@ import kotlinx.coroutines.*
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-class FlickrViewModel(dataSource: TerriersDao): ViewModel() {
+class FlickrViewModel(): ViewModel() {
 
     /** Coroutine vals for running db operations off UI thread. */
 

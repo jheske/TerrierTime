@@ -1,10 +1,8 @@
-package com.heske.terriertime.viewmodels
+package com.heske.terriertime.splash
 
 import android.app.Application
 import android.os.Handler
 import android.util.Log
-import android.view.View
-import androidx.core.os.postDelayed
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -102,7 +100,9 @@ class SplashViewModel(
                 _eventCloseSplashScreen.value = true
             }
         } else {
-            handler?.postDelayed(closeSplashScreen, SPLASH_DISPLAY_LENGTH)
+            handler?.postDelayed(closeSplashScreen,
+                SPLASH_DISPLAY_LENGTH
+            )
         }
     }
 

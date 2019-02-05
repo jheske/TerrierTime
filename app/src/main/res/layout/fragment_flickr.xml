@@ -10,7 +10,7 @@
     <data>
         <variable
                 name="flickrViewModel"
-                type="com.heske.terriertime.viewmodels.FlickrViewModel"/>
+                type="com.heske.terriertime.flickr.FlickrViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

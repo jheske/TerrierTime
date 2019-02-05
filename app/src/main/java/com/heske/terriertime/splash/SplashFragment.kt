@@ -3,7 +3,7 @@
  * Copyright (c) All rights reserved
  */
 
-package com.heske.terriertime.fragments
+package com.heske.terriertime.splash
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,14 +12,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.fragment.findNavController
-import com.heske.terriertime.R
 import com.heske.terriertime.database.TerriersDatabase
 import com.heske.terriertime.databinding.FragmentSplashBinding
-import com.heske.terriertime.fragments.SplashFragmentDirections.actionSplashToTerriers
-import com.heske.terriertime.viewmodels.SplashViewModel
-import com.heske.terriertime.viewmodels.SplashViewModelFactory
 
 
 /**
@@ -80,7 +75,7 @@ class SplashFragment : Fragment() {
                     //this.findNavController().navigate(SplashFragmentDirections.actionSplashToTerriers())
                     this.findNavController().navigate(SplashFragmentDirections.actionSplashToTerriers())
                     // Tell the ViewModel we've made the navigate call to prevent multiple navigation
-                    // !!!!!Otherwise app will crash when Back button is clicked from destination fragment!!!!!
+                    // !!!!!Otherwise app will CRASH when Back button is clicked from destination fragment!!!!!
                     viewModel.onEventCloseSplashScreenComplete()
                 }
             })

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context="com.example.android.navigation.FullsizeImageFragment">
+
+    <data>
+        <variable
+                name="viewModel"
+                type="com.heske.terriertime.fullsize.FullsizeImageViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorBlack">
+
+        <!-- See viewModel <variable> above for source of values to bind -->
+        <!-- See FullsizeImageViewModel.imageUrl for LiveData value -->
+        <!-- See BindingAdapters.bindFullsizeImage for binding of fullsizeImageUrl
+             to the ImageView -->
+        <ImageView
+                android:id="@+id/img_fullsize"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/txt_img_photo"
+                app:fullsizeImageUrl="@{viewModel.terrierBreedName}"
+                tools:src="@drawable/splash_image"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

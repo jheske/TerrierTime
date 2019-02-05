@@ -6,7 +6,7 @@
         app:startDestination="@id/splashFragment">
     <fragment
             android:id="@+id/splashFragment"
-            android:name="com.heske.terriertime.fragments.SplashFragment"
+            android:name="com.heske.terriertime.splash.SplashFragment"
             android:label="fragment_splash"
             tools:layout="@layout/fragment_splash">
         <action
@@ -16,14 +16,22 @@
 
     <fragment
             android:id="@+id/terriersFragment"
-            android:name="com.heske.terriertime.fragments.TerrierFragment"
+            android:name="com.heske.terriertime.terriers.TerrierFragment"
             android:label="fragment_terriers"
             tools:layout="@layout/fragment_terriers">
+
         <action
                 android:id="@+id/action_terriersFragment_to_detail"
-                app:destination="@id/detailFragment" app:popUpTo="@+id/terriersFragment"
-                app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
-                app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+                app:destination="@id/detailFragment"
+                app:popUpTo="@+id/terriersFragment"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+
+        <action android:id="@+id/action_terriers_to_fullsize"
+                app:destination="@id/fullsizeImageFragment"
+                app:popUpTo="@+id/terriersFragment"/>
     </fragment>
 
     <fragment
@@ -31,4 +39,8 @@
             android:name="com.heske.terriertime.fragments.DetailFragment"
             android:label="DetailFragment"
             tools:layout="@layout/fragment_activity_detail"/>
+
+    <fragment android:id="@+id/fullsizeImageFragment"
+              android:name="com.heske.terriertime.fullsize.FullsizeImageFragment"
+              android:label="FullsizeImageFragment"/>
 </navigation>

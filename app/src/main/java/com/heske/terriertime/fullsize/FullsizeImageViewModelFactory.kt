@@ -1,9 +1,7 @@
-package com.heske.terriertime.viewmodels
+package com.heske.terriertime.fullsize
 
-import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.heske.terriertime.database.TerriersDao
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -26,15 +24,12 @@ import com.heske.terriertime.database.TerriersDao
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-class SplashViewModelFactory(
-    private val application: Application,
-    private val dataSource: TerriersDao
-) : ViewModelProvider.Factory {
 
+class FullsizeImageViewModelFactory(private val terrierBreedName: String) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(SplashViewModel::class.java)) {
-            return SplashViewModel(application,dataSource) as T
+        if (modelClass.isAssignableFrom(FullsizeImageViewModel::class.java)) {
+            return FullsizeImageViewModel(terrierBreedName) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

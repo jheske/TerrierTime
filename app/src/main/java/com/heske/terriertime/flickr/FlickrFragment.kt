@@ -3,7 +3,7 @@
  * Copyright (c) All rights reserved
  */
 
-package com.heske.terriertime.fragments
+package com.heske.terriertime.flickr
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,11 +12,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.heske.terriertime.adapters.FlickrRvAdapter
-import com.heske.terriertime.database.TerriersDatabase
 import com.heske.terriertime.databinding.FragmentFlickrBinding
-import com.heske.terriertime.viewmodels.FlickrViewModel
-import com.heske.terriertime.viewmodels.FlickrViewModelFactory
-import com.heske.terriertime.viewmodels.SplashViewModelFactory
 
 /**
  * Retrieve the list of paths to Flickr images and display
@@ -32,13 +28,8 @@ class FlickrFragment : Fragment() {
         // This binding exposes access to photos_recycler in fragment_flickr
         val binding = FragmentFlickrBinding.inflate(inflater)
 
-        val application = requireNotNull(this.activity).application
-        val dataSource = TerriersDatabase.getInstance(application).terriersDatabaseDao
-
-        val viewModelFactory = FlickrViewModelFactory(dataSource)
-
         val flickrViewModel =
-            ViewModelProviders.of(this,viewModelFactory).get(FlickrViewModel::class.java)
+            ViewModelProviders.of(this).get(FlickrViewModel::class.java)
 
         binding.flickrViewModel = flickrViewModel
         binding.photosRecycler.adapter = FlickrRvAdapter()

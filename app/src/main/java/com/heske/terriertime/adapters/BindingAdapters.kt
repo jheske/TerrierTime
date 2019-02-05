@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.heske.terriertime.R
 import com.heske.terriertime.database.Terrier
+import com.heske.terriertime.terriers.TerriersRvAdapter
 import com.heske.terriertime.utils.toAssetPath
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
@@ -95,12 +96,37 @@ fun bindTerriersRecyclerView(recyclerView: RecyclerView, data: List<Terrier>?) {
 
 
 /**
- * Uses the Glide library to load an image from assets folder into
+ * Bind the image in one row of terriers_recycler (fragment_terriers.xml).
+ * terrierImageUrl -> is an attribute defined in the img_photo ImageView
+ * found in terrier_listitem.xml.
+ *
+ * Use the Glide library to load an image from assets folder into
  * an [ImageView] See terrier_listitem app:terrierImageUrl="@{terrier.name}"
  */
 @BindingAdapter("terrierImageUrl")
 fun bindTerrierImage(imgView: ImageView, terrierBreedName: String?) {
     terrierBreedName?.let {
+        val assetPath = it.toAssetPath()
+        Glide.with(imgView.context)
+            .load(assetPath)
+            .apply(
+                RequestOptions()
+                    .placeholder(R.drawable.terrier_placeholder)
+                    .error(R.drawable.terrier_placeholder)
+            )
+            .into(imgView)
+    }
+}
+
+
+/*
+ * Bind a fullsize image (its jpg is in the assets folder).
+ * fullsizeImageUrl -> is an attribute defined in
+ * the img_fullsize ImageView in fragment_fullsize_image.xml
+ */
+@BindingAdapter("fullsizeImageUrl")
+fun bindFullsizeImage(imgView: ImageView, breedName: String?) {
+    breedName?.let {
         val assetPath = it.toAssetPath()
         Glide.with(imgView.context)
             .load(assetPath)

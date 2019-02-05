@@ -1,4 +1,4 @@
-package com.heske.terriertime.viewmodels
+package com.heske.terriertime.terriers
 
 import android.app.Application
 import androidx.lifecycle.ViewModel

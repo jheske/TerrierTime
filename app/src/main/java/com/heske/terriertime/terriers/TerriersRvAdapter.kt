@@ -1,4 +1,4 @@
-package com.heske.terriertime.adapters
+package com.heske.terriertime.terriers
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -34,7 +34,7 @@ import com.heske.terriertime.databinding.TerrierListitemBinding
  * This class implements a [RecyclerView] [ListAdapter] which uses Data Binding
  * to present [List] of [Terrier] data, including computing diffs between lists.
  */
-class TerriersRvAdapter :
+class TerriersRvAdapter(val onClickListener: OnClickListener) :
     ListAdapter<Terrier, TerriersRvAdapter.TerrierViewHolder>(TerriersRvAdapter) {
     /**
      * The TerrierViewHolder constructor takes the binding variable from the associated
@@ -46,7 +46,7 @@ class TerriersRvAdapter :
      * binding.terrier - defined in terrier_listitem <data> block
      * terrierListItem - the object to be displayed in this row
      */
-    class TerrierViewHolder(private var binding: TerrierListitemBinding):
+    class TerrierViewHolder(private var binding: TerrierListitemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(terrierListItem: Terrier) {
             binding.terrier = terrierListItem
@@ -73,8 +73,10 @@ class TerriersRvAdapter :
     /**
      * Create new [RecyclerView] item views (invoked by the layout manager)
      */
-    override fun onCreateViewHolder(parent: ViewGroup,
-                                    viewType: Int): TerrierViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): TerrierViewHolder {
         return TerrierViewHolder(
             TerrierListitemBinding.inflate(
                 LayoutInflater.from(
@@ -89,19 +91,20 @@ class TerriersRvAdapter :
      */
     override fun onBindViewHolder(holder: TerrierViewHolder, position: Int) {
         val terrierListItem = getItem(position)
-// TODO Implement onClick to display DetailFragment
-//        holder.itemView.setOnClickListener {
-//            onClickListener.onClick(imageUrl)
-//        }
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(terrierListItem)
+        }
         holder.bind(terrierListItem)
     }
 
     /**
-     * Custom listener that handles clicks on [RecyclerView] items.  Passes the object
+     * Custom listener that handles clicks on [RecyclerView] items.  Passes the [Terrier]
      * associated with the current item to the [onClick] function.
-     * @param clickListener lambda that will be called with the current [MarsProperty]
+     * @param clickListener lambda that will be called with the current [Terrier]
+     * This listener displays a full-screen image.  It has nothing to do with the
+     * three Buttons. Those have their own listeners.
      */
-    class OnClickListener(val clickListener: (imageUrl:String) -> Unit) {
-        fun onClick(imageUrl:String) = clickListener(imageUrl)
+    class OnClickListener(val clickListener: (terrierListItem: Terrier) -> Unit) {
+        fun onClick(terrierListItem: Terrier) = clickListener(terrierListItem)
     }
 }

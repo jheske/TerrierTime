@@ -9,7 +9,7 @@
     <data>
         <variable
                 name="terriersViewModel"
-                type="com.heske.terriertime.viewmodels.TerriersViewModel"/>
+                type="com.heske.terriertime.terriers.TerriersViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

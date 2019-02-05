@@ -1,4 +1,4 @@
-package com.heske.terriertime.fragments
+package com.heske.terriertime.terriers
 
 import android.media.SoundPool
 import android.os.Bundle
@@ -6,14 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.heske.terriertime.adapters.TerriersRvAdapter
+import androidx.navigation.fragment.findNavController
 import com.heske.terriertime.database.Terrier
 import com.heske.terriertime.database.TerriersDatabase
 import com.heske.terriertime.databinding.FragmentTerriersBinding
-import com.heske.terriertime.viewmodels.TerriersViewModel
-import com.heske.terriertime.viewmodels.TerriersViewModelFactory
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -72,8 +70,22 @@ class TerrierFragment : Fragment() {
             ).get(TerriersViewModel::class.java)
 
         binding.terriersViewModel = viewModel
-        binding.terriersRecycler.adapter = TerriersRvAdapter()
 
+        // Sets the adapter of the photosGrid RecyclerView with clickHandler lambda that
+        // tells the viewModel when our property is clicked
+        binding.terriersRecycler.adapter =
+            TerriersRvAdapter(TerriersRvAdapter.OnClickListener {
+                viewModel.displayFullsizeImage(it)
+            })
+
+        viewModel.navigateToFullsizeImage.observe(this, Observer {
+            if (it != null) {
+                this.findNavController().navigate(TerrierFragmentDirections.actionTerriersToFullsize())
+                //After the navigation has taken place, set displayFullsizeImageComplete to null.
+                //!!!!Otherwise the app will crash when Back button is pressed from destination Fragment!!!!
+                viewModel.displayFullsizeImageComplete()
+            }
+         })
         // TODO add observer to play sounds
 
         binding.setLifecycleOwner(this)
