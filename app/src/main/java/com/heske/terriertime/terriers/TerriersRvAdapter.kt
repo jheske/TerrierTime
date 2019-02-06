@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.heske.terriertime.database.Terrier
 import com.heske.terriertime.databinding.TerrierListitemBinding
+import kotlinx.android.synthetic.main.terrier_listitem.view.*
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -34,8 +35,11 @@ import com.heske.terriertime.databinding.TerrierListitemBinding
  * This class implements a [RecyclerView] [ListAdapter] which uses Data Binding
  * to present [List] of [Terrier] data, including computing diffs between lists.
  */
-class TerriersRvAdapter(val onClickListener: OnClickListener) :
-    ListAdapter<Terrier, TerriersRvAdapter.TerrierViewHolder>(TerriersRvAdapter) {
+class TerriersRvAdapter(val onImageClickListener: OnImageClickListener,
+                        val onGiveUpClickListener: OnGiveUpClickListener,
+                        val onGuessClickListener: OnGuessClickListener,
+                        val onMoreClickListener: OnMoreClickListener) :
+    ListAdapter<Terrier, TerriersRvAdapter.TerrierViewHolder>(DiffCallback) {
     /**
      * The TerrierViewHolder constructor takes the binding variable from the associated
      * list item, which nicely gives it access to the full object information,
@@ -88,11 +92,25 @@ class TerriersRvAdapter(val onClickListener: OnClickListener) :
 
     /**
      * Replaces the contents of a view (invoked by the layout manager)
+     * Set up listeners for all the buttons at index [position] in the [holder].
+     * Button clicks will call back to [TerrierFragment] for processing.
      */
     override fun onBindViewHolder(holder: TerrierViewHolder, position: Int) {
         val terrierListItem = getItem(position)
-        holder.itemView.setOnClickListener {
-            onClickListener.onClick(terrierListItem)
+
+        holder.itemView.apply {
+            img_photo.setOnClickListener {
+                onImageClickListener.onImageClick(terrierListItem)
+            }
+            btn_give_up.setOnClickListener {
+                onGiveUpClickListener.onGiveUpButtonClick(terrierListItem)
+            }
+            btn_more.setOnClickListener {
+                onGuessClickListener.onGuessButtonClick(terrierListItem)
+            }
+            btn_guess.setOnClickListener {
+                onMoreClickListener.onMoreButtonClick(terrierListItem)
+            }
         }
         holder.bind(terrierListItem)
     }
@@ -104,7 +122,16 @@ class TerriersRvAdapter(val onClickListener: OnClickListener) :
      * This listener displays a full-screen image.  It has nothing to do with the
      * three Buttons. Those have their own listeners.
      */
-    class OnClickListener(val clickListener: (terrierListItem: Terrier) -> Unit) {
-        fun onClick(terrierListItem: Terrier) = clickListener(terrierListItem)
+    class OnImageClickListener(val clickListener: (terrierListItem: Terrier) -> Unit) {
+        fun onImageClick(terrierListItem: Terrier) = clickListener(terrierListItem)
+    }
+    class OnGiveUpClickListener(val clickListener: (terrierListItem: Terrier) -> Unit) {
+        fun onGiveUpButtonClick(terrierListItem: Terrier) = clickListener(terrierListItem)
+    }
+    class OnMoreClickListener(val clickListener: (terrierListItem: Terrier) -> Unit) {
+        fun onMoreButtonClick(terrierListItem: Terrier) = clickListener(terrierListItem)
+    }
+    class OnGuessClickListener(val clickListener: (terrierListItem: Terrier) -> Unit) {
+        fun onGuessButtonClick(terrierListItem: Terrier) = clickListener(terrierListItem)
     }
 }

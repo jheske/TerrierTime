@@ -15,13 +15,15 @@ const val ARG_BREED_NAME = "breed_name"
  */
 class FullsizeImageFragment : Fragment() {
     private val TAG = FullsizeImageFragment::class.java.simpleName
-    // TODO get this value from safeArgs
-    private var terrierBreedName: String = "Airedale Terrier"
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val binding = FragmentFullsizeImageBinding.inflate(inflater)
+        val binding
+                = FragmentFullsizeImageBinding.inflate(inflater)
+
+        val terrierBreedName
+                = FullsizeImageFragmentArgs.fromBundle(arguments!!).breedName
 
         val viewModelFactory = FullsizeImageViewModelFactory(terrierBreedName)
         val viewModel =

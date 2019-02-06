@@ -1,4 +1,4 @@
-package com.heske.terriertime.adapters
+package com.heske.terriertime.utils
 
 import android.widget.ImageView
 import androidx.core.net.toUri
@@ -8,8 +8,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.heske.terriertime.R
 import com.heske.terriertime.database.Terrier
+import com.heske.terriertime.flickr.FlickrRvAdapter
 import com.heske.terriertime.terriers.TerriersRvAdapter
-import com.heske.terriertime.utils.toAssetPath
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -126,6 +126,21 @@ fun bindTerrierImage(imgView: ImageView, terrierBreedName: String?) {
  */
 @BindingAdapter("fullsizeImageUrl")
 fun bindFullsizeImage(imgView: ImageView, breedName: String?) {
+    breedName?.let {
+        val assetPath = it.toAssetPath()
+        Glide.with(imgView.context)
+            .load(assetPath)
+            .apply(
+                RequestOptions()
+                    .placeholder(R.drawable.terrier_placeholder)
+                    .error(R.drawable.terrier_placeholder)
+            )
+            .into(imgView)
+    }
+}
+
+@BindingAdapter("detailImageUrl")
+fun bindDetailImage(imgView: ImageView, breedName: String?) {
     breedName?.let {
         val assetPath = it.toAssetPath()
         Glide.with(imgView.context)

@@ -41,9 +41,20 @@ class TerriersViewModel(
 ) : AndroidViewModel(application) {
 
     private val _navigateToFullsizeImage = MutableLiveData<Terrier>()
-
     val navigateToFullsizeImage: LiveData<Terrier>
         get() = _navigateToFullsizeImage
+
+    private val _navigateToDetailScreen = MutableLiveData<Terrier>()
+    val navigateToDetailScreen: LiveData<Terrier>
+        get() = _navigateToDetailScreen
+
+//    private val _navigateToFullsizeImage = MutableLiveData<Terrier>()
+//    val navigateToFullsizeImage: LiveData<Terrier>
+//        get() = _navigateToFullsizeImage
+//
+//    private val _navigateToFullsizeImage = MutableLiveData<Terrier>()
+//    val navigateToFullsizeImage: LiveData<Terrier>
+//        get() = _navigateToFullsizeImage
 
     /**
      * terrier_recycler listOfTerriers attribute has a data binding to
@@ -53,7 +64,7 @@ class TerriersViewModel(
     val listOfTerriers = terriersTableDao.getAllTerriers()
 
     /**
-     * When the terrier item (not a button) is clicked,
+     * When the terrier image is clicked,
      * set the [_navigateToFullsizeImage] [MutableLiveData]
      * @param terrier The [Terrier] that was clicked on.
      */
@@ -67,5 +78,22 @@ class TerriersViewModel(
      */
     fun displayFullsizeImageComplete() {
         _navigateToFullsizeImage.value = null
+    }
+
+    /**
+     * When the terrier image is clicked,
+     * set the [_navigateToFullsizeImage] [MutableLiveData]
+     * @param terrier The [Terrier] that was clicked on.
+     */
+    fun displayDetailScreen(terrier: Terrier) {
+        _navigateToDetailScreen.value = terrier
+    }
+
+    /**
+     * After the navigation has taken place, make sure displayFullsizeImageComplete is set to null.
+     * !!!!Otherwise the app will crash when Back button is pressed from destination Fragment!!!!
+     */
+    fun displayDetailScreenComplete() {
+        _navigateToDetailScreen.value = null
     }
 }

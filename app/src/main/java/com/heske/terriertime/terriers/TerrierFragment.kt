@@ -74,18 +74,42 @@ class TerrierFragment : Fragment() {
         // Sets the adapter of the photosGrid RecyclerView with clickHandler lambda that
         // tells the viewModel when our property is clicked
         binding.terriersRecycler.adapter =
-            TerriersRvAdapter(TerriersRvAdapter.OnClickListener {
+            TerriersRvAdapter(TerriersRvAdapter.OnImageClickListener {
+                viewModel.displayFullsizeImage(it)
+            }, TerriersRvAdapter.OnGiveUpClickListener {
+                viewModel.displayDetailScreen(it)
+            }, TerriersRvAdapter.OnGuessClickListener {
+                viewModel.displayFullsizeImage(it)
+            }, TerriersRvAdapter.OnMoreClickListener {
                 viewModel.displayFullsizeImage(it)
             })
 
         viewModel.navigateToFullsizeImage.observe(this, Observer {
             if (it != null) {
-                this.findNavController().navigate(TerrierFragmentDirections.actionTerriersToFullsize())
-                //After the navigation has taken place, set displayFullsizeImageComplete to null.
-                //!!!!Otherwise the app will crash when Back button is pressed from destination Fragment!!!!
+                this.findNavController()
+                    .navigate(
+                        TerrierFragmentDirections.actionTerriersToFullsize(it.name)
+                    )
+                //After the navigation has taken place, set nav event to null.
+                //!!!!Otherwise the app will crash when Back button is pressed
+                // from destination Fragment!!!!
                 viewModel.displayFullsizeImageComplete()
             }
-         })
+        })
+
+        viewModel.navigateToDetailScreen.observe(this, Observer {
+            if (it != null) {
+                this.findNavController()
+                    .navigate(
+                        TerrierFragmentDirections.actionTerriersFragmentToDetail(it)
+                    )
+                //After the navigation has taken place, set nav event to null.
+                //!!!!Otherwise the app will crash when Back button is pressed
+                // from destination Fragment!!!!
+                viewModel.displayDetailScreenComplete()
+            }
+        })
+
         // TODO add observer to play sounds
 
         binding.setLifecycleOwner(this)

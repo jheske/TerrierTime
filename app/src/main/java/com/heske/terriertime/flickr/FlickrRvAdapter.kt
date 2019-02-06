@@ -1,4 +1,4 @@
-package com.heske.terriertime.adapters
+package com.heske.terriertime.flickr
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -14,6 +14,7 @@ import com.heske.terriertime.databinding.FlickrImageListitemBinding
  */
 class FlickrRvAdapter :
         ListAdapter<String, FlickrRvAdapter.PhotoViewHolder>(DiffCallback) {
+
     /**
      * The PhotoViewHolder constructor takes the binding variable from the associated
      * GridViewItem, which nicely gives it access to the full object information,
@@ -64,7 +65,7 @@ class FlickrRvAdapter :
         val imageUrl = getItem(position)
 // TODO Implement onClick to display FullSizeImageFragment
 //        holder.itemView.setOnClickListener {
-//            onClickListener.onClick(imageUrl)
+//            onImageClickListener.onClick(imageUrl)
 //        }
         holder.bind(imageUrl)
     }
@@ -74,7 +75,7 @@ class FlickrRvAdapter :
      * associated with the current item to the [onClick] function.
      * @param clickListener lambda that will be called with the current object
      */
-    class OnClickListener(val clickListener: (imageUrl:String) -> Unit) {
-        fun onClick(imageUrl:String) = clickListener(imageUrl)
-    }
+//    class OnImageClickListener(val clickListener: (imageUrl:String) -> Unit) {
+//        fun onClick(imageUrl:String) = clickListener(imageUrl)
+//    }
 }

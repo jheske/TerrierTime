@@ -22,16 +22,19 @@ package com.heske.terriertime.database
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
 /**
  * Represents one row in the Terriers table.  Terriers names in the database are treated
  * as Wikipedia tags and are used to retrieve information about the
  * breed, such as summary text, so their exact spelling has to conform to Wiki.
  */
+@Parcelize
 @Entity(tableName = "breed")
 data class Terrier(
     @PrimaryKey(autoGenerate = true)
@@ -48,7 +51,7 @@ data class Terrier(
     // The List of Flickr image urls will go here.
     @Ignore
     var imageList: ArrayList<String>? = null
-) {
+) : Parcelable {
     constructor() : this(0, "", "", "", null)
 
     /**

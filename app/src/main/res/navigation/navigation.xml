@@ -31,16 +31,24 @@
 
         <action android:id="@+id/action_terriers_to_fullsize"
                 app:destination="@id/fullsizeImageFragment"
-                app:popUpTo="@+id/terriersFragment"/>
+                app:popUpTo="@+id/terriersFragment">
+        </action>
     </fragment>
 
     <fragment
             android:id="@+id/detailFragment"
-            android:name="com.heske.terriertime.fragments.DetailFragment"
+            android:name="com.heske.terriertime.detail.DetailFragment"
             android:label="DetailFragment"
-            tools:layout="@layout/fragment_activity_detail"/>
+            tools:layout="@layout/fragment_detail">
+        <argument android:name="terrier"
+                  app:argType="com.heske.terriertime.database.Terrier"/>
+    </fragment>
 
     <fragment android:id="@+id/fullsizeImageFragment"
               android:name="com.heske.terriertime.fullsize.FullsizeImageFragment"
-              android:label="FullsizeImageFragment"/>
+              android:label="FullsizeImageFragment">
+        <argument
+                android:name="breedName"
+                app:argType="string"/>
+    </fragment>
 </navigation>

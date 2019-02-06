@@ -1,11 +1,9 @@
-package com.heske.terriertime.fragments
+package com.heske.terriertime.detail
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.heske.terriertime.R
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import com.heske.terriertime.database.Terrier
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -28,13 +26,18 @@ import com.heske.terriertime.R
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+class DetailViewModel(terrierDetails: Terrier) : ViewModel() {
+    private val _terrier = MutableLiveData<Terrier>()
 
-class DetailFragment : Fragment() {
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.activity_detail, container, false)
+    val terrier: LiveData<Terrier>
+        get() = _terrier
+
+    private val _terrierBreedName = MutableLiveData<String>()
+    val terrierBreedName: LiveData<String>
+        get() = _terrierBreedName
+
+    init {
+        _terrier.value = terrierDetails
+        _terrierBreedName.value = terrierDetails.name
     }
 }
