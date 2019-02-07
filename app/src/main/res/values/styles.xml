@@ -18,5 +18,7 @@
     </style>
 
     <style name="AppTheme.NoActionAndStatusBar" parent="Widget.AppCompat.Button">
+        <item name="android:background">@color/colorPrimaryLight</item>
+        <item name="android:textColor">@color/colorAccent</item>
     </style>
 </resources>

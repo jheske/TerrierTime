@@ -84,7 +84,8 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/et_guess_txt"
-                    android:scaleType="centerCrop"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/terrier_placeholder"/>
 
             <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_guess"

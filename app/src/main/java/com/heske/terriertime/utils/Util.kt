@@ -2,11 +2,9 @@ package com.heske.terriertime.utils
 
 import android.app.Activity
 import android.content.Context
-import android.content.Context.CONNECTIVITY_SERVICE
 import android.net.ConnectivityManager
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
@@ -31,39 +29,6 @@ fun Context.isNetworkConnected(): Boolean {
     return isOnline
 }
 
-
-//fun Context.isNetworkConnected() {
-//    val connMgr = getSystemService(CONNECTIVITY_SERVICE)
-//            as ConnectivityManager
-//    var isWifiConn: Boolean = false
-//    var isMobileConn: Boolean = false
-//    connMgr.allNetworks.forEach { network ->
-//        connMgr.getNetworkInfo(network).apply {
-//            if (type == ConnectivityManager.TYPE_WIFI) {
-//                isWifiConn = isWifiConn or isConnected
-//            }
-//            if (type == ConnectivityManager.TYPE_MOBILE) {
-//                isMobileConn = isMobileConn or isConnected
-//            }
-//        }
-//    }
-//}
-
-//fun Context.isNetworkAvailable(): Boolean {
-//    val connectivityMgr
-//            = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-//    val activeNetwork = connectivityMgr.activeNetworkInfo
-//
-//    val available = {
-//         if (activeNetwork == null)
-//             false
-//         else if (activeNetwork.type == ConnectivityManager.TYPE_WIFI) {
-//             true
-//         } else activeNetwork.type == ConnectivityManager.TYPE_MOBILE
-//     }
-//     return available()
-//}
-
 /**
  * Create a valid lowercase filename from breed string by replacing
  * spaces with underscores
@@ -79,19 +44,6 @@ fun String.toBreedFileName(): String {
  */
 fun String.toAssetPath(): String {
     return "file:///android_asset/$this.jpg".replace(" ", "_").toLowerCase()
-}
-
-/**
- * Called by fragments to get the current Activity
- */
-val Fragment.currentActivity: FragmentActivity
-    get() = this.activity
-            ?: throw IllegalStateException(context?.getString(R.string.txt_no_null_activity))
-
-inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> Unit) {
-    val fragmentTransaction = beginTransaction()
-    fragmentTransaction.func()
-    fragmentTransaction.commit()
 }
 
 /**
