@@ -8,9 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.heske.terriertime.R
 import com.heske.terriertime.databinding.FragmentDetailBinding
-import com.heske.terriertime.fullsize.FullsizeImageFragmentArgs
-import com.heske.terriertime.fullsize.FullsizeImageViewModel
-import com.heske.terriertime.fullsize.FullsizeImageViewModelFactory
+import com.heske.terriertime.databinding.FragmentTerriersBinding
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -39,8 +37,11 @@ class DetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding
-                = com.heske.terriertime.databinding.FragmentDetailBinding.inflate(inflater)
+
+//        val binding
+//                = com.heske.terriertime.databinding.FragmentDetailBinding.inflate(inflater)
+
+        val binding = FragmentDetailBinding.inflate(inflater)
 
         val terrier = DetailFragmentArgs.fromBundle(arguments!!).terrier
 

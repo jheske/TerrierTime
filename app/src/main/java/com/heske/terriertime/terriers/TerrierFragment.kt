@@ -52,7 +52,7 @@ class TerrierFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        // This one only helps with binding the TextView to LiveData in the view model
+        // This one only helps with binding views like TextView to LiveData in the view model
         // It doesn't help with binding list items in the recycler
         // val binding: FragmentBreedBinding = DataBindingUtil.inflate(
         //     inflater, R.layout.fragment_terriers, container, false)
@@ -71,6 +71,8 @@ class TerrierFragment : Fragment() {
 
         binding.terriersViewModel = viewModel
 
+        // TODO Can I replace the onClickListeners with DataBindings in the xml file?
+        // as in android:onClick=@{() -> terriersViewModel.displayFullsizeImage???
         // Sets the adapter of the photosGrid RecyclerView with clickHandler lambda that
         // tells the viewModel when our property is clicked
         binding.terriersRecycler.adapter =

@@ -1,69 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- The <layout> outer layout is required for data binding. -->
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="true">
+            android:orientation="vertical">
 
-       <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/appbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-            <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="?attr/colorPrimary"
-                    app:title="@string/app_name"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                    app:layout_scrollFlags="scroll|enterAlways|snap"/>
-        </com.google.android.material.appbar.AppBarLayout>
-
- <!--       <androidx.core.widget.NestedScrollView
-                android:id="@+id/scroll"
+        <fragment
+                android:id="@+id/navHostFragment"
+                android:name="androidx.navigation.fragment.NavHostFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:clipToPadding="false"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
--->
-            <fragment
-                    android:id="@+id/navHostFragment"
-                    android:name="androidx.navigation.fragment.NavHostFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                    app:defaultNavHost="true"
-                    app:navGraph="@navigation/navigation"/>
+                app:defaultNavHost="true"
+                app:navGraph="@navigation/navigation"/>
 
-        <!--</androidx.core.widget.NestedScrollView>-->
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </LinearLayout>
 </layout>
-        <!--<?xml version="1.0" encoding="utf-8"?>-->
-
-        <!--&lt;!&ndash; The <layout> outer layout is required for data binding. &ndash;&gt;-->
-        <!--&lt;!&ndash; To get Splash image to work correctly and not show a white-->
-        <!--background while the first fragment loads-->
-        <!--https://plus.google.com/+AndroidDevelopers/posts/Z1Wwainpjhd &ndash;&gt;-->
-        <!--<layout xmlns:android="http://schemas.android.com/apk/res/android"-->
-        <!--xmlns:app="http://schemas.android.com/apk/res-auto">-->
-
-        <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:orientation="vertical">-->
-
-        <!--<fragment-->
-        <!--android:id="@+id/navHostFragment"-->
-        <!--android:name="androidx.navigation.fragment.NavHostFragment"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--app:defaultNavHost="true"-->
-        <!--app:navGraph="@navigation/navigation"/>-->
-
-        <!--</LinearLayout>-->
-
-        <!--</layout>-->
