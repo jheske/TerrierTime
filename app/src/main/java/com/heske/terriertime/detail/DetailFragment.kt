@@ -1,14 +1,22 @@
 package com.heske.terriertime.detail
 
+import android.content.Context
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProviders
-import com.heske.terriertime.R
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI.setupWithNavController
+import com.heske.terriertime.database.Terrier
 import com.heske.terriertime.databinding.FragmentDetailBinding
-import com.heske.terriertime.databinding.FragmentTerriersBinding
+import com.heske.terriertime.utils.toBreedFileName
+import kotlinx.android.synthetic.main.fragment_detail.*
+import java.io.IOException
+import java.io.InputStream
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -33,17 +41,15 @@ import com.heske.terriertime.databinding.FragmentTerriersBinding
  */
 
 class DetailFragment : Fragment() {
+    var terrierName: String = "Airedale Terrier"
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-//        val binding
-//                = com.heske.terriertime.databinding.FragmentDetailBinding.inflate(inflater)
-
         val binding = FragmentDetailBinding.inflate(inflater)
-
         val terrier = DetailFragmentArgs.fromBundle(arguments!!).terrier
+        terrierName = terrier.name
 
         val viewModelFactory = DetailViewModelFactory(terrier)
         val viewModel =
@@ -55,4 +61,33 @@ class DetailFragment : Fragment() {
         binding.setLifecycleOwner(this)
         return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setupWithNavController(toolbar, findNavController())
+        loadBackdropImage()
+    }
+
+    /* Retrieve image associated with [breedName] from assets and display it
+    * int the toolbar's backdrop.
+    */
+    fun loadBackdropImage() {
+        var inputStream: InputStream? = null
+
+        try {
+            val context = requireNotNull(this.context)
+
+            inputStream = context.assets.open(terrierName.toBreedFileName())
+            val bitmap = BitmapFactory.decodeStream(inputStream)
+            bitmap?.let {
+                toolbar_image.setImageBitmap(bitmap)
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        } finally {
+            inputStream?.close()
+        }
+    }
+
 }
