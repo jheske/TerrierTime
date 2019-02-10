@@ -3,12 +3,7 @@ package com.heske.terriertime
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.heske.terriertime.databinding.ActivityMainBinding
-import kotlinx.android.synthetic.main.activity_main.*
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  *

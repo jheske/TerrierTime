@@ -1,17 +1,15 @@
 package com.heske.terriertime.detail
 
-import android.content.Context
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
-import com.heske.terriertime.database.Terrier
 import com.heske.terriertime.databinding.FragmentDetailBinding
 import com.heske.terriertime.utils.toBreedFileName
 import kotlinx.android.synthetic.main.fragment_detail.*
@@ -56,6 +54,19 @@ class DetailFragment : Fragment() {
             ViewModelProviders.of(
                 this, viewModelFactory
             ).get(DetailViewModel::class.java)
+
+        viewModel.navigateToFlickrPix.observe(this, Observer {
+            if (it != null) {
+                this.findNavController()
+                    .navigate(
+                        DetailFragmentDirections.actionDetailToFlickr(it)
+                    )
+                //After the navigation has taken place, set nav event to null.
+                //!!!!Otherwise the app will crash when Back button is pressed
+                // from destination Fragment!!!!
+                viewModel.displayFlickrPixComplete()
+            }
+        })
 
         binding.viewModel = viewModel
         binding.setLifecycleOwner(this)

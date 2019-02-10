@@ -30,12 +30,12 @@ import com.heske.terriertime.terriers.TerriersViewModel
  *
  * Provides the SleepDatabaseDao and context to the ViewModel.
  */
-class FlickrViewModelFactory() : ViewModelProvider.Factory {
+class FlickrViewModelFactory(val breedName: String) : ViewModelProvider.Factory {
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(TerriersViewModel::class.java)) {
-            return FlickrViewModel() as T
+        if (modelClass.isAssignableFrom(FlickrViewModel::class.java)) {
+            return FlickrViewModel(breedName) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

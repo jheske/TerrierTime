@@ -40,11 +40,6 @@ class SplashFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-//        val view = inflater.inflate(
-//            R.layout.fragment_splash,
-//            container, false
-//        )
-
         val binding = FragmentSplashBinding.inflate(inflater)
 
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment

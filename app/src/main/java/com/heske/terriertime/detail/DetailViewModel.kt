@@ -2,6 +2,7 @@ package com.heske.terriertime.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.heske.terriertime.database.Terrier
 
@@ -36,8 +37,29 @@ class DetailViewModel(terrierDetails: Terrier) : ViewModel() {
     val terrierBreedName: LiveData<String>
         get() = _terrierBreedName
 
+    val morePixString = Transformations.map(terrierBreedName) {
+        "More " + it +"s"
+    }
+
+    private val _navigateToFlickrPix = MutableLiveData<String>()
+    val navigateToFlickrPix: LiveData<String>
+        get() = _navigateToFlickrPix
+
     init {
         _terrier.value = terrierDetails
         _terrierBreedName.value = terrierDetails.name
+    }
+
+    /**
+     * When the more button is clicked,
+     * set the [_navigateToFlickrPix] [MutableLiveData]
+     * @param terrierBreedName The breed of the terrier [String].
+     */
+    fun displayFlickrPix(breedName: String) {
+        _navigateToFlickrPix.value = breedName
+    }
+
+    fun displayFlickrPixComplete() {
+        _navigateToFlickrPix.value = null
     }
 }

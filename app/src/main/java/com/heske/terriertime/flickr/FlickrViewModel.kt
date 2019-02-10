@@ -26,7 +26,7 @@ import kotlinx.coroutines.*
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-class FlickrViewModel(): ViewModel() {
+class FlickrViewModel(breedName: String): ViewModel() {
 
     /** Coroutine vals for running db operations off UI thread. */
 
@@ -50,7 +50,8 @@ class FlickrViewModel(): ViewModel() {
 
     init {
         uiScope.launch {
-            getFlickrImages()
+            // List of pix on Flickr can change at any time.
+            getFlickrImages(breedName)
         }
     }
 
@@ -58,11 +59,11 @@ class FlickrViewModel(): ViewModel() {
      * Sets the value of the response LiveData to the Mars API status or the successful number of
      * Mars properties retrieved.
      */
-    private fun getFlickrImages() {
+    private fun getFlickrImages(breedName: String) {
         uiScope.launch {
             // Get the Deferred object for our Retrofit request
             val getPropertiesDeferred
-                    = FlickrApi.retrofitService.getFlickImageList("Airedale")
+                    = FlickrApi.retrofitService.getFlickImageList(breedName)
             try {
                 // Await the completion of our Retrofit request
                 val listResult = getPropertiesDeferred.await()

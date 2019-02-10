@@ -118,7 +118,6 @@ fun bindTerrierImage(imgView: ImageView, terrierBreedName: String?) {
     }
 }
 
-
 /*
  * Bind a fullsize image (its jpg is in the assets folder).
  * fullsizeImageUrl -> is an attribute defined in

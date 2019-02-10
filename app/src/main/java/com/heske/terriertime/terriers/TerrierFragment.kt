@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.heske.terriertime.database.Terrier
 import com.heske.terriertime.database.TerriersDatabase
 import com.heske.terriertime.databinding.FragmentTerriersBinding
 
@@ -40,9 +39,6 @@ class TerrierFragment : Fragment() {
     private val TAG = TerrierFragment::class.java.simpleName
     private var lastPosition = 0
     private var sharedPreferences = "SharedPrefs"
-    //lateinit var context: Context
-    //    lateinit var mBreedListAdapter: TerriersRvAdapter
-    private var breedMap = HashMap<String, Terrier>()
     lateinit var soundPool: SoundPool
     var growlSound: Int? = null
     var barkSound: Int? = null

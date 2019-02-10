@@ -48,14 +48,6 @@ class TerriersViewModel(
     val navigateToDetailScreen: LiveData<Terrier>
         get() = _navigateToDetailScreen
 
-//    private val _navigateToFullsizeImage = MutableLiveData<Terrier>()
-//    val navigateToFullsizeImage: LiveData<Terrier>
-//        get() = _navigateToFullsizeImage
-//
-//    private val _navigateToFullsizeImage = MutableLiveData<Terrier>()
-//    val navigateToFullsizeImage: LiveData<Terrier>
-//        get() = _navigateToFullsizeImage
-
     /**
      * terrier_recycler listOfTerriers attribute has a data binding to
      * this LiveData, so it gets reset whenever

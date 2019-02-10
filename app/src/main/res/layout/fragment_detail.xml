@@ -50,27 +50,19 @@
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
-            <!--<ImageView-->
-            <!--android:id="@+id/image_terrier"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--app:layout_constraintLeft_toLeftOf="parent"-->
-            <!--app:layout_constraintRight_toRightOf="parent"-->
-            <!--app:layout_constraintTop_toTopOf="parent"-->
-            <!--android:scaleType="centerCrop"-->
-            <!--app:detailImageUrl="@{viewModel.terrier.name}"-->
-            <!--tools:src="@drawable/terrier_placeholder"/>-->
+
             <TextView
                     android:id="@+id/tv_more_pix"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/spacing_medium"
-                    android:text="@string/txt_more_pix"
+                    android:text="@{viewModel.morePixString}"
                     android:textSize="@dimen/detail_txt_size"
                     android:textStyle="bold"
                     android:visibility="visible"
+                    tools:text="@string/txt_btn_more"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/image_terrier"/>
+                    app:layout_constraintTop_toTopOf="parent"/>
 
             <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_flickr_pix"
@@ -79,6 +71,7 @@
                     android:text="@string/txt_flickr_pix"
                     android:layout_marginStart="@dimen/spacing_medium"
                     android:visibility="visible"
+                    android:onClick="@{() -> viewModel.displayFlickrPix(viewModel.terrierBreedName)}"
                     app:layout_constraintTop_toTopOf="@id/tv_more_pix"
                     app:layout_constraintBottom_toBottomOf="@id/tv_more_pix"
                     app:layout_constraintLeft_toRightOf="@id/tv_more_pix"/>
