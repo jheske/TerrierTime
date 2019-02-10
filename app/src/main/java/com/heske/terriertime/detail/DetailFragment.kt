@@ -39,7 +39,7 @@ import java.io.InputStream
  */
 
 class DetailFragment : Fragment() {
-    var terrierName: String = "Airedale Terrier"
+    var terrierBreedName: String = "Airedale Terrier"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +47,7 @@ class DetailFragment : Fragment() {
     ): View? {
         val binding = FragmentDetailBinding.inflate(inflater)
         val terrier = DetailFragmentArgs.fromBundle(arguments!!).terrier
-        terrierName = terrier.name
+        terrierBreedName = terrier.name
 
         val viewModelFactory = DetailViewModelFactory(terrier)
         val viewModel =
@@ -77,19 +77,20 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupWithNavController(toolbar, findNavController())
+        toolbar.title = terrierBreedName
         loadBackdropImage()
     }
 
     /* Retrieve image associated with [breedName] from assets and display it
-    * int the toolbar's backdrop.
-    */
+     * int the toolbar's backdrop.
+     */
     fun loadBackdropImage() {
         var inputStream: InputStream? = null
 
         try {
             val context = requireNotNull(this.context)
 
-            inputStream = context.assets.open(terrierName.toBreedFileName())
+            inputStream = context.assets.open(terrierBreedName.toBreedFileName())
             val bitmap = BitmapFactory.decodeStream(inputStream)
             bitmap?.let {
                 toolbar_image.setImageBitmap(bitmap)
