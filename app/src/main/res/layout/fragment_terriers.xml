@@ -30,7 +30,7 @@
                 app:terrierRecyclerListData="@{terriersViewModel.listOfTerriers}"
                 app:spanCount="2"
                 tools:itemCount="16"
-                tools:listitem="@layout/terrier_listitem" />
+                tools:listitem="@layout/listitem_terrier" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

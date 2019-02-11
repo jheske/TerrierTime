@@ -98,10 +98,10 @@ fun bindTerriersRecyclerView(recyclerView: RecyclerView, data: List<Terrier>?) {
 /**
  * Bind the image in one row of terriers_recycler (fragment_terriers.xml).
  * terrierImageUrl -> is an attribute defined in the img_photo ImageView
- * found in terrier_listitem.xml.
+ * found in listitem_terrier.xml.
  *
  * Use the Glide library to load an image from assets folder into
- * an [ImageView] See terrier_listitem app:terrierImageUrl="@{terrier.name}"
+ * an [ImageView] See listitem_terrier app:terrierImageUrl="@{terrier.name}"
  */
 @BindingAdapter("terrierImageUrl")
 fun bindTerrierImage(imgView: ImageView, terrierBreedName: String?) {

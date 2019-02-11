@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.heske.terriertime.database.Terrier
-import com.heske.terriertime.databinding.TerrierListitemBinding
-import kotlinx.android.synthetic.main.terrier_listitem.view.*
+import com.heske.terriertime.databinding.ListitemTerrierBinding
+import kotlinx.android.synthetic.main.listitem_terrier.view.*
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -35,22 +35,25 @@ import kotlinx.android.synthetic.main.terrier_listitem.view.*
  * This class implements a [RecyclerView] [ListAdapter] which uses Data Binding
  * to present [List] of [Terrier] data, including computing diffs between lists.
  */
-class TerriersRvAdapter(val onImageClickListener: OnImageClickListener,
-                        val onGiveUpClickListener: OnGiveUpClickListener,
-                        val onGuessClickListener: OnGuessClickListener,
-                        val onMoreClickListener: OnMoreClickListener) :
+class TerriersRvAdapter(
+    val onImageClickListener: OnImageClickListener,
+    val onGiveUpClickListener: OnGiveUpClickListener,
+    val onGuessClickListener: OnGuessClickListener,
+    val onMoreClickListener: OnMoreClickListener
+) :
     ListAdapter<Terrier, TerriersRvAdapter.TerrierViewHolder>(DiffCallback) {
+
     /**
      * The TerrierViewHolder constructor takes the binding variable from the associated
      * list item, which nicely gives it access to the full object information,
      * in this case it's a [Terrier] object.
-     * See terrier_listitem.xml for all the views associated with each
+     * See listitem_terrier.xml for all the views associated with each
      * row in terriers_recycler.
      *
-     * binding.terrier - defined in terrier_listitem <data> block
+     * binding.terrier - defined in listitem_terrier <data> block
      * terrierListItem - the object to be displayed in this row
      */
-    class TerrierViewHolder(private var binding: TerrierListitemBinding) :
+    class TerrierViewHolder(private var binding: ListitemTerrierBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(terrierListItem: Terrier) {
             binding.terrier = terrierListItem
@@ -81,12 +84,10 @@ class TerriersRvAdapter(val onImageClickListener: OnImageClickListener,
         parent: ViewGroup,
         viewType: Int
     ): TerrierViewHolder {
+        val guess_text = parent.et_guess_txt
         return TerrierViewHolder(
-            TerrierListitemBinding.inflate(
-                LayoutInflater.from(
-                    parent.context
-                )
-            )
+            ListitemTerrierBinding
+                .inflate(LayoutInflater.from(parent.context))
         )
     }
 
@@ -105,10 +106,11 @@ class TerriersRvAdapter(val onImageClickListener: OnImageClickListener,
             btn_give_up.setOnClickListener {
                 onGiveUpClickListener.onGiveUpButtonClick(terrierListItem)
             }
-            btn_more.setOnClickListener {
-                onGuessClickListener.onGuessButtonClick(terrierListItem)
-            }
             btn_guess.setOnClickListener {
+                val guess = holder.itemView.et_guess_txt.text.toString()
+                onGuessClickListener.onGuessButtonClick(terrierListItem,guess)
+            }
+            btn_more.setOnClickListener {
                 onMoreClickListener.onMoreButtonClick(terrierListItem)
             }
         }
@@ -125,13 +127,17 @@ class TerriersRvAdapter(val onImageClickListener: OnImageClickListener,
     class OnImageClickListener(val clickListener: (terrierListItem: Terrier) -> Unit) {
         fun onImageClick(terrierListItem: Terrier) = clickListener(terrierListItem)
     }
+
     class OnGiveUpClickListener(val clickListener: (terrierListItem: Terrier) -> Unit) {
         fun onGiveUpButtonClick(terrierListItem: Terrier) = clickListener(terrierListItem)
     }
+
     class OnMoreClickListener(val clickListener: (terrierListItem: Terrier) -> Unit) {
         fun onMoreButtonClick(terrierListItem: Terrier) = clickListener(terrierListItem)
     }
-    class OnGuessClickListener(val clickListener: (terrierListItem: Terrier) -> Unit) {
-        fun onGuessButtonClick(terrierListItem: Terrier) = clickListener(terrierListItem)
+
+    class OnGuessClickListener(val clickListener: (terrierListItem: Terrier,guess: String) -> Unit) {
+        fun onGuessButtonClick(terrierListItem: Terrier,guess: String)
+                = clickListener(terrierListItem,guess)
     }
 }

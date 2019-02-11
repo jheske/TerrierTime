@@ -40,6 +40,14 @@ class TerriersViewModel(
     application: Application
 ) : AndroidViewModel(application) {
 
+    private val _correctGuess = MutableLiveData<Terrier>()
+    val correctGuess: LiveData<Terrier>
+        get() = _correctGuess
+
+    private val _incorrectGuess = MutableLiveData<Terrier>()
+    val incorrectGuess: LiveData<Terrier>
+        get() = _incorrectGuess
+
     private val _navigateToFullsizeImage = MutableLiveData<Terrier>()
     val navigateToFullsizeImage: LiveData<Terrier>
         get() = _navigateToFullsizeImage
@@ -87,5 +95,22 @@ class TerriersViewModel(
      */
     fun displayDetailScreenComplete() {
         _navigateToDetailScreen.value = null
+    }
+
+    /**
+     * If user's guess is correct, then send the [Terrier] back for display.
+     * Otherwise send null so [Observer] can provide user feedback.
+     */
+    fun processGuess(terrier: Terrier,guessText: String) {
+        // Everything lower case for easy comparison
+        val breedName = terrier.name.toLowerCase()
+        val guess = guessText.toLowerCase()
+        // Append "terrier" to breedName in case user forgot to type it
+        val guessPlusTerrier = "${guess} terrier"
+        if ((guess.equals(breedName)) || (guessPlusTerrier.equals(breedName))) {
+            _correctGuess.value = terrier
+        } else {
+            _correctGuess.value = null
+        }
     }
 }
