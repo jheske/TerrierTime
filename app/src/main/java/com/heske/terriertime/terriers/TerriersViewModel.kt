@@ -44,8 +44,8 @@ class TerriersViewModel(
     val correctGuess: LiveData<Terrier>
         get() = _correctGuess
 
-    private val _incorrectGuess = MutableLiveData<Terrier>()
-    val incorrectGuess: LiveData<Terrier>
+    private val _incorrectGuess = MutableLiveData<String>()
+    val incorrectGuess: LiveData<String>
         get() = _incorrectGuess
 
     private val _navigateToFullsizeImage = MutableLiveData<Terrier>()
@@ -110,7 +110,7 @@ class TerriersViewModel(
         if ((guess.equals(breedName)) || (guessPlusTerrier.equals(breedName))) {
             _correctGuess.value = terrier
         } else {
-            _correctGuess.value = null
+            _incorrectGuess.value = guessText
         }
     }
 }

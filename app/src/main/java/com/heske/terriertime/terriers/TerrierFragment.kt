@@ -116,7 +116,6 @@ class TerrierFragment : Fragment() {
             }
         })
 
-        // TODO add observer to play sounds
         viewModel.correctGuess.observe(this, Observer {
             if (it != null) {
                 playSound(barkSound)
@@ -127,16 +126,13 @@ class TerrierFragment : Fragment() {
                 //!!!!Otherwise the app will crash when Back button is pressed
                 // from destination Fragment!!!!
                 viewModel.displayDetailScreenComplete()
-            } else {
-                playSound(growlSound)
-                showHintDialog(et_guess_txt.text.toString())
             }
         })
 
         viewModel.incorrectGuess.observe(this, Observer {
             if (it != null) {
                 playSound(growlSound)
-                showHintDialog(it.name)
+                showHintDialog(it)
             }
         })
 
