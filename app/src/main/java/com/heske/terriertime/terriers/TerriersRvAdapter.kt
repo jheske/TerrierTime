@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.heske.terriertime.database.Terrier
-import com.heske.terriertime.databinding.ListitemTerrierBinding
+import com.heske.terriertime.databinding.ListitemTerriersBinding
 import kotlinx.android.synthetic.main.listitem_terrier.view.*
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
@@ -53,7 +53,7 @@ class TerriersRvAdapter(
      * binding.terrier - defined in listitem_terrier <data> block
      * terrierListItem - the object to be displayed in this row
      */
-    class TerrierViewHolder(private var binding: ListitemTerrierBinding) :
+    class TerrierViewHolder(private var binding: ListitemTerriersBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(terrierListItem: Terrier) {
             binding.terrier = terrierListItem
@@ -86,7 +86,7 @@ class TerriersRvAdapter(
     ): TerrierViewHolder {
         val guess_text = parent.et_guess_txt
         return TerrierViewHolder(
-            ListitemTerrierBinding
+            com.heske.terriertime.databinding.ListitemTerriersBinding
                 .inflate(LayoutInflater.from(parent.context))
         )
     }

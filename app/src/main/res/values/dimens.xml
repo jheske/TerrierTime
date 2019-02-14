@@ -13,7 +13,9 @@
     <dimen name="content_separator">8dp</dimen>
     <dimen name="large_content_separator">16dp</dimen>
 
-    <dimen name="main_image_size">100dp</dimen>
+    <dimen name="main_image_width">150dp</dimen>
+    <dimen name="main_image_height">100dp</dimen>
+
     <dimen name="flickr_image_size">300dp</dimen>
     <dimen name="backdrop_height">400dp</dimen>
 

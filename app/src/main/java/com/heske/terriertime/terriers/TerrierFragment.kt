@@ -18,6 +18,7 @@ import com.heske.terriertime.database.Terrier
 import com.heske.terriertime.database.TerriersDatabase
 import com.heske.terriertime.databinding.FragmentTerriersBinding
 import com.squareup.phrase.Phrase
+import kotlinx.android.synthetic.main.fragment_terriers.*
 import kotlinx.android.synthetic.main.listitem_terrier.*
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
@@ -138,6 +139,12 @@ class TerrierFragment : Fragment() {
 
         binding.setLifecycleOwner(this)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        terriers_recycler.addItemDecoration(TerriersRvDecoration(
+            resources.getDimension(R.dimen.spacing_large).toInt()))
     }
 
     /**

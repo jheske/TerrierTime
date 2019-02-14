@@ -20,7 +20,7 @@
                 android:id="@+id/terriers_recycler"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:padding="6dp"
+                android:layout_marginTop="@dimen/spacing_large"
                 android:clipToPadding="false"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -30,7 +30,7 @@
                 app:terrierRecyclerListData="@{terriersViewModel.listOfTerriers}"
                 app:spanCount="2"
                 tools:itemCount="16"
-                tools:listitem="@layout/listitem_terrier" />
+                tools:listitem="@layout/listitem_terriers" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
