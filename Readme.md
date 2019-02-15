@@ -28,7 +28,7 @@ Views and Widgets:
 * RecyclerView
 * CardView
 
-Advanced Jetpack features:
+Jetpack:
 
 * Navigation
 * Databinding
