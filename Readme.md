@@ -33,6 +33,7 @@ Jetpack:
 * Navigation
 * Databinding
 * ViewModels
+* Observers
 * LiveData
 * Room Database
 * Android KTX
