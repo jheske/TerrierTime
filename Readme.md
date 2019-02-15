@@ -4,21 +4,53 @@
                
 ## Synopsis
 
-![TerrierTime icon](https://github.com/jheske/TerrierTime/blob/master/app/src/main/res/mipmap-xhdpi/ic_launcher.png?raw=true)
+![TerrierTime icon](https://github.com/jheske/TerrierTime/blob/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png?raw=true)
 
 This repository contains **TerrierTime**, a sample Android/Kotlin app that allows users to guess terrier breeds based on an image and brief fact.
 
+Built on the latest Android features in Kotlin including, but not limited to:
+
+* Jetpack Components
+* Material design
+* ViewModels
+* LiveData
+* Room Database
+* Data binding
+* Navigation
+
 ## Features
 
-This project is designed to be a sample, non-production, Android/Kotlin app.   Features may or may not be completed and include, but are not limited to:
+This project is designed to be a sample, non-production, Android/Kotlin app. Features may or may not be completed and include, but are not limited to:
 
 Material Design conforms to Google's latest UI/UX standards. 
 
-Features Google's latest Material AppCompat and Design library widgets, including CoordinatorLayout, AppBarLayout, CollapsingToolbarLayout, Toolbar, NestedScrollView, RecyclerView, and CardView.
+Features the latest Jetpack UI, Architecture, and Foundation components:
 
-Uses Retrofit 2.0 and Gson to retrieve and parse breed summaries from wikipedia.org and images from flickr.com.
+Views and Widgets:
 
-Uses a Room database for persistence.
+* CoordinatorLayout
+* AppBarLayout
+* CollapsingToolbarLayout
+* Toolbar
+* NestedScrollView
+* RecyclerView
+* CardView
+
+Advanced Jetpack features:
+
+* Navigation
+* Databinding
+* ViewModels
+* LiveData
+* Room Database
+* Android KTX
+* Fragments
+* AppCompat
+
+
+Retrofit 2.0 and Gson to retrieve and parse breed summaries from wikipedia.org and images from flickr.com.
+
+Room database for persistence.
 
 A Splash activity loads a preset list of terriers and facts into the database.  If summaries and image links are not in the database (and the network is available), it attempts to dowload and store summaries from Wiki and a list of image file paths from Flickr.
 
