@@ -6,17 +6,9 @@
 
 ![TerrierTime icon](https://github.com/jheske/TerrierTime/blob/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png?raw=true)
 
-This repository contains **TerrierTime**, a sample Android/Kotlin app that allows users to guess terrier breeds based on an image and brief fact.
+This repository contains **TerrierTime**, a sample Android/Kotlin app that allows users to guess terrier breeds based on an image and fun fact.
 
-Built on the latest Android features in Kotlin including, but not limited to:
-
-* Jetpack Components
-* Material design
-* ViewModels
-* LiveData
-* Room Database
-* Data binding
-* Navigation
+Built on the latest Android features in Kotlin, listed below.
 
 ## Features
 
