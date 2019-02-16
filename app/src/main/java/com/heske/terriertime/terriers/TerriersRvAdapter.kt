@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.heske.terriertime.database.Terrier
 import com.heske.terriertime.databinding.ListitemTerriersBinding
-import kotlinx.android.synthetic.main.listitem_terrier.view.*
+import kotlinx.android.synthetic.main.listitem_terriers.view.*
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 

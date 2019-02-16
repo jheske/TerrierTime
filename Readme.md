@@ -23,6 +23,7 @@ Views and Widgets:
 * CoordinatorLayout
 * AppBarLayout
 * CollapsingToolbarLayout
+* ConstraintLayout
 * Toolbar
 * NestedScrollView
 * RecyclerView

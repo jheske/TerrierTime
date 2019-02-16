@@ -1,12 +1,7 @@
 package com.heske.terriertime
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import com.heske.terriertime.databinding.ActivityMainBinding
-
 /* Copyright (c) 2019 Jill Heske All rights reserved.
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -14,10 +9,10 @@ import com.heske.terriertime.databinding.ActivityMainBinding
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- *
+ * 
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- *
+ * 
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -26,16 +21,5 @@ import com.heske.terriertime.databinding.ActivityMainBinding
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        //This app has an AppTheme.Launcher theme, so if there's a delay
-        //while the app loads, the user will see something nicer than
-        //a plain white screen. Now change back to the original AppTheme.
-        setTheme(R.style.AppTheme)
-        super.onCreate(savedInstanceState)
-        @Suppress("UNUSED_VARIABLE")
-        val binding = DataBindingUtil
-            .setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-    }
+class TerriersActivity {
 }
