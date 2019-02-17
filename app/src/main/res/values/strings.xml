@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Terrier Time</string>
+    <string name="app_name">Terrier Time (Beta)</string>
     <string name="txt_no_null_activity">Activity must not be null</string>
     <string name="txt_breed">Breed</string>
     <string name="txt_guess">Can you guess what kind of terrier this is?</string>
