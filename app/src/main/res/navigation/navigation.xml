@@ -19,7 +19,7 @@
 
     <fragment
             android:id="@+id/mainFragment"
-            android:name="com.heske.terriertime.terriers.TerrierFragment"
+            android:name="com.heske.terriertime.terriers.MainFragment"
             android:label="fragment_main"
             tools:layout="@layout/fragment_main">
 

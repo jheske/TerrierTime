@@ -17,7 +17,6 @@ import androidx.navigation.fragment.findNavController
 import com.heske.terriertime.R
 import com.heske.terriertime.database.TerriersDatabase
 import com.heske.terriertime.databinding.FragmentMainBinding
-import com.squareup.phrase.Phrase
 import kotlinx.android.synthetic.main.fragment_main.*
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
@@ -43,8 +42,8 @@ import kotlinx.android.synthetic.main.fragment_main.*
  *
  */
 
-class TerrierFragment : Fragment() {
-    private val TAG = TerrierFragment::class.java.simpleName
+class MainFragment : Fragment() {
+    private val TAG = MainFragment::class.java.simpleName
     lateinit var soundPool: SoundPool
     var growlSound: Int? = null
     var barkSound: Int? = null
@@ -97,7 +96,7 @@ class TerrierFragment : Fragment() {
             if (it != null) {
                 this.findNavController()
                     .navigate(
-                        TerrierFragmentDirections.actionMainToFullsize(it.name)
+                        MainFragmentDirections.actionMainToFullsize(it.name)
                     )
                 //After the navigation has taken place, set nav event to null.
                 //!!!!Otherwise the app will crash when Back button is pressed
@@ -110,7 +109,7 @@ class TerrierFragment : Fragment() {
             if (it != null) {
                 this.findNavController()
                     .navigate(
-                        TerrierFragmentDirections.actionMainFragmentToDetail(it)
+                        MainFragmentDirections.actionMainFragmentToDetail(it)
                     )
                 //After the navigation has taken place, set nav event to null.
                 //!!!!Otherwise the app will crash when Back button is pressed
@@ -122,9 +121,10 @@ class TerrierFragment : Fragment() {
         viewModel.correctGuess.observe(this, Observer {
             if (it != null) {
                 playSound(barkSound)
-                this.findNavController().navigate(
-                    TerrierFragmentDirections.actionMainFragmentToDetail(it)
-                )
+                this.findNavController()
+                    .navigate(
+                    MainFragmentDirections.actionMainFragmentToDetail(it)
+                    )
                 //After the navigation has taken place, set nav event to null.
                 //!!!!Otherwise the app will crash when Back button is pressed
                 // from destination Fragment!!!!
@@ -136,6 +136,9 @@ class TerrierFragment : Fragment() {
             if (it != null) {
                 playSound(growlSound)
                 showHintDialog(it)
+                // Now set _incorrectGuess to null,
+                // so we don't get repeat calls
+                viewModel.guessComplete()
             }
         })
 
@@ -198,10 +201,7 @@ class TerrierFragment : Fragment() {
             wrongAnswerMsg = getString(R.string.txt_no_answer)
         } else {
             wrongAnswerMsg = getString(R.string.txt_wrong_answer)
-            wrongAnswerTitle = Phrase.from(activity, R.string.txt_wrong_answer_title)
-                .put("breed", guess)
-                .format()
-                .toString()
+            wrongAnswerTitle = "$guess ${R.string.txt_wrong_answer_title}"
         }
         val customLayout = layoutInflater.inflate(R.layout.alert_dialog, null)
         val tvTitle = customLayout.findViewById(R.id.tv_alert_title) as TextView

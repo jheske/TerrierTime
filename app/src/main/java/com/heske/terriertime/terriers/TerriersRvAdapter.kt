@@ -1,7 +1,6 @@
 package com.heske.terriertime.terriers
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -76,7 +75,7 @@ class TerriersRvAdapter(
     /**
      * Replaces the contents of a view (invoked by the layout manager)
      * Set up listeners for all the buttons at index [position] in the [holder].
-     * Button clicks will call back to [TerrierFragment] for processing.
+     * Button clicks will call back to [MainFragment] for processing.
      */
 
     override fun onBindViewHolder(holder: TerrierViewHolder, position: Int) {
@@ -109,19 +108,23 @@ class TerriersRvAdapter(
      * three Buttons. Those have their own listeners.
      */
     class OnImageClickListener(val clickListener: (terrierListItem: Terrier) -> Unit) {
-        fun onImageClick(terrierListItem: Terrier) = clickListener(terrierListItem)
+        fun onImageClick(terrierListItem: Terrier)
+                = clickListener(terrierListItem)
     }
 
     class OnGiveUpClickListener(val clickListener: (terrierListItem: Terrier) -> Unit) {
-        fun onGiveUpButtonClick(terrierListItem: Terrier) = clickListener(terrierListItem)
+        fun onGiveUpButtonClick(terrierListItem: Terrier)
+                = clickListener(terrierListItem)
     }
 
     class OnMoreClickListener(val clickListener: (terrierListItem: Terrier) -> Unit) {
-        fun onMoreButtonClick(terrierListItem: Terrier) = clickListener(terrierListItem)
+        fun onMoreButtonClick(terrierListItem: Terrier)
+                = clickListener(terrierListItem)
     }
 
     class OnGuessClickListener(val clickListener: (terrierListItem: Terrier, guess: String) -> Unit) {
-        fun onGuessButtonClick(terrierListItem: Terrier, guess: String) = clickListener(terrierListItem, guess)
+        fun onGuessButtonClick(terrierListItem: Terrier, guess: String)
+                = clickListener(terrierListItem, guess)
     }
 }
 

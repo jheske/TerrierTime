@@ -1,29 +1,48 @@
+/*
+ * Copyright 2018 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: "androidx.navigation.safeargs"
+apply plugin: 'androidx.navigation.safeargs'
 
 android {
-    compileSdkVersion 28
-
+    compileSdkVersion rootProject.compileSdkVersion
     dataBinding {
         enabled = true
     }
-
     defaultConfig {
-        applicationId "com.heske.terriertime"
-        minSdkVersion 22
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        applicationId "com.example.terriertime"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        versionCode 1
+        versionName "0.1.6"
+        vectorDrawables.useSupportLibrary true
     }
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
     androidExtensions {
         experimental = true
@@ -31,57 +50,138 @@ android {
 }
 
 dependencies {
-    // Kotlin
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    kapt "androidx.room:room-compiler:$rootProject.roomVersion"
+    kapt "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
 
-    // Core with Ktx
-    implementation "androidx.core:core-ktx:$core_version"
+    //Kotlin
+    implementation "androidx.core:core-ktx:$rootProject.ktxVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$rootProject.kotlinVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
 
-    // Constraint Layout
-    implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
-    implementation "androidx.coordinatorlayout:coordinatorlayout:1.0.0"
+    //Navigation
+    implementation "android.arch.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
+    implementation "android.arch.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
 
-    // Widgets and Google Material Views
+    //What's this?
+    implementation "android.arch.work:work-runtime-ktx:$rootProject.workVersion"
+
+    //AppCompat and UI
+    implementation "androidx.appcompat:appcompat:$rootProject.supportLibraryVersion"
     implementation "com.google.android.material:material:$rootProject.materialVersion"
-
-    // ViewModel and LiveData
-    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_extensions_version"
-
-    // Room and Lifecycle dependencies
-    implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-    implementation "androidx.legacy:legacy-support-v4:$legacy_support_version"
-
-    // Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_version"
-
-    // Navigation
-    implementation "android.arch.navigation:navigation-fragment-ktx:$navigation_version"
-    implementation "android.arch.navigation:navigation-ui-ktx:$navigation_version"
-
-    // RecyclerView
-    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
-    implementation "androidx.cardview:cardview:$recyclerview_version"
+    implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
+    implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerViewVersion"
 
     // Retrofit with Coroutines, Gson Converter, and Logging
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
-    implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.6.0'
-    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$retrofit_coroutines_version"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$retrofitCoroutinesVersion"
 
-    // implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
-    // Retrofit Coroutines Support
-    // Moshi
-    //implementation "com.squareup.moshi:moshi:$moshi_version"
-    //implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
+    //Lifecycle
+    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleVersion"
 
-    // Glide
-    implementation "com.github.bumptech.glide:glide:$glide_version"
+    //Room
+    implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
+    implementation "androidx.room:room-runtime:$rootProject.roomVersion"
+    implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
 
-    // Phrase
-    implementation 'com.squareup.phrase:phrase:1.1.0'
+    // Testing dependencies
+    androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$rootProject.espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$rootProject.espressoVersion"
+    androidTestImplementation "androidx.test.uiautomator:uiautomator:$rootProject.uiAutomatorVersion"
+    testImplementation "junit:junit:$rootProject.junitVersion"
 }
+
+//apply plugin: 'com.android.application'
+//apply plugin: 'kotlin-android'
+//apply plugin: 'kotlin-android-extensions'
+//apply plugin: 'kotlin-kapt'
+//apply plugin: "androidx.navigation.safeargs"
+//
+//android {
+//    compileSdkVersion 28
+//
+//    dataBinding {
+//        enabled = true
+//    }
+//
+//    defaultConfig {
+//        applicationId "com.heske.terriertime"
+//        minSdkVersion 22
+//        targetSdkVersion rootProject.targetSdkVersion
+//        versionCode 1
+//        versionName "1.0"
+//        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+//    }
+//    buildTypes {
+//        release {
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//        }
+//    }
+//    androidExtensions {
+//        experimental = true
+//    }
+//    compileOptions {
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
+//    }
+//}
+//
+//dependencies {
+//    //implementation fileTree(dir: 'libs', include: ['*.jar'])
+//    // Kotlin
+//    implementation "androidx.core:core-ktx:$rootProject.ktxVersion"
+//    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$rootProject.kotlinVersion"
+//    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutinesVersion"
+//    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
+//
+//    // Lifecycle (ViewModels/LiveData)
+//     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
+//
+//    // Navigation
+//    implementation "android.arch.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
+//    implementation "android.arch.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
+//    implementation "android.arch.work:work-runtime-ktx:$rootProject.workVersion"
+//
+//    // AppCompat and UI
+//    implementation "com.google.android.material:material:$rootProject.materialVersion"
+//    implementation "androidx.appcompat:appcompat:$rootProject.supportLibraryVersion"
+//    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+//    implementation "androidx.coordinatorlayout:coordinatorlayout:$coordinatorVersion"
+//    implementation "androidx.recyclerview:recyclerview:$recyclerViewVersion"
+//    implementation "androidx.cardview:cardview:$recyclerViewVersion"
+//
+//    //Glide
+//    kapt "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
+//    implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
+//
+//    // Room
+//    kapt "androidx.room:room-compiler:$rootProject.roomVersion"
+//    implementation "androidx.room:room-runtime:$rootProject.roomVersion"
+//    implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
+//
+//  //  implementation "androidx.room:room-runtime:$room_version"
+//  //  kapt "androidx.room:room-compiler:$room_version"
+//  //  implementation "androidx.legacy:legacy-support-v4:$legacy_support_version"
+//
+//    // Retrofit with Coroutines, Gson Converter, and Logging
+//    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+//    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+//    implementation 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+//    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$retrofitCoroutinesVersion"
+//
+//    // Phrase
+//    implementation 'com.squareup.phrase:phrase:1.1.0'
+//
+//    // Testing
+//    androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
+//    androidTestImplementation "androidx.test.espresso:espresso-contrib:$rootProject.espressoVersion"
+//    androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
+//    androidTestImplementation "androidx.test.espresso:espresso-intents:$rootProject.espressoVersion"
+//    androidTestImplementation "androidx.test.uiautomator:uiautomator:$rootProject.uiAutomatorVersion"
+//    testImplementation "junit:junit:$rootProject.junitVersion"
+//}

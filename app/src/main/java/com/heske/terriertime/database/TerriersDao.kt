@@ -60,6 +60,6 @@ interface TerriersDao {
     fun selectBreed(breedName: String): Terrier
 
     @Query("UPDATE breed SET summary = :summary WHERE name = :breedName")
-    fun updateSummary(breedName: String, summary: String?): Long
+    fun updateSummary(breedName: String, summary: String?): Int
 }
 

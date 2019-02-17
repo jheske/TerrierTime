@@ -95,6 +95,11 @@ class TerriersViewModel(
      */
     fun displayDetailScreenComplete() {
         _navigateToDetailScreen.value = null
+        _correctGuess.value = null
+    }
+
+    fun guessComplete() {
+        _incorrectGuess.value = null
     }
 
     /**
