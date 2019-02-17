@@ -1,7 +1,12 @@
 <resources>
+    <!-- This file contains styles for older versions (pre 21),
+   but most of them apply to all styles. See values-v21/styles.xml
+  for 21+ exceptions. -->
+
+    <!--Most of this is from Google Sunflower sample app -->
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="BaseAppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -10,14 +15,20 @@
         <item name="buttonStyle">@style/Widget.AppCompat.Button.Colored</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme" parent="BaseAppTheme"/>
 
-    <!--The launcher theme. It sets the main window background to the splash_image drawable-->
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light"/>
+
+    <!--This theme sets the main window background to the splash_image drawable-->
     <style name="AppTheme.Launcher">
         <item name="android:windowBackground">@drawable/launch_screen</item>
-        <!-- Optional, on Android 5+ you can modify the colorPrimaryDark color to match the windowBackground color for further branding-->
-        <!--<item name="colorPrimaryDark">@color/colorPrimary</item>-->
     </style>
 
     <style name="AppTheme.NoActionAndStatusBar" parent="Widget.AppCompat.Button">
@@ -25,3 +36,28 @@
         <item name="android:textColor">@color/colorAccent</item>
     </style>
 </resources>
+
+<!--<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">-->
+  <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+<!--<item name="colorPrimary">@color/colorPrimary</item>-->
+<!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+<!--<item name="colorAccent">@color/colorAccent</item>-->
+<!--<item name="android:textColor">@color/colorPrimaryText</item>-->
+<!--<item name="buttonStyle">@style/Widget.AppCompat.Button.Colored</item>-->
+        <!--</style>-->
+
+<!--<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />-->
+<!--<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
+
+        <!--&lt;!&ndash;The launcher theme. It sets the main window background to the splash_image drawable&ndash;&gt;-->
+<!--<style name="AppTheme.Launcher">-->
+<!--<item name="android:windowBackground">@drawable/launch_screen</item>-->
+<!--Optional, on Android 5+ you could modify the colorPrimaryDark color to match the windowBackground color for further branding-->
+<!--<item name="colorPrimaryDark">@color/colorPrimary</item>-->
+<!--</style>-->
+
+<!--<style name="AppTheme.NoActionAndStatusBar" parent="Widget.AppCompat.Button">-->
+<!--<item name="android:background">@color/colorPrimaryLight</item>-->
+<!--<item name="android:textColor">@color/colorAccent</item>-->
+<!--</style>-->
+

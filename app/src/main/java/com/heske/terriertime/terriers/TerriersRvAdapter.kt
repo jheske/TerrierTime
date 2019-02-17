@@ -60,7 +60,6 @@ class TerriersRvAdapter(
 
         fun bind(listItem: Terrier) {
             binding.apply {
-                //clickListener = listener
                 terrier = listItem
                 executePendingBindings()
             }

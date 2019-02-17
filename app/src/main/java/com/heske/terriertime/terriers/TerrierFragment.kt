@@ -16,9 +16,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.heske.terriertime.R
 import com.heske.terriertime.database.TerriersDatabase
-import com.heske.terriertime.databinding.FragmentTerriersBinding
+import com.heske.terriertime.databinding.FragmentMainBinding
 import com.squareup.phrase.Phrase
-import kotlinx.android.synthetic.main.fragment_terriers.*
+import kotlinx.android.synthetic.main.fragment_main.*
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -53,9 +53,9 @@ class TerrierFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // This binding provides access to terriers_recycler in fragment_terriers
+        // This binding provides access to terriers_recycler in fragment_main
         val binding
-                = FragmentTerriersBinding.inflate(inflater)
+                = FragmentMainBinding.inflate(inflater)
 
         val application = requireNotNull(this.activity).application
         val dataSource
@@ -97,7 +97,7 @@ class TerrierFragment : Fragment() {
             if (it != null) {
                 this.findNavController()
                     .navigate(
-                        TerrierFragmentDirections.actionTerriersToFullsize(it.name)
+                        TerrierFragmentDirections.actionMainToFullsize(it.name)
                     )
                 //After the navigation has taken place, set nav event to null.
                 //!!!!Otherwise the app will crash when Back button is pressed
@@ -110,7 +110,7 @@ class TerrierFragment : Fragment() {
             if (it != null) {
                 this.findNavController()
                     .navigate(
-                        TerrierFragmentDirections.actionTerriersFragmentToDetail(it)
+                        TerrierFragmentDirections.actionMainFragmentToDetail(it)
                     )
                 //After the navigation has taken place, set nav event to null.
                 //!!!!Otherwise the app will crash when Back button is pressed
@@ -123,7 +123,7 @@ class TerrierFragment : Fragment() {
             if (it != null) {
                 playSound(barkSound)
                 this.findNavController().navigate(
-                    TerrierFragmentDirections.actionTerriersFragmentToDetail(it)
+                    TerrierFragmentDirections.actionMainFragmentToDetail(it)
                 )
                 //After the navigation has taken place, set nav event to null.
                 //!!!!Otherwise the app will crash when Back button is pressed

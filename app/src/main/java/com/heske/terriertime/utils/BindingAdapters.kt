@@ -81,7 +81,7 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
  */
 
 /**
- * This is connected to the RecyclerView in fragment_terriers.
+ * This is connected to the RecyclerView in fragment_main.
  * The RecyclerView has a data binding to TerriersViewModel.
  * Whenever TerriersViewModel.listOfTerriers LiveData changes,
  * this gets called to refresh the recycler's data.
@@ -96,8 +96,7 @@ fun bindTerriersRecyclerView(recyclerView: RecyclerView, data: List<Terrier>?) {
 
 
 /**
- * Bind the image in one row of terriers_recycler (fragment_terriers.xml).
- * terrierImageUrl -> is an attribute defined in the img_photo ImageView
+ * Bind the image in one row of terriers_recycler (fragment_main.xml* terrierImageUrl -> is an attribute defined in the img_photo ImageView
  * found in listitem_terrier.xml.
  *
  * Use the Glide library to load an image from assets folder into
