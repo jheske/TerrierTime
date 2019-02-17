@@ -1,6 +1,7 @@
 package com.heske.terriertime.terriers
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -41,7 +42,7 @@ class TerriersRvAdapter(
     val onGuessClickListener: OnGuessClickListener,
     val onMoreClickListener: OnMoreClickListener
 ) :
-    ListAdapter<Terrier, TerriersRvAdapter.TerrierViewHolder>(DiffCallback) {
+    ListAdapter<Terrier, TerriersRvAdapter.TerrierViewHolder>(DiffCallback()) {
 
     /**
      * The TerrierViewHolder constructor takes the binding variable from the associated
@@ -53,41 +54,23 @@ class TerriersRvAdapter(
      * binding.terrier - defined in listitem_terrier <data> block
      * terrierListItem - the object to be displayed in this row
      */
-    class TerrierViewHolder(private var binding: ListitemTerriersBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(terrierListItem: Terrier) {
-            binding.terrier = terrierListItem
-            // This is important, because it forces the data binding to execute immediately,
-            // which allows the RecyclerView to make the correct view size measurements
-            binding.executePendingBindings()
+    class TerrierViewHolder(
+        private val binding: ListitemTerriersBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(listItem: Terrier) {
+            binding.apply {
+                //clickListener = listener
+                terrier = listItem
+                executePendingBindings()
+            }
         }
     }
 
-    /**
-     * Allows the RecyclerView to determine which items have changed
-     * when the [List] of [Terrier] objects has been updated.
-     */
-    companion object DiffCallback : DiffUtil.ItemCallback<Terrier>() {
-        override fun areItemsTheSame(oldItem: Terrier, newItem: Terrier): Boolean {
-            return oldItem === newItem
-        }
-
-        override fun areContentsTheSame(oldItem: Terrier, newItem: Terrier): Boolean {
-            return oldItem == newItem
-        }
-    }
-
-    /**
-     * Create new [RecyclerView] item views (invoked by the layout manager)
-     */
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): TerrierViewHolder {
-        val guess_text = parent.et_guess_txt
-        return TerrierViewHolder(
-            com.heske.terriertime.databinding.ListitemTerriersBinding
-                .inflate(LayoutInflater.from(parent.context))
+    override fun onCreateViewHolder(parent: ViewGroup,viewType: Int):
+            TerrierViewHolder {
+        return TerrierViewHolder(ListitemTerriersBinding
+            .inflate(LayoutInflater.from(parent.context),parent,false)
         )
     }
 
@@ -96,25 +79,27 @@ class TerriersRvAdapter(
      * Set up listeners for all the buttons at index [position] in the [holder].
      * Button clicks will call back to [TerrierFragment] for processing.
      */
+
     override fun onBindViewHolder(holder: TerrierViewHolder, position: Int) {
-        val terrierListItem = getItem(position)
+        val listItem = getItem(position)
 
         holder.itemView.apply {
             img_photo.setOnClickListener {
-                onImageClickListener.onImageClick(terrierListItem)
+                onImageClickListener.onImageClick(listItem)
             }
             btn_give_up.setOnClickListener {
-                onGiveUpClickListener.onGiveUpButtonClick(terrierListItem)
+                onGiveUpClickListener.onGiveUpButtonClick(listItem)
             }
             btn_guess.setOnClickListener {
                 val guess = holder.itemView.et_guess_txt.text.toString()
-                onGuessClickListener.onGuessButtonClick(terrierListItem,guess)
+                onGuessClickListener.onGuessButtonClick(listItem, guess)
             }
             btn_more.setOnClickListener {
-                onMoreClickListener.onMoreButtonClick(terrierListItem)
+                onMoreClickListener.onMoreButtonClick(listItem)
             }
+            tag = listItem
         }
-        holder.bind(terrierListItem)
+        holder.bind(listItem)
     }
 
     /**
@@ -136,8 +121,22 @@ class TerriersRvAdapter(
         fun onMoreButtonClick(terrierListItem: Terrier) = clickListener(terrierListItem)
     }
 
-    class OnGuessClickListener(val clickListener: (terrierListItem: Terrier,guess: String) -> Unit) {
-        fun onGuessButtonClick(terrierListItem: Terrier,guess: String)
-                = clickListener(terrierListItem,guess)
+    class OnGuessClickListener(val clickListener: (terrierListItem: Terrier, guess: String) -> Unit) {
+        fun onGuessButtonClick(terrierListItem: Terrier, guess: String) = clickListener(terrierListItem, guess)
+    }
+}
+
+
+/**
+ * Allows the RecyclerView to determine which items have changed
+ * when the [List] of [Terrier] objects has been updated.
+ */
+private class DiffCallback : DiffUtil.ItemCallback<Terrier>() {
+    override fun areItemsTheSame(oldItem: Terrier, newItem: Terrier): Boolean {
+        return oldItem === newItem
+    }
+
+    override fun areContentsTheSame(oldItem: Terrier, newItem: Terrier): Boolean {
+        return oldItem == newItem
     }
 }

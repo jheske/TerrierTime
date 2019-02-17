@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.media.AudioManager
 import android.media.SoundPool
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +15,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.heske.terriertime.R
-import com.heske.terriertime.database.Terrier
 import com.heske.terriertime.database.TerriersDatabase
 import com.heske.terriertime.databinding.FragmentTerriersBinding
 import com.squareup.phrase.Phrase
@@ -53,18 +53,15 @@ class TerrierFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        // This one only helps with binding views like TextView to LiveData in the view model
-        // It doesn't help with binding list items in the recycler
-        // val binding: FragmentBreedBinding = DataBindingUtil.inflate(
-        //     inflater, R.layout.fragment_terriers, container, false)
-
         // This binding provides access to terriers_recycler in fragment_terriers
-        val binding = FragmentTerriersBinding.inflate(inflater)
+        val binding
+                = FragmentTerriersBinding.inflate(inflater)
 
         val application = requireNotNull(this.activity).application
-        val dataSource = TerriersDatabase.getInstance(application).terriersDatabaseDao
-        val viewModelFactory = TerriersViewModelFactory(dataSource, application)
+        val dataSource
+                = TerriersDatabase.getInstance(application).terriersDatabaseDao
+        val viewModelFactory
+                = TerriersViewModelFactory(dataSource, application)
 
         val viewModel =
             ViewModelProviders.of(
@@ -84,11 +81,17 @@ class TerrierFragment : Fragment() {
                 viewModel.displayFullsizeImage(it)
             }, TerriersRvAdapter.OnGiveUpClickListener {
                 viewModel.displayDetailScreen(it)
-            }, TerriersRvAdapter.OnGuessClickListener {terrier, guessText ->
-                viewModel.processGuess(terrier,guessText)
+            }, TerriersRvAdapter.OnGuessClickListener { terrier, guessText ->
+                viewModel.processGuess(terrier, guessText)
             }, TerriersRvAdapter.OnMoreClickListener {
                 viewModel.displayFullsizeImage(it)
             })
+
+        viewModel.listOfTerriers.observe(this, Observer {
+            if (it != null) {
+                Log.d(TAG, "There are ${it.size} terriers")
+            }
+        })
 
         viewModel.navigateToFullsizeImage.observe(this, Observer {
             if (it != null) {
@@ -142,8 +145,11 @@ class TerrierFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        terriers_recycler.addItemDecoration(TerriersRvDecoration(
-            resources.getDimension(R.dimen.spacing_large).toInt()))
+        terriers_recycler.addItemDecoration(
+            TerriersRvDecoration(
+                resources.getDimension(R.dimen.spacing_large).toInt()
+            )
+        )
     }
 
     /**

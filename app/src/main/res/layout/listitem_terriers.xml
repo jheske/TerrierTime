@@ -14,7 +14,6 @@
                 type="String"/>
     </data>
 
-    <!--app:terrierImageUrl="@{terrier.name}"-->
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -27,14 +26,13 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/terrier_placeholder"
+                tools:src="@drawable/terrier_placeholder"
                 app:terrierImageUrl="@{terrier.name}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
-                android:visibility="gone"
                 android:id="@+id/tv_fun_fact"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -45,6 +43,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/img_photo"/>
+
         <TextView
                 android:id="@+id/tv_guess"
                 android:layout_width="0dp"
@@ -73,7 +72,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_guess"/>
         <Button
-                android:visibility="gone"
                 android:id="@+id/btn_guess"
                 android:text="@string/txt_btn_guess"
                 android:layout_width="wrap_content"
@@ -84,7 +82,6 @@
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintTop_toBottomOf="@+id/et_guess_txt"/>
         <Button
-                android:visibility="gone"
                 android:id="@+id/btn_give_up"
                 android:text="@string/txt_btn_give_up"
                 android:layout_width="wrap_content"
@@ -93,7 +90,6 @@
                 app:layout_constraintStart_toEndOf="@+id/btn_guess"
                 app:layout_constraintEnd_toStartOf="@+id/btn_more"/>
         <Button
-                android:visibility="gone"
                 android:id="@+id/btn_more"
                 android:text="@string/txt_btn_more"
                 android:layout_width="wrap_content"
