@@ -53,18 +53,4 @@ data class Terrier(
     var imageList: ArrayList<String>? = null
 ) : Parcelable {
     constructor() : this(0, "", "", "", null)
-
-    /**
-     * Return true if [guess] matches breed name, false otherwise.
-     * Also, try appending " terrier" to the guess in case the
-     * user got the breed correct but left it off, eg.,
-     * "Airedale" and "Airedale Terrier" are both correct guesses.
-     */
-    fun correctAnswer(guess: String): Boolean {
-        val breedName = name.toLowerCase()
-        val guessPlusTerrier = "${guess} terrier"
-
-        return guess.toLowerCase().equals(breedName)
-                || guessPlusTerrier.toLowerCase().equals(breedName)
-    }
 }

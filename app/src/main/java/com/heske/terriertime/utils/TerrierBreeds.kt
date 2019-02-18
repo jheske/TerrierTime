@@ -75,10 +75,10 @@ object TerrierBreeds {
                 0, app.getString(R.string.manchester_terrier),
                 app.getString(R.string.manchester_terrier_fact)
             )),
-            (app.getString(R.string.scottish_terrier)
+            (app.getString(R.string.rat_terrier)
                     to Terrier(
-                0, app.getString(R.string.scottish_terrier),
-                app.getString(R.string.scottish_terrier_fact)
+                0, app.getString(R.string.rat_terrier),
+                app.getString(R.string.rat_terrier_fact)
             )),
             (app.getString(R.string.skye_terrier)
                     to Terrier(

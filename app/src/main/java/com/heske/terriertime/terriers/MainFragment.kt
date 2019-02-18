@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
@@ -18,6 +20,7 @@ import com.heske.terriertime.R
 import com.heske.terriertime.database.TerriersDatabase
 import com.heske.terriertime.databinding.FragmentMainBinding
 import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.listitem_terriers.*
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -53,14 +56,11 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // This binding provides access to terriers_recycler in fragment_main
-        val binding
-                = FragmentMainBinding.inflate(inflater)
+        val binding = FragmentMainBinding.inflate(inflater)
 
         val application = requireNotNull(this.activity).application
-        val dataSource
-                = TerriersDatabase.getInstance(application).terriersDatabaseDao
-        val viewModelFactory
-                = TerriersViewModelFactory(dataSource, application)
+        val dataSource = TerriersDatabase.getInstance(application).terriersDatabaseDao
+        val viewModelFactory = TerriersViewModelFactory(dataSource, application)
 
         val viewModel =
             ViewModelProviders.of(
@@ -83,7 +83,7 @@ class MainFragment : Fragment() {
             }, TerriersRvAdapter.OnGuessClickListener { terrier, guessText ->
                 viewModel.processGuess(terrier, guessText)
             }, TerriersRvAdapter.OnMoreClickListener {
-                viewModel.displayFullsizeImage(it)
+                viewModel.displayDetailScreen(it)
             })
 
         viewModel.listOfTerriers.observe(this, Observer {
@@ -121,14 +121,11 @@ class MainFragment : Fragment() {
         viewModel.correctGuess.observe(this, Observer {
             if (it != null) {
                 playSound(barkSound)
-                this.findNavController()
-                    .navigate(
-                    MainFragmentDirections.actionMainFragmentToDetail(it)
-                    )
-                //After the navigation has taken place, set nav event to null.
+                setButtons(true)
+                //Set event to null.
                 //!!!!Otherwise the app will crash when Back button is pressed
                 // from destination Fragment!!!!
-                viewModel.displayDetailScreenComplete()
+                //viewModel.guessComplete()
             }
         })
 
@@ -136,6 +133,7 @@ class MainFragment : Fragment() {
             if (it != null) {
                 playSound(growlSound)
                 showHintDialog(it)
+                setButtons(false)
                 // Now set _incorrectGuess to null,
                 // so we don't get repeat calls
                 viewModel.guessComplete()
@@ -183,6 +181,18 @@ class MainFragment : Fragment() {
                 it, 1f,
                 1f, 0, 0, 1f
             )
+        }
+    }
+
+    private fun setButtons(correctGuess: Boolean) {
+        if (correctGuess) {
+            btn_guess.visibility = GONE
+            btn_give_up.visibility = GONE
+            btn_more.visibility = VISIBLE
+        } else {
+            btn_guess.visibility = VISIBLE
+            btn_give_up.visibility = VISIBLE
+            btn_more.visibility = GONE
         }
     }
 

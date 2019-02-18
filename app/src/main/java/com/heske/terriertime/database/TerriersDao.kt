@@ -36,7 +36,7 @@ import androidx.room.Query
 @Dao
 interface TerriersDao {
     @Insert
-    fun insertAll(terriers: ArrayList<Terrier>)
+    fun insertAll(terriers: List<Terrier>)
 
     @Insert(onConflict = REPLACE)
     fun insert(terriers: Terrier) : Long

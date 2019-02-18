@@ -47,7 +47,9 @@ class SplashFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
 
-        val dataSource = TerriersDatabase.getInstance(application).terriersDatabaseDao
+        val dataSource = TerriersDatabase
+            .getInstance(application)
+            .terriersDatabaseDao
         val viewModelFactory = SplashViewModelFactory(application, dataSource)
 
         val viewModel =

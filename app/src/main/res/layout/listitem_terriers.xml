@@ -10,6 +10,9 @@
                 name="terrier"
                 type="com.heske.terriertime.database.Terrier"/>
         <variable
+                name="viewModel"
+                type="com.heske.terriertime.terriers.TerriersViewModel"/>
+        <variable
                 name="guess"
                 type="String"/>
     </data>
@@ -85,7 +88,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_medium"
-                    android:layout_marginRight="@dimen/spacing_large"
+                    android:layout_marginEnd="@dimen/spacing_large"
                     android:layout_marginBottom="@dimen/spacing_large"
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintStart_toStartOf="parent"

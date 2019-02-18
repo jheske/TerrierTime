@@ -95,7 +95,7 @@ class SplashViewModel(
             //navigating to TerriersFragment
             uiScope.launch {
                 //Clear the db just for testing
-                //dbDeleteAll()
+                dbDeleteAll()
                 initializeDatabase(dbGetTableRowCount(), dbGetSummaryCount())
                 _eventCloseSplashScreen.value = true
             }

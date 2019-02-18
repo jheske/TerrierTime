@@ -28,7 +28,7 @@ import com.heske.terriertime.terriers.TerriersViewModel
 /**
  * This is pretty much boiler plate code for a ViewModel Factory.
  *
- * Provides the SleepDatabaseDao and context to the ViewModel.
+ * Provides the TerriersTableDao and context to the ViewModel.
  */
 class FlickrViewModelFactory(val breedName: String) : ViewModelProvider.Factory {
 

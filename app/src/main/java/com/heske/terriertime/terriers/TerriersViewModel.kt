@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.heske.terriertime.database.Terrier
 import com.heske.terriertime.database.TerriersDao
 
@@ -98,6 +99,9 @@ class TerriersViewModel(
         _correctGuess.value = null
     }
 
+    /**
+     * Observer calls this so it won't get called multiple times.
+     */
     fun guessComplete() {
         _incorrectGuess.value = null
     }
@@ -106,7 +110,7 @@ class TerriersViewModel(
      * If user's guess is correct, then send the [Terrier] back for display.
      * Otherwise send null so [Observer] can provide user feedback.
      */
-    fun processGuess(terrier: Terrier,guessText: String) {
+    fun processGuess(terrier: Terrier, guessText: String) {
         // Everything lower case for easy comparison
         val breedName = terrier.name.toLowerCase()
         val guess = guessText.toLowerCase()

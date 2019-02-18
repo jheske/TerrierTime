@@ -2,7 +2,7 @@
     <string name="app_name">Terrier Time (Beta)</string>
     <string name="txt_no_null_activity">Activity must not be null</string>
     <string name="txt_breed">Breed</string>
-    <string name="txt_guess">Can you guess what kind of terrier this is?</string>
+    <string name="txt_guess">Guess what kind of terrier this is</string>
     <string name="txt_guess_hint">Enter terrier breed</string>
     <string name="txt_more_pix">More {terriers}s</string>
     <string name="txt_no_summary">There is no additional information for this terriers.  It\'s possible
@@ -37,6 +37,7 @@
     <string name="boston_terrier">Boston Terrier</string>
     <string name="fox_terrier">Fox Terrier</string>
     <string name="manchester_terrier">Manchester Terrier</string>
+    <string name="rat_terrier">Rat Terrier</string>
     <string name="scottish_terrier">Scottish Terrier</string>
     <string name="skye_terrier">Skye Terrier</string>
     <string name="schnauzer">Schnauzer</string>
@@ -58,6 +59,9 @@
         this dog served as a messenger dog during WWI.</string>
     <string name="manchester_terrier_fact">This dog, an ancestor of the Doberman,
         comes in two sizes, Standard and Toy.</string>
+    <string name="rat_terrier_fact">This terrier is an American original and has a rodent in his name.
+        He\'s also the star of the Ryder’s Alley Trencher-fed Society (R.A.T.S.),
+        a group of owners and their terriers who go rat hunting in New York City alleyways.</string>
     <string name="scottish_terrier_fact">This dog was a favorite of the Bush family. You might remember
         George W\'s Barney, who tried to take a chunk out of a TV reporter.</string>
     <string name="skye_terrier_fact">Named for an island off the northwest coast of Scotland,
