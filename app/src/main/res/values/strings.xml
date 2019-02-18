@@ -3,7 +3,7 @@
     <string name="txt_no_null_activity">Activity must not be null</string>
     <string name="txt_breed">Breed</string>
     <string name="txt_guess">Can you guess what kind of terrier this is?</string>
-    <string name="txt_guess_hint">Enter terrier breed.</string>
+    <string name="txt_guess_hint">Enter terrier breed</string>
     <string name="txt_more_pix">More {terriers}s</string>
     <string name="txt_no_summary">There is no additional information for this terriers.  It\'s possible
         there was an error connecting to or retrieving the data from Wiki.
@@ -44,9 +44,8 @@
     <string name="welsh_terrier">Welsh Terrier</string>
     <string name="yorkshire_terrier">Yorkshire Terrier</string>
     <!-- facts -->
-    <string name="airedale_fact">Called the King of Terriers because of its size. Did
-        you know that one of this terriers was the very first celebrity dog? President Harding had
-        one named Laddie Boy, who was a media darling and even had his own hand-carved chair!</string>
+    <string name="airedale_fact">Called the King of Terriers because of its size, this terrier was the very first celebrity dog? President Harding had
+        one named Laddie Boy, a media darling who even had his own hand-carved chair!</string>
     <string name="bull_terrier_fact">You know him as the Bud Light mascot Spuds Mackenzie.</string>
     <string name="black_russian_terrier_fact">While terrier is in his name,
         in his country of origin he\'s actually known as a Russian shepherd.</string>

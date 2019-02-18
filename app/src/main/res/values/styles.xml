@@ -1,8 +1,4 @@
 <resources>
-    <!-- This file contains styles for older versions (pre 21),
-   but most of them apply to all styles. See values-v21/styles.xml
-  for 21+ exceptions. -->
-
     <!--Most of this is from Google Sunflower sample app -->
 
     <!-- Base application theme. -->
@@ -13,9 +9,13 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
         <item name="buttonStyle">@style/Widget.AppCompat.Button.Colored</item>
+        <item name="android:textSize">@dimen/main_text_size</item>
     </style>
 
-    <style name="AppTheme" parent="BaseAppTheme"/>
+    <!-- for v21+ -->
+    <style name="AppTheme" parent="BaseAppTheme">
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>

@@ -71,6 +71,7 @@ dependencies {
     implementation "com.google.android.material:material:$rootProject.materialVersion"
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
     implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerViewVersion"
+    implementation "androidx.cardview:cardview:$rootProject.recyclerViewVersion"
 
     // Retrofit with Coroutines, Gson Converter, and Logging
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"

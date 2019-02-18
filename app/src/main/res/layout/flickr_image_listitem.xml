@@ -32,8 +32,8 @@
             android:layout_width="@dimen/flickr_image_size"
             android:layout_height="@dimen/flickr_image_size"
             android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_marginStart="@dimen/small_content_separator">
+            android:background="@color/colorDivider"
+            android:gravity="center">
 
         <!-- See BindingsAdapter.kt for app:imageUrl binding -->
         <ImageView
