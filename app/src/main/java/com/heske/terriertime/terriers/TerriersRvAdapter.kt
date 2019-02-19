@@ -75,7 +75,7 @@ class TerriersRvAdapter(
     /**
      * Replaces the contents of a view (invoked by the layout manager)
      * Set up listeners for all the buttons at index [position] in the [holder].
-     * Button clicks will call back to [MainFragment] for processing.
+     * Button clicks will call back to [TerriersFragment] for processing.
      */
 
     override fun onBindViewHolder(holder: TerrierViewHolder, position: Int) {

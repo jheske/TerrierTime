@@ -16,10 +16,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.heske.terriertime.R
 import com.heske.terriertime.database.TerriersDatabase
-import com.heske.terriertime.databinding.FragmentMainBinding
-import kotlinx.android.synthetic.main.fragment_main.*
+import com.heske.terriertime.databinding.FragmentTerriersBinding
+import kotlinx.android.synthetic.main.fragment_detail.*
+import kotlinx.android.synthetic.main.fragment_terriers.*
 import kotlinx.android.synthetic.main.listitem_terriers.*
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
@@ -45,8 +48,8 @@ import kotlinx.android.synthetic.main.listitem_terriers.*
  *
  */
 
-class MainFragment : Fragment() {
-    private val TAG = MainFragment::class.java.simpleName
+class TerriersFragment : Fragment() {
+    private val TAG = TerriersFragment::class.java.simpleName
     lateinit var soundPool: SoundPool
     var growlSound: Int? = null
     var barkSound: Int? = null
@@ -55,8 +58,8 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // This binding provides access to terriers_recycler in fragment_main
-        val binding = FragmentMainBinding.inflate(inflater)
+        // This binding provides access to terriers_recycler in fragment_terriers
+        val binding = FragmentTerriersBinding.inflate(inflater)
 
         val application = requireNotNull(this.activity).application
         val dataSource = TerriersDatabase.getInstance(application).terriersDatabaseDao
@@ -96,7 +99,7 @@ class MainFragment : Fragment() {
             if (it != null) {
                 this.findNavController()
                     .navigate(
-                        MainFragmentDirections.actionMainToFullsize(it.name)
+                        TerriersFragmentDirections.actionMainToFullsize(it.name)
                     )
                 //After the navigation has taken place, set nav event to null.
                 //!!!!Otherwise the app will crash when Back button is pressed
@@ -109,7 +112,7 @@ class MainFragment : Fragment() {
             if (it != null) {
                 this.findNavController()
                     .navigate(
-                        MainFragmentDirections.actionMainFragmentToDetail(it)
+                        TerriersFragmentDirections.actionMainFragmentToDetail(it)
                     )
                 //After the navigation has taken place, set nav event to null.
                 //!!!!Otherwise the app will crash when Back button is pressed
@@ -122,10 +125,6 @@ class MainFragment : Fragment() {
             if (it != null) {
                 playSound(barkSound)
                 setButtons(true)
-                //Set event to null.
-                //!!!!Otherwise the app will crash when Back button is pressed
-                // from destination Fragment!!!!
-                //viewModel.guessComplete()
             }
         })
 
@@ -146,6 +145,9 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setupWithNavController(terriers_toolbar, findNavController())
+        terriers_toolbar.title = R.string.app_name.toString()
         terriers_recycler.addItemDecoration(
             TerriersRvDecoration(
                 resources.getDimension(R.dimen.spacing_large).toInt()

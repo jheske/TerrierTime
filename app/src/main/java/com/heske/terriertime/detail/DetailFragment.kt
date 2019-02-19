@@ -76,8 +76,8 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupWithNavController(toolbar, findNavController())
-        toolbar.title = terrierBreedName
+        setupWithNavController(detail_toolbar, findNavController())
+        detail_toolbar.title = terrierBreedName
         loadBackdropImage()
     }
 

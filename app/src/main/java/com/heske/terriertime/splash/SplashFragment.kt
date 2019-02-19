@@ -59,13 +59,13 @@ class SplashFragment : Fragment() {
 
         /**
          *  ViewModel emits the closeSplashScreen event when its timer times out,
-         *  which means it's time to navigate to the MainFragment.
+         *  which means it's time to navigate to the TerriersFragment.
          */
         // TODO Test this event after viewModel finishes initializing the db.
         viewModel
             .eventCloseSplashScreen
             .observe(this, Observer { closeSplashScreen ->
-                // Navigate to MainFragment
+                // Navigate to TerriersFragment
                 if (closeSplashScreen) {
                     //SplashFragmenDirections and actionSplashFragmentToTerriersFragment are generated
                     //this.findNavController().navigate(actionSplashToTerriers())

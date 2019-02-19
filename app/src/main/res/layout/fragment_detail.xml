@@ -32,7 +32,7 @@
                         android:src="@drawable/terrier_placeholder"/>
 
                 <androidx.appcompat.widget.Toolbar
-                        android:id="@+id/toolbar"
+                        android:id="@+id/detail_toolbar"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
                         android:background="?attr/colorPrimary"
@@ -40,6 +40,7 @@
                         app:layout_collapseMode="pin"
                         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
 

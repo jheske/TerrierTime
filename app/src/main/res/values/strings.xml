@@ -5,17 +5,19 @@
     <string name="txt_guess">Guess what kind of terrier this is</string>
     <string name="txt_guess_hint">Enter terrier breed</string>
     <string name="txt_more_pix">More {terriers}s</string>
-    <string name="txt_no_summary">There is no additional information for this terriers.  It\'s possible
+    <string name="txt_no_summary">There is no additional information for this terriers. It\'s possible
         there was an error connecting to or retrieving the data from Wiki.
-        Make sure you are connected to the network and try rerunning the app.</string>
-    <string name="txt_no_network">You are not connected to the network.  You must have a network connection
-        to retrieve addition terriers details from Wiki.</string>
+        Make sure you are connected to the network and try rerunning the app.
+    </string>
+    <string name="txt_no_network">You are not connected to the network. You must have a network connection
+        to retrieve addition terriers details from Wiki.
+    </string>
     <string name="txt_tools_summary">Called the King of Terriers because of its size. Did
         you know that one of this terriers was the very first celebrity dog? President Harding had
         one named Laddie Boy, who was a media darling and even had his own hand-carved chair!
         Can you guess what kind of terrier this is?
     </string>
-    <string name="txt_tools_breed"> Airedale Terrier</string>
+    <string name="txt_tools_breed">Airedale Terrier</string>
     <string name="txt_dog_breed">Dog Breed</string>
     <string name="txt_btn_guess">Guess</string>
     <string name="txt_btn_give_up">I give up</string>
@@ -29,7 +31,7 @@
     <string name="txt_alphabet">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</string>
     <string name="txt_ok">OK</string>
 
-    <!-- terrier terriers -->
+    <!-- terriers -->
     <string name="airedale">Airedale Terrier</string>
     <string name="bull_terrier">Bull Terrier</string>
     <string name="black_russian_terrier">Black Russian Terrier</string>
@@ -45,35 +47,49 @@
     <string name="welsh_terrier">Welsh Terrier</string>
     <string name="yorkshire_terrier">Yorkshire Terrier</string>
     <!-- facts -->
-    <string name="airedale_fact">Called the King of Terriers because of its size, this terrier was the very first celebrity dog? President Harding had
-        one named Laddie Boy, a media darling who even had his own hand-carved chair!</string>
+    <string name="airedale_fact">Called the King of Terriers because of its size, this terrier was the very first
+        celebrity dog? President Harding had
+        one named Laddie Boy, a media darling who even had his own hand-carved chair!
+    </string>
     <string name="bull_terrier_fact">You know him as the Bud Light mascot Spuds Mackenzie.</string>
     <string name="black_russian_terrier_fact">While terrier is in his name,
-        in his country of origin he\'s actually known as a Russian shepherd.</string>
+        in his country of origin he\'s actually known as a Russian shepherd.
+    </string>
     <string name="boston_terrier_fact">This dog was the first terriers developed in America.
-        In 1970 he was designated the State Dog of Massachusetts.</string>
+        In 1970 he was designated the State Dog of Massachusetts.
+    </string>
     <string name="fox_terrier_fact">The wirehaired version of this dog has won Best in Show at
-    Westminster 14 times, more than any other terriers.</string>
+        Westminster 14 times, more than any other terriers.
+    </string>
     <string name="irish_terrier_fact">Thought to be developed in Ireland,
         this is one of the oldest terrier terriers. Though now a great pet and vermin catcher,
-        this dog served as a messenger dog during WWI.</string>
+        this dog served as a messenger dog during WWI.
+    </string>
     <string name="manchester_terrier_fact">This dog, an ancestor of the Doberman,
-        comes in two sizes, Standard and Toy.</string>
+        comes in two sizes, Standard and Toy.
+    </string>
     <string name="rat_terrier_fact">This terrier is an American original and has a rodent in his name.
         He\'s also the star of the Ryder’s Alley Trencher-fed Society (R.A.T.S.),
-        a group of owners and their terriers who go rat hunting in New York City alleyways.</string>
+        a group of owners and their terriers who go rat hunting in New York City alleyways.
+    </string>
     <string name="scottish_terrier_fact">This dog was a favorite of the Bush family. You might remember
-        George W\'s Barney, who tried to take a chunk out of a TV reporter.</string>
+        George W\'s Barney, who tried to take a chunk out of a TV reporter.
+    </string>
     <string name="skye_terrier_fact">Named for an island off the northwest coast of Scotland,
-        this terriers was a favorite of Queen Victoria of England and Queen Alexandra of Denmark.</string>
+        this terriers was a favorite of Queen Victoria of England and Queen Alexandra of Denmark.
+    </string>
     <string name="schnauzer_fact">While \'Terrier\' is not in this terriers\'s name,
-        the mini variety is in the Terrier Group.  Two other varieties, Standard and Giant,
-        are classified as Working Dogs.</string>
+        the mini variety is in the Terrier Group. Two other varieties, Standard and Giant,
+        are classified as Working Dogs.
+    </string>
     <string name="teddy_rossevelt_terrier_fact">Named after a 20th century
-        U.S. president, this dog is bully!</string>
+        U.S. president, this dog is bully!
+    </string>
     <string name="welsh_terrier_fact">He looks like a mini Airedale, but is much more stubborn!
-        This dog comes from Wales and is thought to be the oldest terriers in the United Kingdom.</string>
+        This dog comes from Wales and is thought to be the oldest terriers in the United Kingdom.
+    </string>
     <string name="yorkshire_terrier_fact">Originally bred as a rat catcher, this companion dog is actually a
-        member of the Non-Sporting group.</string>
+        member of the Non-Sporting group.
+    </string>
     <string name="txt_flickr_pix">View Pix</string>
 </resources>
