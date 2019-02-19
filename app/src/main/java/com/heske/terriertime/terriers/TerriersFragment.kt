@@ -21,6 +21,7 @@ import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.heske.terriertime.R
 import com.heske.terriertime.database.TerriersDatabase
 import com.heske.terriertime.databinding.FragmentTerriersBinding
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_detail.*
 import kotlinx.android.synthetic.main.fragment_terriers.*
 import kotlinx.android.synthetic.main.listitem_terriers.*
@@ -146,8 +147,6 @@ class TerriersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupWithNavController(terriers_toolbar, findNavController())
-        terriers_toolbar.title = R.string.app_name.toString()
         terriers_recycler.addItemDecoration(
             TerriersRvDecoration(
                 resources.getDimension(R.dimen.spacing_large).toInt()

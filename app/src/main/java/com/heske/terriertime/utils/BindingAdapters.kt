@@ -62,6 +62,20 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
             .into(imgView)
     }
 }
+@BindingAdapter("backdropImageUrl")
+fun bindBackdropImage(imgView: ImageView, terrierBreedName: String?) {
+    terrierBreedName?.let {
+        val assetPath = it.toAssetPath()
+        Glide.with(imgView.context)
+            .load(assetPath)
+            .apply(
+                RequestOptions()
+                    .placeholder(R.drawable.terrier_placeholder)
+                    .error(R.drawable.terrier_placeholder)
+            )
+            .into(imgView)
+    }
+}
 
 /**
  * Adapter for the RecyclerView that displays the list of terriers,

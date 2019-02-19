@@ -12,67 +12,22 @@
                 type="com.heske.terriertime.terriers.TerriersViewModel"/>
     </data>
 
-    <!--<com.google.android.material.appbar.AppBarLayout-->
-    <!--android:id="@+id/appbar"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:theme="@style/AppTheme.AppBarOverlay">-->
-    <!--<androidx.appcompat.widget.Toolbar-->
-    <!--android:id="@+id/toolbar"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="?attr/actionBarSize"-->
-    <!--app:popupTheme="@style/AppTheme.PopupOverlay"/>-->
-    <!--</com.google.android.material.appbar.AppBarLayout>-->
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <FrameLayout
+            android:id="@+id/layout_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/appbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-            <com.google.android.material.appbar.CollapsingToolbarLayout
-                    android:id="@+id/toolbar_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fitsSystemWindows="true"
-                    app:contentScrim="?attr/colorPrimary"
-                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
-                <androidx.appcompat.widget.Toolbar
-                        android:id="@+id/terriers_toolbar"
-                        android:layout_width="match_parent"
-                        android:layout_height="?attr/actionBarSize"
-                        android:background="?attr/colorPrimary"
-                        android:minHeight="?attr/actionBarSize"
-                        app:layout_collapseMode="pin"
-                        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
-
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_container"
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/terriers_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/terriers_recycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:clipToPadding="false"
-                    android:background="@color/colorWhite"
-                    android:paddingLeft="@dimen/spacing_large"
-                    android:paddingRight="@dimen/spacing_large"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:terrierRecyclerListData="@{terriersViewModel.listOfTerriers}"
-                    tools:itemCount="16"
-                    tools:listitem="@layout/listitem_terriers"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                android:background="@color/colorWhite"
+                android:paddingLeft="@dimen/spacing_large"
+                android:paddingRight="@dimen/spacing_large"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:terrierRecyclerListData="@{terriersViewModel.listOfTerriers}"
+                tools:itemCount="16"
+                tools:listitem="@layout/listitem_terriers"/>
+    </FrameLayout>
 </layout>

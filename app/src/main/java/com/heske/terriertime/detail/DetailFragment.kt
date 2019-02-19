@@ -73,13 +73,13 @@ class DetailFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        setupWithNavController(detail_toolbar, findNavController())
-        detail_toolbar.title = terrierBreedName
-        loadBackdropImage()
-    }
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//
+//        setupWithNavController(detail_toolbar, findNavController())
+//        detail_toolbar.title = terrierBreedName
+//        loadBackdropImage()
+//    }
 
     /* Retrieve image associated with [breedName] from assets and display it
      * int the toolbar's backdrop.

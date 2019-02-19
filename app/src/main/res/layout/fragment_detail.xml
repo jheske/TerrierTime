@@ -10,18 +10,21 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/appbar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/backdrop_height"
+                android:fitsSystemWindows="true"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:id="@+id/collapsing_toolbar_layout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:fitsSystemWindows="true"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <ImageView
@@ -29,65 +32,62 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/terrier_placeholder"/>
-
-                <androidx.appcompat.widget.Toolbar
-                        android:id="@+id/detail_toolbar"
-                        android:layout_width="match_parent"
-                        android:layout_height="?attr/actionBarSize"
-                        android:background="?attr/colorPrimary"
-                        android:minHeight="?attr/actionBarSize"
-                        app:layout_collapseMode="pin"
-                        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
-
+                        android:fitsSystemWindows="true"
+                        app:backdropImageUrl="@{viewModel.terrierBreedName}"
+                        app:layout_collapseMode="parallax"
+                        tools:src="@drawable/terrier_placeholder"/>
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_container"
+        <androidx.core.widget.NestedScrollView
+                android:id="@+id/plant_detail_scrollview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <TextView
-                    android:id="@+id/tv_more_pix"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/spacing_medium"
-                    android:text="@{viewModel.morePixString}"
-                    android:textSize="@dimen/detail_txt_size"
-                    android:textStyle="bold"
-                    android:visibility="visible"
-                    tools:text="@string/txt_btn_more"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_flickr_pix"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_flickr_pix"
-                    android:layout_marginStart="@dimen/spacing_medium"
-                    android:visibility="visible"
-                    android:onClick="@{() -> viewModel.displayFlickrPix(viewModel.terrierBreedName)}"
-                    app:layout_constraintTop_toTopOf="@id/tv_more_pix"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_more_pix"
-                    app:layout_constraintLeft_toRightOf="@id/tv_more_pix"/>
+                <TextView
+                        android:id="@+id/tv_more_pix"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/spacing_medium"
+                        android:text="@{viewModel.morePixString}"
+                        android:textSize="@dimen/detail_txt_size"
+                        android:textStyle="bold"
+                        android:visibility="visible"
+                        tools:text="@string/txt_btn_more"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
 
-            <TextView
-                    android:id="@+id/tv_summary"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/spacing_medium"
-                    tools:text="@string/txt_tools_summary"
-                    android:text="@{viewModel.terrier.summary}"
-                    android:textSize="@dimen/detail_txt_size"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/btn_flickr_pix"/>
+                <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_flickr_pix"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_flickr_pix"
+                        android:layout_marginStart="@dimen/spacing_medium"
+                        android:visibility="visible"
+                        android:onClick="@{() -> viewModel.displayFlickrPix(viewModel.terrierBreedName)}"
+                        app:layout_constraintTop_toTopOf="@id/tv_more_pix"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_more_pix"
+                        app:layout_constraintLeft_toRightOf="@id/tv_more_pix"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                        android:id="@+id/tv_summary"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/spacing_medium"
+                        tools:text="@string/txt_tools_summary"
+                        android:text="@{viewModel.terrier.summary}"
+                        android:textSize="@dimen/detail_txt_size"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/btn_flickr_pix"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
