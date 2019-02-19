@@ -1,62 +1,63 @@
-<resources>
-    <!--Most of this is from Google Sunflower sample app -->
+<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+<!-- Customize your theme here. -->
+<item name="colorPrimary">@color/colorPrimary</item>
+<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+<item name="colorAccent">@color/colorAccent</item>
+<item name="android:textColor">@color/colorPrimaryText</item>
+<item name="buttonStyle">@style/Widget.AppCompat.Button.Colored</item>
+</style>
+<!---->
+<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+<!---->
+<!--The launcher theme. It sets the main window background to the splash_image drawable-->
+<style name="AppTheme.Launcher">
+<item name="android:windowBackground">@drawable/launch_screen</item>
+Optional, on Android 5+ you could modify the colorPrimaryDark color to match the windowBackground color for further branding
+<item name="colorPrimaryDark">@color/colorPrimary</item>
+</style>
+<!---->
+<style name="AppTheme.NoActionAndStatusBar" parent="Widget.AppCompat.Button">
+<item name="android:background">@color/colorPrimaryLight</item>
+<item name="android:textColor">@color/colorAccent</item>
+</style>
 
-    <!-- Base application theme. -->
-    <style name="BaseAppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColor">@color/colorPrimaryText</item>
-        <item name="buttonStyle">@style/Widget.AppCompat.Button.Colored</item>
-        <item name="android:textSize">@dimen/main_text_size</item>
-    </style>
 
-    <style name="AppTheme" parent="BaseAppTheme"/>
+<!--<resources>-->
+    <!--&lt;!&ndash;Most of this is from Google Sunflower sample app &ndash;&gt;-->
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <!-- for v21+ -->
-        <!--<item name="android:windowTranslucentStatus">true</item>-->
-    </style>
+    <!--&lt;!&ndash; Base application theme. &ndash;&gt;-->
+    <!--<style name="BaseAppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">-->
+        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
+        <!--<item name="android:textColor">@color/colorPrimaryText</item>-->
+        <!--<item name="buttonStyle">@style/Widget.AppCompat.Button.Colored</item>-->
+        <!--<item name="android:textSize">@dimen/main_text_size</item>-->
+    <!--</style>-->
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
+    <!--<style name="AppTheme" parent="BaseAppTheme"/>-->
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light"/>
+    <!--<style name="AppTheme.NoActionBar">-->
+        <!--<item name="windowActionBar">false</item>-->
+        <!--<item name="windowNoTitle">true</item>-->
+        <!--&lt;!&ndash; for v21+ &ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="android:windowTranslucentStatus">true</item>&ndash;&gt;-->
+    <!--</style>-->
 
-    <!--This theme sets the main window background to the splash_image drawable-->
-    <style name="AppTheme.Launcher">
-        <item name="android:windowBackground">@drawable/launch_screen</item>
-    </style>
+    <!--<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"/>-->
 
-    <style name="AppTheme.NoActionAndStatusBar" parent="Widget.AppCompat.Button">
-        <item name="android:background">@color/colorPrimaryLight</item>
-        <item name="android:textColor">@color/colorAccent</item>
-    </style>
-</resources>
+    <!--<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light"/>-->
 
-<!--<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">-->
-  <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
-<!--<item name="colorPrimary">@color/colorPrimary</item>-->
-<!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-<!--<item name="colorAccent">@color/colorAccent</item>-->
-<!--<item name="android:textColor">@color/colorPrimaryText</item>-->
-<!--<item name="buttonStyle">@style/Widget.AppCompat.Button.Colored</item>-->
-        <!--</style>-->
+    <!--&lt;!&ndash;This theme sets the main window background to the splash_image drawable&ndash;&gt;-->
+    <!--<style name="AppTheme.Launcher">-->
+        <!--<item name="android:windowBackground">@drawable/launch_screen</item>-->
+    <!--</style>-->
 
-<!--<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />-->
-<!--<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
-
-        <!--&lt;!&ndash;The launcher theme. It sets the main window background to the splash_image drawable&ndash;&gt;-->
-<!--<style name="AppTheme.Launcher">-->
-<!--<item name="android:windowBackground">@drawable/launch_screen</item>-->
-<!--Optional, on Android 5+ you could modify the colorPrimaryDark color to match the windowBackground color for further branding-->
-<!--<item name="colorPrimaryDark">@color/colorPrimary</item>-->
-<!--</style>-->
-
-<!--<style name="AppTheme.NoActionAndStatusBar" parent="Widget.AppCompat.Button">-->
-<!--<item name="android:background">@color/colorPrimaryLight</item>-->
-<!--<item name="android:textColor">@color/colorAccent</item>-->
-<!--</style>-->
+    <!--<style name="AppTheme.NoActionAndStatusBar" parent="Widget.AppCompat.Button">-->
+        <!--<item name="android:background">@color/colorPrimaryLight</item>-->
+        <!--<item name="android:textColor">@color/colorAccent</item>-->
+    <!--</style>-->
+<!--</resources>-->
 
