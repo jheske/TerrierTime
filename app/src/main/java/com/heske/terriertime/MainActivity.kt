@@ -3,6 +3,11 @@ package com.heske.terriertime
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.heske.terriertime.databinding.ActivityMainBinding
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
@@ -28,6 +33,9 @@ import com.heske.terriertime.databinding.ActivityMainBinding
  */
 
 class MainActivity : AppCompatActivity() {
+   // private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         //This app has an AppTheme.Launcher theme, so if there's a delay
         //while the app loads, the user will see something nicer than
@@ -37,5 +45,10 @@ class MainActivity : AppCompatActivity() {
         @Suppress("UNUSED_VARIABLE")
         val binding = DataBindingUtil
             .setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-    }
+
+        navController = Navigation.findNavController(this, R.id.main_nav_fragment)
+
+        // Set up ActionBar
+        //setSupportActionBar(binding.toolbar)
+   }
 }

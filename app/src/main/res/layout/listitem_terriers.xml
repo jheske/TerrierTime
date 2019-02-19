@@ -108,7 +108,7 @@
                     android:text="@string/txt_btn_more"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="30dp"
+                    android:layout_marginBottom="@dimen/spacing_medium"
                     app:layout_constraintTop_toTopOf="@+id/btn_give_up"
                     app:layout_constraintStart_toEndOf="@+id/btn_give_up"
                     app:layout_constraintEnd_toEndOf="parent"/>

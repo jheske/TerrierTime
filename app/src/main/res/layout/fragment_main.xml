@@ -11,17 +11,24 @@
                 name="terriersViewModel"
                 type="com.heske.terriertime.terriers.TerriersViewModel"/>
     </data>
-
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/terriers_recycler"
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:background="@color/colorWhite"
-            android:paddingLeft="@dimen/spacing_large"
-            android:paddingRight="@dimen/spacing_large"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:terrierRecyclerListData="@{terriersViewModel.listOfTerriers}"
-            tools:itemCount="16"
-            tools:listitem="@layout/listitem_terriers"/>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/terriers_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:background="@color/colorWhite"
+                android:paddingLeft="@dimen/spacing_large"
+                android:paddingRight="@dimen/spacing_large"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:terrierRecyclerListData="@{terriersViewModel.listOfTerriers}"
+                tools:itemCount="16"
+                tools:listitem="@layout/listitem_terriers"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
