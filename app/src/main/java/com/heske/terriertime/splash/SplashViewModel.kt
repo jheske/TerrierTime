@@ -3,6 +3,7 @@ package com.heske.terriertime.splash
 import android.app.Application
 import android.os.Handler
 import android.util.Log
+import androidx.core.os.postDelayed
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -61,7 +62,7 @@ class SplashViewModel(
     private val TAG = SplashViewModel::class.java.simpleName
 
     companion object {
-        private val SPLASH_DISPLAY_LENGTH = 1500L
+        private val SPLASH_DISPLAY_LENGTH = 2500L
     }
 
     private var handler: Handler? = Handler()
@@ -97,7 +98,10 @@ class SplashViewModel(
                 //Clear the db just for testing
                 dbDeleteAll()
                 initializeDatabase(dbGetTableRowCount(), dbGetSummaryCount())
-                _eventCloseSplashScreen.value = true
+                handler?.postDelayed(closeSplashScreen,
+                    SPLASH_DISPLAY_LENGTH
+                )
+                //closeSplashScreen()
             }
         } else {
             handler?.postDelayed(closeSplashScreen,

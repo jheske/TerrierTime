@@ -13,15 +13,19 @@
                 type="com.heske.terriertime.flickr.FlickrViewModel"/>
     </data>
 
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/photos_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:clipToPadding="false"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:listData="@{flickrViewModel.imageUrlList}"
-            tools:itemCount="32"
-            app:spanCount="2"
-            tools:listitem="@layout/flickr_image_listitem"/>
+
+    <FrameLayout android:layout_width="match_parent"
+                 android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/photos_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:clipToPadding="false"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:listData="@{flickrViewModel.imageUrlList}"
+                tools:itemCount="32"
+                app:spanCount="2"
+                tools:listitem="@layout/flickr_image_listitem"/>
+    </FrameLayout>
 </layout>

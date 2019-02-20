@@ -15,14 +15,15 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavHost
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.heske.terriertime.R
 import com.heske.terriertime.database.TerriersDatabase
 import com.heske.terriertime.databinding.FragmentTerriersBinding
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_detail.*
 import kotlinx.android.synthetic.main.fragment_terriers.*
 import kotlinx.android.synthetic.main.listitem_terriers.*
 
@@ -147,9 +148,11 @@ class TerriersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val navController = findNavController()
+        setupWithNavController(toolbar,navController)
         terriers_recycler.addItemDecoration(
             TerriersRvDecoration(
-                resources.getDimension(R.dimen.spacing_large).toInt()
+                resources.getDimension(com.heske.terriertime.R.dimen.spacing_large).toInt()
             )
         )
     }
@@ -166,8 +169,8 @@ class TerriersFragment : Fragment() {
             3,
             AudioManager.STREAM_MUSIC, 0
         )
-        growlSound = soundPool.load(activity, R.raw.growl, 1)
-        barkSound = soundPool.load(activity, R.raw.bark, 1)
+        growlSound = soundPool.load(activity, com.heske.terriertime.R.raw.growl, 1)
+        barkSound = soundPool.load(activity, com.heske.terriertime.R.raw.bark, 1)
     }
 
     /**
@@ -208,16 +211,16 @@ class TerriersFragment : Fragment() {
         val wrongAnswerMsg: String
 
         if (guess.isEmpty() || guess.isBlank()) {
-            wrongAnswerTitle = getString(R.string.txt_no_answer_title)
-            wrongAnswerMsg = getString(R.string.txt_no_answer)
+            wrongAnswerTitle = getString(com.heske.terriertime.R.string.txt_no_answer_title)
+            wrongAnswerMsg = getString(com.heske.terriertime.R.string.txt_no_answer)
         } else {
-            wrongAnswerMsg = getString(R.string.txt_wrong_answer)
-            wrongAnswerTitle = "$guess ${R.string.txt_wrong_answer_title}"
+            wrongAnswerMsg = getString(com.heske.terriertime.R.string.txt_wrong_answer)
+            wrongAnswerTitle = "$guess ${com.heske.terriertime.R.string.txt_wrong_answer_title}"
         }
-        val customLayout = layoutInflater.inflate(R.layout.alert_dialog, null)
-        val tvTitle = customLayout.findViewById(R.id.tv_alert_title) as TextView
-        val tvText = customLayout.findViewById(R.id.tv_alert_text) as TextView
-        val btnOk = customLayout.findViewById(R.id.btn_alert_ok) as Button
+        val customLayout = layoutInflater.inflate(com.heske.terriertime.R.layout.alert_dialog, null)
+        val tvTitle = customLayout.findViewById(com.heske.terriertime.R.id.tv_alert_title) as TextView
+        val tvText = customLayout.findViewById(com.heske.terriertime.R.id.tv_alert_text) as TextView
+        val btnOk = customLayout.findViewById(com.heske.terriertime.R.id.btn_alert_ok) as Button
         val builder = AlertDialog.Builder(context)
         builder.setView(customLayout)
         tvTitle.text = wrongAnswerTitle

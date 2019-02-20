@@ -15,7 +15,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.heske.terriertime.database.TerriersDatabase
 import com.heske.terriertime.databinding.FragmentSplashBinding
-
+import com.heske.terriertime.utils.setFullScreen
 
 /**
  * The splash screen is shown for this delay before MainActivity is called. The splash screen
@@ -77,6 +77,7 @@ class SplashFragment : Fragment() {
                 }
             })
 
+        activity!!.setFullScreen()
         return binding.root
     }
 }

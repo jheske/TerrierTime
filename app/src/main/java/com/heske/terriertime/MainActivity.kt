@@ -49,7 +49,8 @@ class MainActivity : AppCompatActivity() {
         @Suppress("UNUSED_VARIABLE")
         val binding = DataBindingUtil
             .setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+     //   navController = Navigation.findNavController(this, R.id.main_nav_fragment)
         // Set up ActionBar
-        setSupportActionBar(binding.toolbar)
+      //  setSupportActionBar(binding.toolbar)
     }
 }
