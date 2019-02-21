@@ -77,29 +77,6 @@ class DetailFragment : Fragment() {
 //        super.onViewCreated(view, savedInstanceState)
 //
 //        setupWithNavController(detail_toolbar, findNavController())
-//        detail_toolbar.title = terrierBreedName
 //        loadBackdropImage()
 //    }
-
-    /* Retrieve image associated with [breedName] from assets and display it
-     * int the toolbar's backdrop.
-     */
-    fun loadBackdropImage() {
-        var inputStream: InputStream? = null
-
-        try {
-            val context = requireNotNull(this.context)
-
-            inputStream = context.assets.open(terrierBreedName.toBreedFileName())
-            val bitmap = BitmapFactory.decodeStream(inputStream)
-            bitmap?.let {
-                toolbar_image.setImageBitmap(bitmap)
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
-        } finally {
-            inputStream?.close()
-        }
-    }
-
 }

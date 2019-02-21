@@ -154,12 +154,12 @@ class TerriersFragment : Fragment() {
 
         val navController = findNavController()
        // setupWithNavController(toolbar,navController)
-        val topLevelDestinations = HashSet<Int>()
-        topLevelDestinations.add(R.id.terriersFragment)
-        val appBarConfiguration = AppBarConfiguration.Builder(topLevelDestinations)
-            .build()
-        NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
-        toolbar.title = activity!!.resources.getString(R.string.app_name)
+       // val topLevelDestinations = HashSet<Int>()
+       // topLevelDestinations.add(R.id.terriersFragment)
+       // val appBarConfiguration = AppBarConfiguration.Builder(topLevelDestinations)
+       //     .build()
+        //NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
+        //toolbar.title = activity!!.resources.getString(R.string.app_name)
         terriers_recycler.addItemDecoration(
             TerriersRvDecoration(
                 resources.getDimension(com.heske.terriertime.R.dimen.spacing_large).toInt()
