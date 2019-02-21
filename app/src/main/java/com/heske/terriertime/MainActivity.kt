@@ -5,14 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI.setupWithNavController
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
+import androidx.navigation.ui.NavigationUI
 import com.heske.terriertime.databinding.ActivityMainBinding
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.toolbar.*
+import kotlinx.android.synthetic.main.fragment_terriers.*
+
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  *
@@ -37,7 +34,7 @@ import kotlinx.android.synthetic.main.toolbar.*
  */
 
 class MainActivity : AppCompatActivity() {
-   // private lateinit var appBarConfiguration: AppBarConfiguration
+    // private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,8 +46,11 @@ class MainActivity : AppCompatActivity() {
         @Suppress("UNUSED_VARIABLE")
         val binding = DataBindingUtil
             .setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-     //   navController = Navigation.findNavController(this, R.id.main_nav_fragment)
-        // Set up ActionBar
-      //  setSupportActionBar(binding.toolbar)
+//        val topLevelDestinations = HashSet<Int>()
+//        topLevelDestinations.add(R.id.terriersFragment)
+//        val appBarConfiguration = AppBarConfiguration.Builder(topLevelDestinations)
+//            .build()
+//        navController = Navigation.findNavController(this, R.id.main_nav_fragment)
+//        NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
     }
 }

@@ -67,9 +67,6 @@ class SplashFragment : Fragment() {
             .observe(this, Observer { closeSplashScreen ->
                 // Navigate to TerriersFragment
                 if (closeSplashScreen) {
-                    //SplashFragmenDirections and actionSplashFragmentToTerriersFragment are generated
-                    //this.findNavController().navigate(actionSplashToTerriers())
-                    //this.findNavController().navigate(SplashFragmentDirections.actionSplashToTerriers())
                     this.findNavController().navigate(SplashFragmentDirections.actionSplashToMain())
                     // Tell the ViewModel we've made the navigate call to prevent multiple navigation
                     // !!!!!Otherwise app will CRASH when Back button is clicked from destination fragment!!!!!

@@ -16,14 +16,18 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavHost
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.heske.terriertime.R
+import com.heske.terriertime.TerrierApp
 import com.heske.terriertime.database.TerriersDatabase
 import com.heske.terriertime.databinding.FragmentTerriersBinding
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_terriers.*
 import kotlinx.android.synthetic.main.listitem_terriers.*
 
@@ -149,7 +153,13 @@ class TerriersFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val navController = findNavController()
-        setupWithNavController(toolbar,navController)
+       // setupWithNavController(toolbar,navController)
+        val topLevelDestinations = HashSet<Int>()
+        topLevelDestinations.add(R.id.terriersFragment)
+        val appBarConfiguration = AppBarConfiguration.Builder(topLevelDestinations)
+            .build()
+        NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
+        toolbar.title = activity!!.resources.getString(R.string.app_name)
         terriers_recycler.addItemDecoration(
             TerriersRvDecoration(
                 resources.getDimension(com.heske.terriertime.R.dimen.spacing_large).toInt()
@@ -231,4 +241,6 @@ class TerriersFragment : Fragment() {
         })
         alertDialog.show()
     }
+
+
 }
