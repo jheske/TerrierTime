@@ -5,14 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI.setupWithNavController
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.heske.terriertime.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.toolbar.*
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  *
@@ -37,20 +35,35 @@ import kotlinx.android.synthetic.main.toolbar.*
  */
 
 class MainActivity : AppCompatActivity() {
-   // private lateinit var appBarConfiguration: AppBarConfiguration
+    // private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navController: NavController
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //This app has an AppTheme.Launcher theme, so if there's a delay
         //while the app loads, the user will see something nicer than
         //a plain white screen. Now change back to the original AppTheme.
-        setTheme(R.style.AppTheme)
+        //setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         @Suppress("UNUSED_VARIABLE")
         val binding = DataBindingUtil
             .setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-     //   navController = Navigation.findNavController(this, R.id.main_nav_fragment)
+        val destinationIds = HashSet<Int>()
+        destinationIds.add(R.id.splashFragment)
+        destinationIds.add(R.id.terriersFragment)
+        navController = Navigation.findNavController(this, R.id.main_nav_fragment)
+        appBarConfiguration = AppBarConfiguration.Builder(destinationIds)
+            .build()
+
         // Set up ActionBar
-      //  setSupportActionBar(binding.toolbar)
+        setSupportActionBar(binding.toolbar)
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        //   navController = Navigation.findNavController(this, R.id.main_nav_fragment)
+        // Set up ActionBar
+        //  setSupportActionBar(binding.toolbar)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }

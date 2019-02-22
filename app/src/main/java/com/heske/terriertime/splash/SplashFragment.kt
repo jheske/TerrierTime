@@ -77,7 +77,7 @@ class SplashFragment : Fragment() {
                 }
             })
 
-        activity!!.setFullScreen()
+        //activity!!.setFullScreen()
         return binding.root
     }
 }

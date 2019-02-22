@@ -17,8 +17,7 @@
                 android:id="@+id/appbar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/backdrop_height"
-                android:fitsSystemWindows="true"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+                android:fitsSystemWindows="true">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:id="@+id/collapsing_toolbar_layout"
@@ -64,7 +63,7 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent"/>
 
-                <androidx.appcompat.widget.AppCompatButton
+                <Button
                         android:id="@+id/btn_flickr_pix"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

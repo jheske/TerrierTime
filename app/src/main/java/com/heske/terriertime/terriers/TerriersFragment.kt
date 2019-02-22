@@ -61,7 +61,9 @@ class TerriersFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // This binding provides access to terriers_recycler in fragment_terriers
-        val binding = FragmentTerriersBinding.inflate(inflater)
+    //    val binding = FragmentTerriersBinding.inflate(inflater)
+        val binding = FragmentTerriersBinding
+            .inflate(inflater, container, false)
 
         val application = requireNotNull(this.activity).application
         val dataSource = TerriersDatabase.getInstance(application).terriersDatabaseDao
@@ -148,8 +150,8 @@ class TerriersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val navController = findNavController()
-        setupWithNavController(toolbar,navController)
+       // val navController = findNavController()
+       // setupWithNavController(toolbar,navController)
         terriers_recycler.addItemDecoration(
             TerriersRvDecoration(
                 resources.getDimension(com.heske.terriertime.R.dimen.spacing_large).toInt()

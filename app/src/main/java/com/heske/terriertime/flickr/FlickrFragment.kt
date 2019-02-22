@@ -38,7 +38,7 @@ class FlickrFragment : Fragment() {
         binding.photosRecycler.adapter = FlickrRvAdapter()
 
         binding.setLifecycleOwner(this)
-        activity!!.setFullScreen()
+       // activity!!.setFullScreen()
         return binding.root
     }
 }
