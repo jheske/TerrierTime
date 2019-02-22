@@ -15,6 +15,10 @@ import com.heske.terriertime.utils.TerrierBreeds
 import com.heske.terriertime.utils.buildBreedTagString
 import com.heske.terriertime.utils.isNetworkConnected
 import kotlinx.coroutines.*
+import android.widget.Toast
+import com.heske.terriertime.MainActivity
+
+
 
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
@@ -62,7 +66,7 @@ class SplashViewModel(
     private val TAG = SplashViewModel::class.java.simpleName
 
     companion object {
-        private val SPLASH_DISPLAY_LENGTH = 2500L
+        private val SPLASH_DISPLAY_LENGTH = 1000L
     }
 
     private var handler: Handler? = Handler()
@@ -239,4 +243,5 @@ class SplashViewModel(
             }
         }
     }
+
 }

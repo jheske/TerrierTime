@@ -1,6 +1,7 @@
 package com.heske.terriertime
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
@@ -41,19 +42,19 @@ class MainActivity : AppCompatActivity() {
         //This app has an AppTheme.Launcher theme, so if there's a delay
         //while the app loads, the user will see something nicer than
         //a plain white screen. Now change back to the original AppTheme.
-     //   setTheme(R.style.AppTheme)
+        //   setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         @Suppress("UNUSED_VARIABLE")
         val binding = DataBindingUtil
             .setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-        val topLevelDestinations = HashSet<Int>()
-        topLevelDestinations.add(R.id.terriersFragment)
-        topLevelDestinations.add(R.id.splashFragment)
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        navController = findNavController(R.id.main_nav_fragment)
-        appBarConfiguration = AppBarConfiguration.Builder(topLevelDestinations)
-            .build()
-        setupActionBarWithNavController(navController,appBarConfiguration)
+//        val topLevelDestinations = HashSet<Int>()
+//        topLevelDestinations.add(R.id.terriersFragment)
+//        topLevelDestinations.add(R.id.splashFragment)
+//        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+//        setSupportActionBar(toolbar)
+//        navController = findNavController(R.id.main_nav_fragment)
+//        appBarConfiguration = AppBarConfiguration.Builder(topLevelDestinations)
+//            .build()
+//        setupActionBarWithNavController(navController, appBarConfiguration)
     }
 }

@@ -5,8 +5,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            style="@style/AppTheme.Launcher">
+            android:layout_height="match_parent">
 
         <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
                    android:id="@+id/img_splash"

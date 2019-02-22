@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.heske.terriertime.database.TerriersDatabase
 import com.heske.terriertime.databinding.FragmentSplashBinding
+import com.heske.terriertime.utils.hideSystemUI
 import com.heske.terriertime.utils.setFullScreen
 
 /**
@@ -74,7 +75,11 @@ class SplashFragment : Fragment() {
                 }
             })
 
-        activity!!.setFullScreen()
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        activity!!.hideSystemUI()
     }
 }
