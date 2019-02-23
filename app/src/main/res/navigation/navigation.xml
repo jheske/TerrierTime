@@ -41,7 +41,6 @@
     <fragment
             android:id="@+id/detailFragment"
             android:name="com.heske.terriertime.detail.DetailFragment"
-            android:label="@string/app_name"
             tools:layout="@layout/fragment_detail">
         <argument android:name="terrier"
                   app:argType="com.heske.terriertime.database.Terrier"/>

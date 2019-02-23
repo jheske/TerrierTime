@@ -1,16 +1,15 @@
 package com.heske.terriertime
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.*
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.heske.terriertime.databinding.ActivityMainBinding
-import kotlinx.android.synthetic.main.activity_main.*
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  *
@@ -51,16 +50,13 @@ class MainActivity : AppCompatActivity() {
         val destinationIds = HashSet<Int>()
         destinationIds.add(R.id.splashFragment)
         destinationIds.add(R.id.terriersFragment)
-        navController = Navigation.findNavController(this, R.id.main_nav_fragment)
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         appBarConfiguration = AppBarConfiguration.Builder(destinationIds)
             .build()
 
         // Set up ActionBar
         setSupportActionBar(binding.toolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
-        //   navController = Navigation.findNavController(this, R.id.main_nav_fragment)
-        // Set up ActionBar
-        //  setSupportActionBar(binding.toolbar)
     }
 
     override fun onSupportNavigateUp(): Boolean {

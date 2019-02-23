@@ -1,20 +1,16 @@
 package com.heske.terriertime.detail
 
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.heske.terriertime.databinding.FragmentDetailBinding
-import com.heske.terriertime.utils.toBreedFileName
-import kotlinx.android.synthetic.main.fragment_detail.*
-import java.io.IOException
-import java.io.InputStream
+import kotlinx.android.synthetic.main.activity_main.*
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -48,7 +44,6 @@ class DetailFragment : Fragment() {
         val binding = FragmentDetailBinding.inflate(inflater)
         val terrier = DetailFragmentArgs.fromBundle(arguments!!).terrier
         terrierBreedName = terrier.name
-
         val viewModelFactory = DetailViewModelFactory(terrier)
         val viewModel =
             ViewModelProviders.of(
@@ -73,33 +68,8 @@ class DetailFragment : Fragment() {
         return binding.root
     }
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-//        setupWithNavController(detail_toolbar, findNavController())
-//        detail_toolbar.title = terrierBreedName
-//        loadBackdropImage()
-//    }
-
-    /* Retrieve image associated with [breedName] from assets and display it
-     * int the toolbar's backdrop.
-     */
-    fun loadBackdropImage() {
-        var inputStream: InputStream? = null
-
-        try {
-            val context = requireNotNull(this.context)
-
-            inputStream = context.assets.open(terrierBreedName.toBreedFileName())
-            val bitmap = BitmapFactory.decodeStream(inputStream)
-            bitmap?.let {
-                toolbar_image.setImageBitmap(bitmap)
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
-        } finally {
-            inputStream?.close()
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        activity?.toolbar?.title = "YOUR_TITLE_HERE"
     }
-
 }

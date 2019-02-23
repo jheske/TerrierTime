@@ -12,10 +12,8 @@
     <string name="txt_no_network">You are not connected to the network. You must have a network connection
         to retrieve addition terriers details from Wiki.
     </string>
-    <string name="txt_tools_summary">Called the King of Terriers because of its size. Did
-        you know that one of this terriers was the very first celebrity dog? President Harding had
+    <string name="txt_tools_summary">Called the King of Terriers because of its size, this terrier was the very first celebrity dog. President Harding had
         one named Laddie Boy, who was a media darling and even had his own hand-carved chair!
-        Can you guess what kind of terrier this is?
     </string>
     <string name="txt_tools_breed">Airedale Terrier</string>
     <string name="txt_dog_breed">Dog Breed</string>
@@ -48,7 +46,7 @@
     <string name="yorkshire_terrier">Yorkshire Terrier</string>
     <!-- facts -->
     <string name="airedale_fact">Called the King of Terriers because of its size, this terrier was the very first
-        celebrity dog? President Harding had
+        celebrity dog. President Harding had
         one named Laddie Boy, a media darling who even had his own hand-carved chair!
     </string>
     <string name="bull_terrier_fact">You know him as the Bud Light mascot Spuds Mackenzie.</string>
