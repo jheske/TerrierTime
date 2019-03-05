@@ -26,7 +26,7 @@ android {
         enabled = true
     }
     defaultConfig {
-        applicationId "com.example.terriertime"
+        applicationId "com.heske.terriertime"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
