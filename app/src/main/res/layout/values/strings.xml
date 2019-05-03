@@ -3,15 +3,15 @@
     <string name="txt_no_null_activity">Activity must not be null</string>
     <string name="txt_breed">Breed</string>
     <string name="txt_guess">Can you guess what kind of terrier this is?</string>
-    <string name="txt_guess_hint">Enter terrier terriers</string>
-    <string name="txt_more_pix">More {terriers}s</string>
-    <string name="txt_no_summary">There is no additional information for this terriers.  It\'s possible
+    <string name="txt_guess_hint">Enter terrier </string>
+    <string name="txt_more_pix">More {terrier}s</string>
+    <string name="txt_no_summary">There is no additional information for this terrier.  It\'s possible
         there was an error connecting to or retrieving the data from Wiki.
         Make sure you are connected to the network and try rerunning the app.</string>
     <string name="txt_no_network">You are not connected to the network.  You must have a network connection
-        to retrieve addition terriers details from Wiki.</string>
+        to retrieve addition terrier details from Wiki.</string>
     <string name="txt_tools_summary">Called the King of Terriers because of its size. Did
-        you know that one of this terriers was the very first celebrity dog? President Harding had
+        you know that one of this terrier was the very first celebrity dog? President Harding had
         one named Laddie Boy, who was a media darling and even had his own hand-carved chair!
         Can you guess what kind of terrier this is?
     </string>
@@ -25,11 +25,11 @@
     <string name="txt_wrong_answer">Try checking the spelling.</string>
     <string name="txt_no_answer">Please enter your guess in the space provided.</string>
     <string name="txt_no_answer_title">You didn\'t guess!</string>
-    <string name="txt_wrong_answer_title">{terriers} is not correct</string>
+    <string name="txt_wrong_answer_title">{terrier} is not correct</string>
     <string name="txt_alphabet">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</string>
     <string name="txt_ok">OK</string>
 
-    <!-- terrier terriers -->
+    <!-- terrier terrier -->
     <string name="airedale">Airedale Terrier</string>
     <string name="bull_terrier">Bull Terrier</string>
     <string name="black_russian_terrier">Black Russian Terrier</string>
@@ -45,7 +45,7 @@
     <string name="yorkshire_terrier">Yorkshire Terrier</string>
     <!-- facts -->
     <string name="airedale_fact">Called the King of Terriers because of its size. Did
-        you know that one of this terriers was the very first celebrity dog? President Harding had
+        you know that one of these terrier was the very first celebrity dog? President Harding had
         one named Laddie Boy, who was a media darling and even had his own hand-carved chair!</string>
     <string name="bull_terrier_fact">You know him as the Bud Light mascot Spuds Mackenzie.</string>
     <string name="black_russian_terrier_fact">While terrier is in his name,
@@ -55,7 +55,7 @@
     <string name="fox_terrier_fact">The wirehaired version of this dog has won Best in Show at
     Westminster 14 times, more than any other terriers.</string>
     <string name="irish_terrier_fact">Thought to be developed in Ireland,
-        this is one of the oldest terrier terriers. Though now a great pet and vermin catcher,
+        this is one of the oldest terrier terrier. Though now a great pet and vermin catcher,
         this dog served as a messenger dog during WWI.</string>
     <string name="manchester_terrier_fact">This dog, an ancestor of the Doberman,
         comes in two sizes, Standard and Toy.</string>

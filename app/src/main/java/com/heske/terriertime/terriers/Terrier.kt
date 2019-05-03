@@ -1,7 +1,7 @@
-package com.heske.terriertime.database
+package com.heske.terriertime.terriers
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -9,10 +9,10 @@ package com.heske.terriertime.database
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- *
+ * 
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- *
+ * 
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -21,36 +21,14 @@ package com.heske.terriertime.database
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
-import android.os.Parcelable
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
-import kotlinx.android.parcel.Parcelize
-
-/**
- * Represents one row in the Terriers table.  Terriers names in the database are treated
- * as Wikipedia tags and are used to retrieve information about the
- * breed, such as summary text, so their exact spelling has to conform to Wiki.
- */
-@Parcelize
-@Entity(tableName = "breed")
 data class Terrier(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(index = true, name = "_id")
-    var id: Long,
-    @ColumnInfo(name = "name")
-    var name: String,
-    @ColumnInfo(name = "fact")
-    var fact: String,
-    @ColumnInfo(name = "summary")
-    var summary: String? = null,
-   // @ColumnInfo(name="main_url")
-   // var mainImageUrl: String? = null,
-    // The List of Flickr image urls will go here.
-    @Ignore
-    var imageList: ArrayList<String>? = null
-) : Parcelable {
-    constructor() : this(0, "", "", "", null)
-}
+    val id: Long,
+    val name: String,
+    val fact: String,
+    val summary: String? = null,
+    val imageList: ArrayList<String>? = null)
+
+data class Summary(
+    val breed: String,
+    val summary: String
+)

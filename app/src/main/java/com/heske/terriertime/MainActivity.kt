@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.heske.terriertime.databinding.ActivityMainBinding
 
@@ -47,14 +48,25 @@ class MainActivity : AppCompatActivity() {
         @Suppress("UNUSED_VARIABLE")
         val binding = DataBindingUtil
             .setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        val supportActionBar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(supportActionBar)
+        // Get the NavController for your NavHostFragment
+        val navController = findNavController(R.id.nav_host_fragment)
+        // Set up the ActionBar to stay in sync with the NavController
+        setupActionBarWithNavController(navController)
+
 //        val topLevelDestinations = HashSet<Int>()
 //        topLevelDestinations.add(R.id.terriersFragment)
 //        topLevelDestinations.add(R.id.splashFragment)
 //        val toolbar = findViewById<Toolbar>(R.id.toolbar)
 //        setSupportActionBar(toolbar)
-//        navController = findNavController(R.id.main_nav_fragment)
+//        navController = findNavController(R.id.nav_host_fragment)
 //        appBarConfiguration = AppBarConfiguration.Builder(topLevelDestinations)
 //            .build()
 //        setupActionBarWithNavController(navController, appBarConfiguration)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }

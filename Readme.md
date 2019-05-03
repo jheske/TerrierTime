@@ -48,9 +48,9 @@ Room database for persistence.
 
 A Splash activity loads a preset list of terriers and facts into the database.  If summaries and image links are not in the database (and the network is available), it attempts to dowload and store summaries from Wiki and a list of image file paths from Flickr.
 
-If the network is unavailable on startup, the Splash activity still makes sure the local list of terrier data is in the database.  Along with an images for each breed in assets, this is all the information the user needs to make guesses.  If the app is able to access the network on startup at any point, it will download Wiki summaries and Flickr image paths and store them in the database for future runs.  User will be able to see summaries on the detail screen, but Flickr images cannot be downloaded without a working network connection. 
+If the network is unavailable on startup, the Splash activity still makes sure the local list of terrier data is in the database.  Along with an images for each breed in assets, this is all the information the user needs to make guesses.  If the app is able to access the network on startup at any point, it will download Wiki summaries and Flickr image paths and store them in the database for future runs.  User will be able to see summaries on the detail screen, but Flickr images cannot be downloaded without a working network connection.
 
-The main screen displays the list of terriers, along with a useful fact, and image (from assets) for each to help the user guess the breed.  
+The main screen displays the list of terriers, along with a useful fact, and image (from assets) for each to help the user guess the breed.
 
 The user enters a guess and clicks a button for feedback.  A correct guess reveals a "More" button allowing them to click through to a detail activity.  If the user gives up, they can click a button to go directly to the detail activity.
 

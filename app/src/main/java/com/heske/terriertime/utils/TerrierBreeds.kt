@@ -2,7 +2,7 @@ package com.heske.terriertime.utils
 
 import com.heske.terriertime.R
 import com.heske.terriertime.TerrierApp
-import com.heske.terriertime.database.Terrier
+import com.heske.terriertime.database.DatabaseTerrier
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -38,70 +38,70 @@ import com.heske.terriertime.database.Terrier
  */
 object TerrierBreeds {
     val app = TerrierApp.instance
-    val terriersMap: HashMap<String, Terrier>
+    val terriersMap: HashMap<String, DatabaseTerrier>
         get() = hashMapOf(
             (app.getString(R.string.airedale)
-                    to Terrier(
+                    to DatabaseTerrier(
                 0, app.getString(R.string.airedale),
                 app.getString(R.string.airedale_fact)
             )),
             (app.getString(R.string.bull_terrier)
-                    to Terrier(
+                    to DatabaseTerrier(
                 0, app.getString(R.string.bull_terrier),
                 app.getString(R.string.bull_terrier_fact)
             )),
             (app.getString(R.string.black_russian_terrier)
-                    to Terrier(
+                    to DatabaseTerrier(
                 0, app.getString(R.string.black_russian_terrier),
                 app.getString(R.string.black_russian_terrier_fact)
             )),
             (app.getString(R.string.boston_terrier)
-                    to Terrier(
+                    to DatabaseTerrier(
                 0, app.getString(R.string.boston_terrier),
                 app.getString(R.string.boston_terrier_fact)
             )),
             (app.getString(R.string.fox_terrier)
-                    to Terrier(
+                    to DatabaseTerrier(
                 0, app.getString(R.string.fox_terrier),
                 app.getString(R.string.fox_terrier_fact)
             )),
-            (app.getString(R.string.irish_terrier) to Terrier(
+            (app.getString(R.string.irish_terrier) to DatabaseTerrier(
                 0,
                 app.getString(R.string.irish_terrier),
                 app.getString(R.string.irish_terrier_fact)
             )),
             (app.getString(R.string.manchester_terrier)
-                    to Terrier(
+                    to DatabaseTerrier(
                 0, app.getString(R.string.manchester_terrier),
                 app.getString(R.string.manchester_terrier_fact)
             )),
             (app.getString(R.string.rat_terrier)
-                    to Terrier(
+                    to DatabaseTerrier(
                 0, app.getString(R.string.rat_terrier),
                 app.getString(R.string.rat_terrier_fact)
             )),
             (app.getString(R.string.skye_terrier)
-                    to Terrier(
+                    to DatabaseTerrier(
                 0, app.getString(R.string.skye_terrier),
                 app.getString(R.string.skye_terrier_fact)
             )),
             (app.getString(R.string.schnauzer)
-                    to Terrier(
+                    to DatabaseTerrier(
                 0, app.getString(R.string.schnauzer),
                 app.getString(R.string.schnauzer_fact)
             )),
             (app.getString(R.string.teddy_roosevelt_terrier)
-                    to Terrier(
+                    to DatabaseTerrier(
                 0, app.getString(R.string.teddy_roosevelt_terrier),
                 app.getString(R.string.teddy_rossevelt_terrier_fact)
             )),
             (app.getString(R.string.welsh_terrier)
-                    to Terrier(
+                    to DatabaseTerrier(
                 0, app.getString(R.string.welsh_terrier),
                 app.getString(R.string.welsh_terrier_fact)
             )),
             (app.getString(R.string.yorkshire_terrier)
-                    to Terrier(
+                    to DatabaseTerrier(
                 0, app.getString(R.string.yorkshire_terrier),
                 app.getString(R.string.yorkshire_terrier_fact)
             ))

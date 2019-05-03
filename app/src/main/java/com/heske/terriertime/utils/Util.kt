@@ -6,44 +6,42 @@ import android.net.ConnectivityManager
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
-import androidx.core.content.ContextCompat
-import com.heske.terriertime.R
-import com.heske.terriertime.database.Terrier
+import com.heske.terriertime.database.DatabaseTerrier
 
-fun Activity.setFullScreen() {
-    window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-    // transparent
-    window.statusBarColor = 0x00000000
-    window.navigationBarColor = 0x000000
-    window.decorView.systemUiVisibility =
-        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                View.SYSTEM_UI_FLAG_FULLSCREEN or
-                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-}
+//fun Activity.setFullScreen() {
+//    window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+//    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+//    // transparent
+//    window.statusBarColor = 0x00000000
+//    window.navigationBarColor = 0x000000
+//    window.decorView.systemUiVisibility =
+//        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+//                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+//                View.SYSTEM_UI_FLAG_FULLSCREEN or
+//                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//}
 
-fun Activity.hideSystemUI() {
-    // Enables regular immersive mode.
-    // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
-    // Or for "sticky immersive," replace it with SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-    window.decorView.systemUiVisibility = (
-            // Set the content to appear under the system bars so that the
-            // content doesn't resize when the system bars hide and show.
-            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-            // Hide the nav bar and status bar
-            or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-            or View.SYSTEM_UI_FLAG_FULLSCREEN)
-}
+//fun Activity.hideSystemUI() {
+//    // Enables regular immersive mode.
+//    // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
+//    // Or for "sticky immersive," replace it with SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+//    window.decorView.systemUiVisibility = (
+//            // Set the content to appear under the system bars so that the
+//            // content doesn't resize when the system bars hide and show.
+//            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//            // Hide the nav bar and status bar
+//            or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+//            or View.SYSTEM_UI_FLAG_FULLSCREEN)
+//}
 
 // Shows the system bars by removing all the flags
 // except for the ones that make the content appear under the system bars.
-fun Activity.showSystemUI() {
-    window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
-}
+//fun Activity.showSystemUI() {
+//    window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//            or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+//}
 
 
 /**
@@ -94,7 +92,7 @@ fun Context.hideKeyboard(view: View) {
  * together all the breed names so Wiki can download summaries
  * in one batch.
  */
-fun buildBreedTagString(terrierBreedList: ArrayList<Terrier>): String {
+fun buildBreedTagString(terrierBreedList: ArrayList<DatabaseTerrier>): String {
     val sb = StringBuilder()
     val listSize = terrierBreedList.size
     for (i in 0..listSize - 1) {

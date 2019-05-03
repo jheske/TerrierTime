@@ -1,8 +1,9 @@
-package com.heske.terriertime
+package com.heske.terriertime.splash
 
 import android.app.Application
-import com.heske.terriertime.utils.isNetworkConnected
-import timber.log.Timber
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.heske.terriertime.database.TerriersDao
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -25,20 +26,15 @@ import timber.log.Timber
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-class TerrierApp : Application() {
-    private val TAG = TerrierApp::class.java.simpleName
-    var isNetworkConnected: Boolean = false
+class NewSplashViewModelFactory(
+    private val application: Application
+) : ViewModelProvider.Factory {
 
-    companion object {
-        lateinit var instance: TerrierApp
-            private set
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-
-        isNetworkConnected = isNetworkConnected()
-        instance = this
-        Timber.plant(Timber.DebugTree())
+    @Suppress("unchecked_cast")
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(NewSplashViewModel::class.java)) {
+            return NewSplashViewModel(application) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

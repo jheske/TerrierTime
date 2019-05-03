@@ -1,8 +1,8 @@
-package com.heske.terriertime
+package com.heske.terriertime.network
 
-import android.app.Application
-import com.heske.terriertime.utils.isNetworkConnected
-import timber.log.Timber
+import com.google.gson.annotations.SerializedName
+import com.heske.terriertime.database.DatabaseTerrier
+import com.heske.terriertime.terriers.Summary
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -25,20 +25,32 @@ import timber.log.Timber
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-class TerrierApp : Application() {
-    private val TAG = TerrierApp::class.java.simpleName
-    var isNetworkConnected: Boolean = false
+data class WikiSummaryListResponse(var query: WikiBreedSummaryList)
 
-    companion object {
-        lateinit var instance: TerrierApp
-            private set
-    }
+data class WikiBreedSummaryList(
+    @SerializedName("pages")
+    var summaryList: HashMap<Int, WikiBreedSummaryItem>
+)
 
-    override fun onCreate() {
-        super.onCreate()
+data class WikiBreedSummaryItem(
+    @SerializedName("title") var breed: String,
+    @SerializedName("extract") var summary: String
+)
 
-        isNetworkConnected = isNetworkConnected()
-        instance = this
-        Timber.plant(Timber.DebugTree())
-    }
+//data class WikiImageItem (@SerializedName("title")
+//                          val imageFileName: String)
+
+/**
+ *
+ * Create simple List of breed/summary pairs from  ArrayList<WikiBreedSummaryItem>.
+ */
+fun WikiSummaryListResponse.asDatabaseModel(): Array<Summary> {
+    val listOfSummaries = ArrayList(query.summaryList.values)
+
+    return listOfSummaries.map {
+        Summary(
+            breed = it.breed,
+            summary = it.summary
+        )
+    }.toTypedArray()
 }

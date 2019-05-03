@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.heske.terriertime.R
-import com.heske.terriertime.database.Terrier
+import com.heske.terriertime.database.DatabaseTerrier
 import com.heske.terriertime.flickr.FlickrRvAdapter
 import com.heske.terriertime.terriers.TerriersRvAdapter
 
@@ -103,7 +103,7 @@ fun bindBackdropImage(imgView: ImageView, terrierBreedName: String?) {
  * otherwise show it.
  */
 @BindingAdapter("terrierRecyclerListData")
-fun bindTerriersRecyclerView(recyclerView: RecyclerView, data: List<Terrier>?) {
+fun bindTerriersRecyclerView(recyclerView: RecyclerView, data: List<DatabaseTerrier>?) {
     val adapter = recyclerView.adapter as TerriersRvAdapter
     adapter.submitList(data)
 }

@@ -8,15 +8,16 @@ package com.heske.terriertime.splash
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
-import com.heske.terriertime.database.TerriersDatabase
+import com.google.android.material.snackbar.Snackbar
 import com.heske.terriertime.databinding.FragmentSplashBinding
-import com.heske.terriertime.utils.hideSystemUI
-import com.heske.terriertime.utils.setFullScreen
+import kotlinx.android.synthetic.main.fragment_splash.*
+import kotlinx.android.synthetic.main.fragment_terriers.*
 
 /**
  * The splash screen is shown for this delay before MainActivity is called. The splash screen
@@ -34,8 +35,6 @@ import com.heske.terriertime.utils.setFullScreen
  * without having to restart the app.
  */
 class SplashFragment : Fragment() {
-    private val TAG = SplashFragment::class.java.simpleName
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,38 +47,32 @@ class SplashFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
 
-        val dataSource = TerriersDatabase
-            .getInstance(application)
-            .terriersDatabaseDao
-        val viewModelFactory = SplashViewModelFactory(application, dataSource)
+        //val dataSource = getDatabase(application).terriersDatabaseDao
+        val viewModelFactory = NewSplashViewModelFactory(application)
 
         val viewModel =
             ViewModelProviders.of(
                 this, viewModelFactory
-            ).get(SplashViewModel::class.java)
+            ).get(NewSplashViewModel::class.java)
 
-        /**
-         *  ViewModel emits the closeSplashScreen event when its timer times out,
-         *  which means it's time to navigate to the TerriersFragment.
-         */
-        // TODO Test this event after viewModel finishes initializing the db.
-        viewModel
-            .eventCloseSplashScreen
-            .observe(this, Observer { closeSplashScreen ->
-                // Navigate to TerriersFragment
-                if (closeSplashScreen) {
-                    this.findNavController().navigate(SplashFragmentDirections.actionSplashToMain())
-                    // Tell the ViewModel we've made the navigate call to prevent multiple navigation
-                    // !!!!!Otherwise app will CRASH when Back button is clicked from destination fragment!!!!!
-                    viewModel.onEventCloseSplashScreenComplete()
-                }
-            })
+        viewModel.spinner.observe(viewLifecycleOwner, Observer { value ->
+            value?.let { show ->
+                if (show)
+                    pv_circular.visibility = VISIBLE
+                else
+                    pv_circular.visibility = GONE
+
+            }
+        })
+
+        viewModel.snackBar.observe(viewLifecycleOwner, Observer { text ->
+            text?.let {
+                Snackbar.make(layout_container, text, Snackbar.LENGTH_SHORT)
+                    .show()
+                viewModel.onSnackbarShown()
+            }
+        })
 
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        activity!!.hideSystemUI()
     }
 }

@@ -9,11 +9,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.heske.terriertime.databinding.FragmentFlickrBinding
-import com.heske.terriertime.utils.setFullScreen
 
 /**
  * Retrieve the list of paths to Flickr images and display
@@ -38,7 +36,6 @@ class FlickrFragment : Fragment() {
         binding.photosRecycler.adapter = FlickrRvAdapter()
 
         binding.setLifecycleOwner(this)
-        activity!!.setFullScreen()
         return binding.root
     }
 }

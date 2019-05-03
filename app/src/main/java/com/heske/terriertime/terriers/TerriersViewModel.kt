@@ -4,9 +4,13 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import com.heske.terriertime.database.Terrier
+import androidx.lifecycle.viewModelScope
+import com.heske.terriertime.database.DataRepository
+import com.heske.terriertime.database.DatabaseTerrier
 import com.heske.terriertime.database.TerriersDao
+import com.heske.terriertime.database.getDatabase
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -29,6 +33,7 @@ import com.heske.terriertime.database.TerriersDao
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 /**
  * Model for asynchronously downloading Json data from the network using Retrofit2
  * Provides functions for calling Wikipedia and Flickr APIs
@@ -41,21 +46,40 @@ class TerriersViewModel(
     application: Application
 ) : AndroidViewModel(application) {
 
-    private val _correctGuess = MutableLiveData<Terrier>()
-    val correctGuess: LiveData<Terrier>
+    private var _snackBar = MutableLiveData<String>()
+    val snackBar: LiveData<String>
+        get() = _snackBar
+
+    private val _spinner = MutableLiveData<Boolean>()
+    val spinner: LiveData<Boolean>
+        get() = _spinner
+
+    private val _correctGuess = MutableLiveData<DatabaseTerrier>()
+    val correctGuess: LiveData<DatabaseTerrier>
         get() = _correctGuess
 
     private val _incorrectGuess = MutableLiveData<String>()
     val incorrectGuess: LiveData<String>
         get() = _incorrectGuess
 
-    private val _navigateToFullsizeImage = MutableLiveData<Terrier>()
-    val navigateToFullsizeImage: LiveData<Terrier>
+    private val _navigateToFullsizeImage = MutableLiveData<DatabaseTerrier>()
+    val navigateToFullsizeImage: LiveData<DatabaseTerrier>
         get() = _navigateToFullsizeImage
 
-    private val _navigateToDetailScreen = MutableLiveData<Terrier>()
-    val navigateToDetailScreen: LiveData<Terrier>
+    private val _navigateToDetailScreen = MutableLiveData<DatabaseTerrier>()
+    val navigateToDetailScreen: LiveData<DatabaseTerrier>
         get() = _navigateToDetailScreen
+
+    private val database = getDatabase(application)
+    private val dataRepository = DataRepository(database.terriersDatabaseDao)
+
+    init {
+        launchDataLoad {
+            dataRepository.clearData()
+            dataRepository.refreshData()
+
+        }
+    }
 
     /**
      * terrier_recycler listOfTerriers attribute has a data binding to
@@ -67,9 +91,9 @@ class TerriersViewModel(
     /**
      * When the terrier image is clicked,
      * set the [_navigateToFullsizeImage] [MutableLiveData]
-     * @param terrier The [Terrier] that was clicked on.
+     * @param terrier The [terrier] that was clicked on.
      */
-    fun displayFullsizeImage(terrier: Terrier) {
+    fun displayFullsizeImage(terrier: DatabaseTerrier) {
         _navigateToFullsizeImage.value = terrier
     }
 
@@ -84,9 +108,9 @@ class TerriersViewModel(
     /**
      * When the terrier image is clicked,
      * set the [_navigateToFullsizeImage] [MutableLiveData]
-     * @param terrier The [Terrier] that was clicked on.
+     * @param terrier The [terrier] that was clicked on.
      */
-    fun displayDetailScreen(terrier: Terrier) {
+    fun displayDetailScreen(terrier: DatabaseTerrier) {
         _navigateToDetailScreen.value = terrier
     }
 
@@ -107,10 +131,10 @@ class TerriersViewModel(
     }
 
     /**
-     * If user's guess is correct, then send the [Terrier] back for display.
+     * If user's guess is correct, then send the [terrier] back for display.
      * Otherwise send null so [Observer] can provide user feedback.
      */
-    fun processGuess(terrier: Terrier, guessText: String) {
+    fun processGuess(terrier: DatabaseTerrier, guessText: String) {
         // Everything lower case for easy comparison
         val breedName = terrier.name.toLowerCase()
         val guess = guessText.toLowerCase()
@@ -121,5 +145,22 @@ class TerriersViewModel(
         } else {
             _incorrectGuess.value = guessText
         }
+    }
+
+    private fun launchDataLoad(block: suspend () -> Unit): Job {
+        return viewModelScope.launch {
+            try {
+                _spinner.value = true
+                block()
+            } catch (error: DataRepository.RepositoryRefreshError) {
+                _snackBar.value = error.message
+            } finally {
+                _spinner.value = false
+            }
+        }
+    }
+
+    fun onSnackbarShown() {
+        _snackBar.value = null
     }
 }

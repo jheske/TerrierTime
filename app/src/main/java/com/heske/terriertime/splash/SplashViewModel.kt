@@ -2,23 +2,19 @@ package com.heske.terriertime.splash
 
 import android.app.Application
 import android.os.Handler
-import android.util.Log
-import androidx.core.os.postDelayed
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.heske.terriertime.database.Terrier
+import com.heske.terriertime.database.DatabaseTerrier
 import com.heske.terriertime.database.TerriersDao
 import com.heske.terriertime.network.WikiApi
-import com.heske.terriertime.network.wiki.WikiBreedSummaryItem
 import com.heske.terriertime.utils.TerrierBreeds
 import com.heske.terriertime.utils.buildBreedTagString
 import com.heske.terriertime.utils.isNetworkConnected
 import kotlinx.coroutines.*
-import android.widget.Toast
-import com.heske.terriertime.MainActivity
-
-
+import com.heske.terriertime.network.WikiApiSevice
+import com.heske.terriertime.network.WikiBreedSummaryItem
+import timber.log.Timber
 
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
@@ -88,10 +84,10 @@ class SplashViewModel(
         get() = _eventCloseSplashScreen
 
     // Internally, we use a MutableLiveData to handle navigation to the selected property
-    private val _navigateToTerriers = MutableLiveData<Terrier>()
+    private val _navigateToTerriers = MutableLiveData<DatabaseTerrier>()
 
     // The external immutable LiveData for the navigation property
-    val navigateToTerriers: LiveData<Terrier>
+    val navigateToTerriers: LiveData<DatabaseTerrier>
         get() = _navigateToTerriers
 
     init {
@@ -99,9 +95,9 @@ class SplashViewModel(
             //Display Splash screen for a few seconds before
             //navigating to TerriersFragment
             uiScope.launch {
-                //Clear the db just for testing
+                //Clear the db just for testing. Later add a button in settings.
                 dbDeleteAll()
-                initializeDatabase(dbGetTableRowCount(), dbGetSummaryCount())
+              //  initializeDatabase(dbGetTableRowCount(), dbGetSummaryCount())
                 handler?.postDelayed(closeSplashScreen,
                     SPLASH_DISPLAY_LENGTH
                 )
@@ -129,7 +125,7 @@ class SplashViewModel(
         _eventCloseSplashScreen.value = false
     }
 
-    private suspend fun dbGetTableRowCount(): Int {
+    private suspend fun dbGetTableRowCount(): Long {
         return withContext(Dispatchers.IO) {
             terrierTableDao.getRowCount()
         }
@@ -147,7 +143,7 @@ class SplashViewModel(
     private suspend fun dbDeleteAll() {
         withContext(Dispatchers.IO) {
             terrierTableDao.deleteAll()
-            Log.d(TAG, "Database cleared")
+            Timber.d("Database cleared")
         }
     }
 
@@ -176,7 +172,7 @@ class SplashViewModel(
 
     private suspend fun dbInsertAll() {
         withContext(Dispatchers.IO) {
-            terrierTableDao.insertAll(terrierList)
+           // terrierTableDao.insertAll(terrierList)
         }
     }
 
@@ -199,10 +195,10 @@ class SplashViewModel(
      */
     private suspend fun downloadWikiSummaries() {
         // Get the Deferred object for our Retrofit request
-        Log.d(TAG, "[loadWikiSummaries] " + "Download summaries")
+        Timber.d(TAG, "[loadWikiSummaries] " + "Download summaries")
 
-        val getPropertiesDeferred = WikiApi.retrofitService
-            .getWikiBreedSummaryList(buildBreedTagString(terrierList))
+        val getPropertiesDeferred
+                = WikiApi.wikiService.getWikiBreedSummaryList(buildBreedTagString(terrierList))
         try {
             // Await the completion of our Retrofit request.
             val listResult = getPropertiesDeferred.await()
@@ -210,12 +206,12 @@ class SplashViewModel(
 
             if (listSize > 0) {
                 val wikiBreedSummaryList = listResult.query.summaryList
-                Log.d(TAG, "[loadWikiSummaries] " + "listSize = $listSize")
+                Timber.d(TAG, "[loadWikiSummaries] " + "listSize = $listSize")
                 dbUpdateSummaries(ArrayList(wikiBreedSummaryList.values))
             }
             //_status.value = "Success: ${listSize} items retrieved"
             if (listSize > 0) {
-                Log.d(TAG, "[loadWikiSummaries] " + "There are $listSize summaries")
+                Timber.d(TAG, "[loadWikiSummaries] " + "There are $listSize summaries")
             }
         } catch (e: Exception) {
             //_status.value = "Failure: ${e.message}"
@@ -230,18 +226,17 @@ class SplashViewModel(
         val terriersMap = TerrierBreeds.terriersMap
         wikiSummaryList.forEachIndexed { index, wikiListItem ->
             if (terriersMap.contains(wikiListItem.breed)) {
-                Log.d(TAG, "Updating ${wikiListItem.breed}")
+                Timber.d(TAG, "Updating ${wikiListItem.breed}")
                 withContext(Dispatchers.IO) {
                     val rowCount = terrierTableDao.updateSummary(
                         breedName = wikiListItem.breed,
                         summary = wikiListItem.summary
                     )
-                    Log.d(TAG, "RowCount = $rowCount")
+                    Timber.d(TAG, "RowCount = $rowCount")
                 }
             } else {
-                Log.d(TAG, "Can't find ${wikiListItem.breed}")
+                Timber.d(TAG, "Can't find ${wikiListItem.breed}")
             }
         }
     }
-
 }

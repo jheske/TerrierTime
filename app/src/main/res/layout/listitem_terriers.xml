@@ -7,13 +7,13 @@
     to this layout and all its Views -->
     <data>
         <variable
-                name="terrier"
-                type="com.heske.terriertime.database.Terrier"/>
+                name="database_terrier"
+                type="com.heske.terriertime.database.DatabaseTerrier"/>
         <variable
                 name="viewModel"
                 type="com.heske.terriertime.terriers.TerriersViewModel"/>
         <variable
-                name="guess"
+                name="guess_string"
                 type="String"/>
     </data>
     <androidx.cardview.widget.CardView
@@ -34,7 +34,7 @@
                     android:contentDescription="@string/app_name"
                     android:scaleType="centerCrop"
                     tools:src="@drawable/terrier_placeholder"
-                    app:terrierImageUrl="@{terrier.name}"
+                    app:terrierImageUrl="@{database_terrier.name}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
@@ -46,7 +46,7 @@
                     android:layout_marginTop="@dimen/spacing_medium"
                     android:layout_marginLeft="@dimen/spacing_medium"
                     android:layout_marginRight="@dimen/spacing_medium"
-                    android:text="@{terrier.fact}"
+                    android:text="@{database_terrier.fact}"
                     android:textSize="@dimen/main_text_size"
                     tools:text="@string/airedale_fact"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -77,7 +77,7 @@
                     android:inputType="textPersonName"
                     tools:text="@string/txt_guess"
                     android:ems="20"
-                    android:text="@{guess}"
+                    android:text="@{guess_string}"
                     android:hint="@string/txt_guess"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

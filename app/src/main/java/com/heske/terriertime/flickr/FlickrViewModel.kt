@@ -56,14 +56,14 @@ class FlickrViewModel(breedName: String): ViewModel() {
     }
 
     /**
-     * Sets the value of the response LiveData to the Mars API status or the successful number of
-     * Mars properties retrieved.
+     * Sets the value of the response LiveData to the API status or the successful number of
+     * objects retrieved.
      */
     private fun getFlickrImages(breedName: String) {
         uiScope.launch {
             // Get the Deferred object for our Retrofit request
             val getPropertiesDeferred
-                    = FlickrApi.retrofitService.getFlickImageList(breedName)
+                    = FlickrApi.flickrService.getFlickImageList(breedName)
             try {
                 // Await the completion of our Retrofit request
                 val listResult = getPropertiesDeferred.await()

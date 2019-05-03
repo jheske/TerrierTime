@@ -81,11 +81,15 @@ dependencies {
 
     //Lifecycle
     implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.viewModelCoroutinesVersion"
 
     //Room
     implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
     implementation "androidx.room:room-runtime:$rootProject.roomVersion"
     implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
+
+    //Timber Logging
+    implementation "com.jakewharton.timber:timber:$timberVersion"
 
     // Testing dependencies
     androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
@@ -94,95 +98,5 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-intents:$rootProject.espressoVersion"
     androidTestImplementation "androidx.test.uiautomator:uiautomator:$rootProject.uiAutomatorVersion"
     testImplementation "junit:junit:$rootProject.junitVersion"
+    implementation 'android.arch.navigation:navigation-fragment:1.0.0'
 }
-
-//apply plugin: 'com.android.application'
-//apply plugin: 'kotlin-android'
-//apply plugin: 'kotlin-android-extensions'
-//apply plugin: 'kotlin-kapt'
-//apply plugin: "androidx.navigation.safeargs"
-//
-//android {
-//    compileSdkVersion 28
-//
-//    dataBinding {
-//        enabled = true
-//    }
-//
-//    defaultConfig {
-//        applicationId "com.heske.terriertime"
-//        minSdkVersion 22
-//        targetSdkVersion rootProject.targetSdkVersion
-//        versionCode 1
-//        versionName "1.0"
-//        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-//    }
-//    buildTypes {
-//        release {
-//            minifyEnabled false
-//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-//        }
-//    }
-//    androidExtensions {
-//        experimental = true
-//    }
-//    compileOptions {
-//        sourceCompatibility JavaVersion.VERSION_1_8
-//        targetCompatibility JavaVersion.VERSION_1_8
-//    }
-//}
-//
-//dependencies {
-//    //implementation fileTree(dir: 'libs', include: ['*.jar'])
-//    // Kotlin
-//    implementation "androidx.core:core-ktx:$rootProject.ktxVersion"
-//    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$rootProject.kotlinVersion"
-//    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutinesVersion"
-//    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
-//
-//    // Lifecycle (ViewModels/LiveData)
-//     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
-//
-//    // Navigation
-//    implementation "android.arch.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
-//    implementation "android.arch.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
-//    implementation "android.arch.work:work-runtime-ktx:$rootProject.workVersion"
-//
-//    // AppCompat and UI
-//    implementation "com.google.android.material:material:$rootProject.materialVersion"
-//    implementation "androidx.appcompat:appcompat:$rootProject.supportLibraryVersion"
-//    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
-//    implementation "androidx.coordinatorlayout:coordinatorlayout:$coordinatorVersion"
-//    implementation "androidx.recyclerview:recyclerview:$recyclerViewVersion"
-//    implementation "androidx.cardview:cardview:$recyclerViewVersion"
-//
-//    //Glide
-//    kapt "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
-//    implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
-//
-//    // Room
-//    kapt "androidx.room:room-compiler:$rootProject.roomVersion"
-//    implementation "androidx.room:room-runtime:$rootProject.roomVersion"
-//    implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
-//
-//  //  implementation "androidx.room:room-runtime:$room_version"
-//  //  kapt "androidx.room:room-compiler:$room_version"
-//  //  implementation "androidx.legacy:legacy-support-v4:$legacy_support_version"
-//
-//    // Retrofit with Coroutines, Gson Converter, and Logging
-//    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-//    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
-//    implementation 'com.squareup.okhttp3:logging-interceptor:3.6.0'
-//    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$retrofitCoroutinesVersion"
-//
-//    // Phrase
-//    implementation 'com.squareup.phrase:phrase:1.1.0'
-//
-//    // Testing
-//    androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
-//    androidTestImplementation "androidx.test.espresso:espresso-contrib:$rootProject.espressoVersion"
-//    androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
-//    androidTestImplementation "androidx.test.espresso:espresso-intents:$rootProject.espressoVersion"
-//    androidTestImplementation "androidx.test.uiautomator:uiautomator:$rootProject.uiAutomatorVersion"
-//    testImplementation "junit:junit:$rootProject.junitVersion"
-//}

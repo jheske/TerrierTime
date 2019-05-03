@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.media.AudioManager
 import android.media.SoundPool
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -12,19 +11,17 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
-import com.heske.terriertime.R
-import com.heske.terriertime.database.TerriersDatabase
+import com.google.android.material.snackbar.Snackbar
+import com.heske.terriertime.database.getDatabase
 import com.heske.terriertime.databinding.FragmentTerriersBinding
-import com.heske.terriertime.utils.showSystemUI
+import kotlinx.android.synthetic.main.fragment_splash.*
 import kotlinx.android.synthetic.main.fragment_terriers.*
 import kotlinx.android.synthetic.main.listitem_terriers.*
+import timber.log.Timber
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -63,7 +60,7 @@ class TerriersFragment : Fragment() {
         val binding = FragmentTerriersBinding.inflate(inflater)
 
         val application = requireNotNull(this.activity).application
-        val dataSource = TerriersDatabase.getInstance(application).terriersDatabaseDao
+        val dataSource = getDatabase(application).terriersDatabaseDao
         val viewModelFactory = TerriersViewModelFactory(dataSource, application)
 
         val viewModel =
@@ -71,7 +68,7 @@ class TerriersFragment : Fragment() {
                 this, viewModelFactory
             ).get(TerriersViewModel::class.java)
 
-        binding.terriersViewModel = viewModel
+        binding.viewModel = viewModel
 
         setupSoundPool()
 
@@ -92,7 +89,7 @@ class TerriersFragment : Fragment() {
 
         viewModel.listOfTerriers.observe(this, Observer {
             if (it != null) {
-                Log.d(TAG, "There are ${it.size} terriers")
+                Timber.d(TAG, "There are ${it.size} terriers")
             }
         })
 
@@ -102,7 +99,7 @@ class TerriersFragment : Fragment() {
                     .navigate(
                         TerriersFragmentDirections.actionMainToFullsize(it.name)
                     )
-                //After the navigation has taken place, set nav event to null.
+                //After the navigation set nav event to null.
                 //!!!!Otherwise the app will crash when Back button is pressed
                 // from destination Fragment!!!!
                 viewModel.displayFullsizeImageComplete()
@@ -115,9 +112,6 @@ class TerriersFragment : Fragment() {
                     .navigate(
                         TerriersFragmentDirections.actionMainFragmentToDetail(it)
                     )
-                //After the navigation has taken place, set nav event to null.
-                //!!!!Otherwise the app will crash when Back button is pressed
-                // from destination Fragment!!!!
                 viewModel.displayDetailScreenComplete()
             }
         })
@@ -134,9 +128,24 @@ class TerriersFragment : Fragment() {
                 playSound(growlSound)
                 showHintDialog(it)
                 setButtons(false)
-                // Now set _incorrectGuess to null,
-                // so we don't get repeat calls
                 viewModel.guessComplete()
+            }
+        })
+
+        viewModel.spinner.observe(viewLifecycleOwner, Observer { value ->
+            value?.let { show ->
+                if (show)
+                    pv_circular.visibility = VISIBLE
+                else
+                    pv_circular.visibility = GONE
+            }
+        })
+
+        viewModel.snackBar.observe(viewLifecycleOwner, Observer { text ->
+            text?.let {
+                Snackbar.make(layout_container, text, Snackbar.LENGTH_SHORT)
+                    .show()
+                viewModel.onSnackbarShown()
             }
         })
 
@@ -147,17 +156,9 @@ class TerriersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-      //  toolbar.title = activity!!.resources.getString(R.string.app_name)
         terriers_recycler.addItemDecoration(
-            TerriersRvDecoration(
-                resources.getDimension(com.heske.terriertime.R.dimen.spacing_large).toInt()
-            )
+            TerriersRvDecoration(resources.getDimension(com.heske.terriertime.R.dimen.spacing_large).toInt())
         )
-    }
-
-    override fun onResume() {
-        super.onResume()
-        activity!!.showSystemUI()
     }
 
     /**
@@ -234,6 +235,4 @@ class TerriersFragment : Fragment() {
         })
         alertDialog.show()
     }
-
-
 }

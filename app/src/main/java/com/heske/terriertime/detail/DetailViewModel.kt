@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.heske.terriertime.database.Terrier
+import com.heske.terriertime.database.DatabaseTerrier
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -27,10 +27,10 @@ import com.heske.terriertime.database.Terrier
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-class DetailViewModel(terrierDetails: Terrier) : ViewModel() {
-    private val _terrier = MutableLiveData<Terrier>()
+class DetailViewModel(terrierDetails: DatabaseTerrier) : ViewModel() {
+    private val _terrier = MutableLiveData<DatabaseTerrier>()
 
-    val terrier: LiveData<Terrier>
+    val terrier: LiveData<DatabaseTerrier>
         get() = _terrier
 
     private val _terrierBreedName = MutableLiveData<String>()

@@ -1,6 +1,5 @@
 package com.heske.terriertime.network
 
-import com.heske.terriertime.network.wiki.WikiSummaryListResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
 import retrofit2.Retrofit
@@ -30,13 +29,8 @@ import retrofit2.http.Query
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-private const val BASE_URL = "https://en.wikipedia.org/w/"
+private const val WIKI_BASE_URL = "https://en.wikipedia.org/w/"
 
-private val retrofit = Retrofit.Builder()
-    .addConverterFactory(GsonConverterFactory.create())
-    .addCallAdapterFactory(CoroutineCallAdapterFactory())
-    .baseUrl(BASE_URL)
-    .build()
 
 /**
  * A public interface that exposes the [getProperties] method
@@ -46,7 +40,7 @@ interface WikiApiSevice {
      * Returns a Coroutine [Deferred] [List] which can be fetched with await() if
      * in a Coroutine scope.
      *
-     * String breed names together with | symbol
+     * String breed names together with | symbol so they can all be retrieved with one network call.
      *  "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=Scottish_Terrier")
      */
     @GET("api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1")
@@ -54,12 +48,12 @@ interface WikiApiSevice {
             : Deferred<WikiSummaryListResponse>
 }
 
-/**
- * A public Api object that exposes the lazy-initialized Retrofit service
- */
 object WikiApi {
-    val retrofitService :
-            WikiApiSevice by lazy { retrofit.create(
-        WikiApiSevice::class.java) }
-}
+    private val retrofit = Retrofit.Builder()
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(CoroutineCallAdapterFactory())
+        .baseUrl(WIKI_BASE_URL)
+        .build()
 
+    val wikiService = retrofit.create(WikiApiSevice::class.java)
+}

@@ -30,13 +30,7 @@ import retrofit2.http.Query
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-private const val BASE_URL = "https://api.flickr.com/services/feeds/"
-
-private val retrofit = Retrofit.Builder()
-    .addConverterFactory(GsonConverterFactory.create())
-    .addCallAdapterFactory(CoroutineCallAdapterFactory())
-    .baseUrl(BASE_URL)
-    .build()
+private const val FLICKR_BASE_URL = "https://api.flickr.com/services/feeds/"
 
 /**
  * A public interface that exposes the [getProperties] method
@@ -54,15 +48,21 @@ interface FlickrApiService {
      */
     @GET("photos_public.gne?&format=json&nojsoncallback=1")
     fun getFlickImageList(@Query("tags") tags: String):
-           Deferred<FlickrImageListResponse>
+            Deferred<FlickrImageListResponse>
 }
 
 /**
  * A public Api object that exposes the lazy-initialized Retrofit service
  */
 object FlickrApi {
-    val retrofitService :
-            FlickrApiService by lazy { retrofit.create(
-        FlickrApiService::class.java) }
+    private val retrofit = Retrofit.Builder()
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(CoroutineCallAdapterFactory())
+        .baseUrl(FLICKR_BASE_URL)
+        .build()
+
+    val flickrService: FlickrApiService by lazy {
+        retrofit.create(FlickrApiService::class.java)
+    }
 }
 

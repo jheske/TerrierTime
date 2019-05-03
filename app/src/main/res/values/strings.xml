@@ -4,16 +4,16 @@
     <string name="txt_breed">Breed</string>
     <string name="txt_guess">Guess what kind of terrier this is</string>
     <string name="txt_guess_hint">Enter terrier breed</string>
-    <string name="txt_more_pix">More {terriers}s</string>
+    <string name="txt_more_pix">More {terrier}s</string>
     <string name="txt_no_summary">There is no additional information for this terriers. It\'s possible
         there was an error connecting to or retrieving the data from Wiki.
         Make sure you are connected to the network and try rerunning the app.
     </string>
     <string name="txt_no_network">You are not connected to the network. You must have a network connection
-        to retrieve addition terriers details from Wiki.
+        to retrieve addition terrier details from Wiki.
     </string>
     <string name="txt_tools_summary">Called the King of Terriers because of its size. Did
-        you know that one of this terriers was the very first celebrity dog? President Harding had
+        you know that one of this terrier was the very first celebrity dog? President Harding had
         one named Laddie Boy, who was a media darling and even had his own hand-carved chair!
         Can you guess what kind of terrier this is?
     </string>

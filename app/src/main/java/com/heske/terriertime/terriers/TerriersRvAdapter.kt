@@ -5,7 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.heske.terriertime.database.Terrier
+import com.heske.terriertime.BR.database_terrier
+import com.heske.terriertime.database.DatabaseTerrier
 import com.heske.terriertime.databinding.ListitemTerriersBinding
 import kotlinx.android.synthetic.main.listitem_terriers.view.*
 
@@ -33,7 +34,7 @@ import kotlinx.android.synthetic.main.listitem_terriers.view.*
 
 /**
  * This class implements a [RecyclerView] [ListAdapter] which uses Data Binding
- * to present [List] of [Terrier] data, including computing diffs between lists.
+ * to present [List] of [DatabaseTerrier] data, including computing diffs between lists.
  */
 class TerriersRvAdapter(
     val onImageClickListener: OnImageClickListener,
@@ -41,12 +42,12 @@ class TerriersRvAdapter(
     val onGuessClickListener: OnGuessClickListener,
     val onMoreClickListener: OnMoreClickListener
 ) :
-    ListAdapter<Terrier, TerriersRvAdapter.TerrierViewHolder>(DiffCallback()) {
+    ListAdapter<DatabaseTerrier, TerriersRvAdapter.TerrierViewHolder>(DiffCallback()) {
 
     /**
      * The TerrierViewHolder constructor takes the binding variable from the associated
      * list item, which nicely gives it access to the full object information,
-     * in this case it's a [Terrier] object.
+     * in this case it's a [DatabaseTerrier] object.
      * See listitem_terrier.xml for all the views associated with each
      * row in terriers_recycler.
      *
@@ -57,9 +58,10 @@ class TerriersRvAdapter(
         private val binding: ListitemTerriersBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(listItem: Terrier) {
+        fun bind(listItem: DatabaseTerrier) {
             binding.apply {
-                terrier = listItem
+                //This is listitem_terriers database_terrier binding variable
+                databaseTerrier = listItem
                 executePendingBindings()
             }
         }
@@ -101,29 +103,29 @@ class TerriersRvAdapter(
     }
 
     /**
-     * Custom listener that handles clicks on [RecyclerView] items.  Passes the [Terrier]
+     * Custom listener that handles clicks on [RecyclerView] items.  Passes the data
      * associated with the current item to the [onClick] function.
-     * @param clickListener lambda that will be called with the current [Terrier]
+     * @param clickListener lambda that will be called with the current data
      * This listener displays a full-screen image.  It has nothing to do with the
      * three Buttons. Those have their own listeners.
      */
-    class OnImageClickListener(val clickListener: (terrierListItem: Terrier) -> Unit) {
-        fun onImageClick(terrierListItem: Terrier)
+    class OnImageClickListener(val clickListener: (terrierListItem: DatabaseTerrier) -> Unit) {
+        fun onImageClick(terrierListItem: DatabaseTerrier)
                 = clickListener(terrierListItem)
     }
 
-    class OnGiveUpClickListener(val clickListener: (terrierListItem: Terrier) -> Unit) {
-        fun onGiveUpButtonClick(terrierListItem: Terrier)
+    class OnGiveUpClickListener(val clickListener: (terrierListItem: DatabaseTerrier) -> Unit) {
+        fun onGiveUpButtonClick(terrierListItem: DatabaseTerrier)
                 = clickListener(terrierListItem)
     }
 
-    class OnMoreClickListener(val clickListener: (terrierListItem: Terrier) -> Unit) {
-        fun onMoreButtonClick(terrierListItem: Terrier)
+    class OnMoreClickListener(val clickListener: (terrierListItem: DatabaseTerrier) -> Unit) {
+        fun onMoreButtonClick(terrierListItem: DatabaseTerrier)
                 = clickListener(terrierListItem)
     }
 
-    class OnGuessClickListener(val clickListener: (terrierListItem: Terrier, guess: String) -> Unit) {
-        fun onGuessButtonClick(terrierListItem: Terrier, guess: String)
+    class OnGuessClickListener(val clickListener: (terrierListItem: DatabaseTerrier, guess: String) -> Unit) {
+        fun onGuessButtonClick(terrierListItem: DatabaseTerrier, guess: String)
                 = clickListener(terrierListItem, guess)
     }
 }
@@ -131,14 +133,14 @@ class TerriersRvAdapter(
 
 /**
  * Allows the RecyclerView to determine which items have changed
- * when the [List] of [Terrier] objects has been updated.
+ * when the list has been updated.
  */
-private class DiffCallback : DiffUtil.ItemCallback<Terrier>() {
-    override fun areItemsTheSame(oldItem: Terrier, newItem: Terrier): Boolean {
+private class DiffCallback : DiffUtil.ItemCallback<DatabaseTerrier>() {
+    override fun areItemsTheSame(oldItem: DatabaseTerrier, newItem: DatabaseTerrier): Boolean {
         return oldItem === newItem
     }
 
-    override fun areContentsTheSame(oldItem: Terrier, newItem: Terrier): Boolean {
+    override fun areContentsTheSame(oldItem: DatabaseTerrier, newItem: DatabaseTerrier): Boolean {
         return oldItem == newItem
     }
 }

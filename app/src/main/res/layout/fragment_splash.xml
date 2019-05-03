@@ -27,11 +27,12 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:visibility="visible">
 
-            <ProgressBar
-                    android:id="@+id/pv_circular"
-                    android:layout_width="@dimen/progress_bar_size"
-                    android:layout_height="@dimen/progress_bar_size">
-            </ProgressBar>
+            <!--<ProgressBar-->
+                    <!--android:id="@+id/pv_circular"-->
+                    <!--android:visibility="gone"-->
+                    <!--android:layout_width="@dimen/progress_bar_size"-->
+                    <!--android:layout_height="@dimen/progress_bar_size">-->
+            <!--</ProgressBar>-->
         </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

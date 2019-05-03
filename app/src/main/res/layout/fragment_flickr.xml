@@ -12,9 +12,9 @@
                 type="com.heske.terriertime.flickr.FlickrViewModel"/>
     </data>
 
-
-    <FrameLayout android:layout_width="match_parent"
-                 android:layout_height="match_parent">
+    <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/photos_recycler"
                 android:layout_width="match_parent"
@@ -26,5 +26,5 @@
                 tools:itemCount="32"
                 app:spanCount="2"
                 tools:listitem="@layout/flickr_image_listitem"/>
-    </FrameLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>

@@ -2,8 +2,7 @@ package com.heske.terriertime.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.heske.terriertime.database.Terrier
-import com.heske.terriertime.terriers.TerriersRvAdapter
+import com.heske.terriertime.database.DatabaseTerrier
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -27,7 +26,7 @@ import com.heske.terriertime.terriers.TerriersRvAdapter
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-class DetailViewModelFactory(private val terrier: Terrier) : ViewModelProvider.Factory {
+class DetailViewModelFactory(private val terrier: DatabaseTerrier) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {

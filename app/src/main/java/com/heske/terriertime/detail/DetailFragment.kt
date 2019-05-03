@@ -9,17 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI.setupWithNavController
-import com.heske.terriertime.R
 import com.heske.terriertime.databinding.FragmentDetailBinding
-import com.heske.terriertime.utils.hideSystemUI
-import com.heske.terriertime.utils.showSystemUI
-import com.heske.terriertime.utils.toBreedFileName
 import kotlinx.android.synthetic.main.fragment_detail.*
-import kotlinx.android.synthetic.main.fragment_terriers.*
-import kotlinx.android.synthetic.main.toolbar.*
-import java.io.IOException
-import java.io.InputStream
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -82,10 +73,5 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         detail_toolbar.title = terrierBreedName
-    }
-
-    override fun onResume() {
-        super.onResume()
-        activity!!.showSystemUI()
     }
 }
