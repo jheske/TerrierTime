@@ -156,9 +156,11 @@ class TerriersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        terriers_recycler.addItemDecoration(
-//            TerriersRvDecoration(resources.getDimension(com.heske.terriertime.R.dimen.spacing_large).toInt())
-//        )
+        terriers_recycler.addItemDecoration(
+            TerriersRvDecoration(resources
+                .getDimension(com.heske.terriertime.R.dimen.spacing_large)
+                .toInt())
+        )
     }
 
     /**
