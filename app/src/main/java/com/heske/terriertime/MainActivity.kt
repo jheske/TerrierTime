@@ -2,12 +2,14 @@ package com.heske.terriertime
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.heske.terriertime.databinding.ActivityMainBinding
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
@@ -48,14 +50,10 @@ class MainActivity : AppCompatActivity() {
         val binding = DataBindingUtil
             .setContentView<ActivityMainBinding>(this, R.layout.activity_main)
 
-        // Get the NavController for your NavHostFragment
         val navController = findNavController(R.id.main_nav_fragment)
-        setSupportActionBar(binding.toolbar)
-        // Set up the ActionBar to stay in sync with the NavController
-        setupActionBarWithNavController(navController)
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        // Set up simple Toolbar navigation (no DrawerLayout).
+        findViewById<Toolbar>(R.id.toolbar)
+            .setupWithNavController(navController, appBarConfiguration)
     }
 }
