@@ -22,17 +22,17 @@ class FullsizeImageFragment : Fragment() {
         val binding
                 = FragmentFullsizeImageBinding.inflate(inflater)
 
-        val terrierBreedName
-                = FullsizeImageFragmentArgs.fromBundle(arguments!!).breedName
-
-        val viewModelFactory = FullsizeImageViewModelFactory(terrierBreedName)
-        val viewModel =
-            ViewModelProviders.of(
-                this, viewModelFactory
-            ).get(FullsizeImageViewModel::class.java)
-
-        binding.viewModel = viewModel
-        binding.setLifecycleOwner(this)
+//        val terrierBreedName
+//                = FullsizeImageFragmentArgs.fromBundle(arguments!!).breedName
+//
+//        val viewModelFactory = FullsizeImageViewModelFactory(terrierBreedName)
+//        val viewModel =
+//            ViewModelProviders.of(
+//                this, viewModelFactory
+//            ).get(FullsizeImageViewModel::class.java)
+//
+//        binding.viewModel = viewModel
+//        binding.setLifecycleOwner(this)
         return binding.root
     }
 }

@@ -53,10 +53,10 @@ class DetailFragment : Fragment() {
 
         viewModel.navigateToFlickrPix.observe(this, Observer {
             if (it != null) {
-                this.findNavController()
-                    .navigate(
-                        DetailFragmentDirections.actionDetailToFlickr(it)
-                    )
+//                this.findNavController()
+//                    .navigate(
+//                        DetailFragmentDirections.actionDetailToFlickr(it)
+//                    )
                 //After the navigation has taken place, set nav event to null.
                 //!!!!Otherwise the app will crash when Back button is pressed
                 // from destination Fragment!!!!
@@ -67,11 +67,5 @@ class DetailFragment : Fragment() {
         binding.viewModel = viewModel
         binding.setLifecycleOwner(this)
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        detail_toolbar.title = terrierBreedName
     }
 }

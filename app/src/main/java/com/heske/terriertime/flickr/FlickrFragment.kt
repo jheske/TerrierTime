@@ -26,16 +26,16 @@ class FlickrFragment : Fragment() {
 
         // This binding exposes access to photos_recycler in fragment_flickr
         val binding = FragmentFlickrBinding.inflate(inflater)
-        val terrierName = FlickrFragmentArgs.fromBundle(arguments!!).breedName
-        val viewModelFactory = FlickrViewModelFactory(terrierName)
-
-        val flickrViewModel =
-            ViewModelProviders.of(this, viewModelFactory).get(FlickrViewModel::class.java)
-
-        binding.flickrViewModel = flickrViewModel
-        binding.photosRecycler.adapter = FlickrRvAdapter()
-
-        binding.setLifecycleOwner(this)
+//        val terrierName = FlickrFragmentArgs.fromBundle(arguments!!).breedName
+//        val viewModelFactory = FlickrViewModelFactory(terrierName)
+//
+//        val flickrViewModel =
+//            ViewModelProviders.of(this, viewModelFactory).get(FlickrViewModel::class.java)
+//
+//        binding.flickrViewModel = flickrViewModel
+//        binding.photosRecycler.adapter = FlickrRvAdapter()
+//
+//        binding.setLifecycleOwner(this)
         return binding.root
     }
 }

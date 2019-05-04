@@ -1,9 +1,7 @@
 package com.heske.terriertime
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -46,24 +44,15 @@ class MainActivity : AppCompatActivity() {
         //   setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         @Suppress("UNUSED_VARIABLE")
+
         val binding = DataBindingUtil
             .setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-        val supportActionBar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(supportActionBar)
+
         // Get the NavController for your NavHostFragment
-        val navController = findNavController(R.id.nav_host_fragment)
+        val navController = findNavController(R.id.main_nav_fragment)
+        setSupportActionBar(binding.toolbar)
         // Set up the ActionBar to stay in sync with the NavController
         setupActionBarWithNavController(navController)
-
-//        val topLevelDestinations = HashSet<Int>()
-//        topLevelDestinations.add(R.id.terriersFragment)
-//        topLevelDestinations.add(R.id.splashFragment)
-//        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-//        setSupportActionBar(toolbar)
-//        navController = findNavController(R.id.nav_host_fragment)
-//        appBarConfiguration = AppBarConfiguration.Builder(topLevelDestinations)
-//            .build()
-//        setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
     override fun onSupportNavigateUp(): Boolean {

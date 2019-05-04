@@ -21,10 +21,6 @@
                 app:popEnterAnim="@anim/nav_default_pop_enter_anim"
                 app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
 
-        <action android:id="@+id/action_main_to_fullsize"
-                app:destination="@id/fullsizeImageFragment"
-                app:popUpTo="@+id/terriersFragment">
-        </action>
     </fragment>
 
     <fragment
@@ -34,23 +30,6 @@
             tools:layout="@layout/fragment_detail">
         <argument android:name="terrier"
                   app:argType="com.heske.terriertime.database.DatabaseTerrier"/>
-        <action android:id="@+id/action_detail_to_flickr"
-                app:destination="@id/flickrFragment"
-                app:popUpTo="@+id/detailFragment"/>
     </fragment>
 
-    <fragment android:id="@+id/fullsizeImageFragment"
-              android:name="com.heske.terriertime.fullsize.FullsizeImageFragment"
-              android:label="FullsizeImageFragment">
-        <argument
-                android:name="breedName"
-                app:argType="string"/>
-    </fragment>
-    <fragment android:id="@+id/flickrFragment"
-              android:name="com.heske.terriertime.flickr.FlickrFragment"
-              android:label="FlickrFragment">
-        <argument
-                android:name="breedName"
-                app:argType="string"/>
-    </fragment>
 </navigation>

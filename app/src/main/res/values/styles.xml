@@ -14,71 +14,23 @@
   ~ limitations under the License.
   -->
 <resources>
-
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <!-- Base application theme. -->
+    <style name="BaseAppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColor">@color/colorPrimaryText</item>
-        <item name="buttonStyle">@style/Widget.AppCompat.Button.Colored</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="AppTheme" parent="BaseAppTheme"/>
 
-    <!--The launcher theme. It sets the main window background to the splash_image drawable-->
-    <style name="AppTheme.Launcher" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowBackground">@drawable/launch_screen</item>
-        <item name="android:windowFullscreen">true</item>
-        <!--Optional, on Android 5+ you could modify the colorPrimaryDark color to match
-         the windowBackground color for-->
-        <!--further branding-->
-        <item name="colorPrimaryDark">@color/colorPrimary</item>
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.NoActionAndStatusBar" parent="Widget.AppCompat.Button">
-        <item name="android:background">@color/colorPrimaryLight</item>
-        <item name="android:textColor">@color/colorAccent</item>
-        <item name="android:windowFullscreen">true</item>
-    </style>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light"/>
+
 </resources>
-
-        <!--<resources>-->
-        <!--&lt;!&ndash;Most of this is from Google Sunflower sample app &ndash;&gt;-->
-
-        <!--&lt;!&ndash; Base application theme. &ndash;&gt;-->
-        <!--<style name="BaseAppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">-->
-        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
-        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
-        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-        <!--<item name="colorAccent">@color/colorAccent</item>-->
-        <!--<item name="android:textColor">@color/colorPrimaryText</item>-->
-        <!--<item name="buttonStyle">@style/Widget.AppCompat.Button.Colored</item>-->
-        <!--<item name="android:textSize">@dimen/main_text_size</item>-->
-        <!--</style>-->
-
-        <!--<style name="AppTheme" parent="BaseAppTheme"/>-->
-
-        <!--<style name="AppTheme.NoActionBar">-->
-        <!--<item name="windowActionBar">false</item>-->
-        <!--<item name="windowNoTitle">true</item>-->
-        <!--&lt;!&ndash; for v21+ &ndash;&gt;-->
-        <!--&lt;!&ndash;<item name="android:windowTranslucentStatus">true</item>&ndash;&gt;-->
-        <!--</style>-->
-
-        <!--<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"/>-->
-
-        <!--<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light"/>-->
-
-        <!--&lt;!&ndash;This theme sets the main window background to the splash_image drawable&ndash;&gt;-->
-        <!--<style name="AppTheme.Launcher">-->
-        <!--<item name="android:windowBackground">@drawable/launch_screen</item>-->
-        <!--</style>-->
-
-        <!--<style name="AppTheme.NoActionAndStatusBar" parent="Widget.AppCompat.Button">-->
-        <!--<item name="android:background">@color/colorPrimaryLight</item>-->
-        <!--<item name="android:textColor">@color/colorAccent</item>-->
-        <!--</style>-->
-        <!--</resources>-->
-

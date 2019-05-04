@@ -95,14 +95,14 @@ class TerriersFragment : Fragment() {
 
         viewModel.navigateToFullsizeImage.observe(this, Observer {
             if (it != null) {
-                this.findNavController()
-                    .navigate(
-                        TerriersFragmentDirections.actionMainToFullsize(it.name)
-                    )
+//                this.findNavController()
+//                    .navigate(
+//                       TerriersFragmentDirections.actionMainToFullsize(it.name)
+//                    )
                 //After the navigation set nav event to null.
                 //!!!!Otherwise the app will crash when Back button is pressed
                 // from destination Fragment!!!!
-                viewModel.displayFullsizeImageComplete()
+         //       viewModel.displayFullsizeImageComplete()
             }
         })
 
@@ -156,9 +156,9 @@ class TerriersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        terriers_recycler.addItemDecoration(
-            TerriersRvDecoration(resources.getDimension(com.heske.terriertime.R.dimen.spacing_large).toInt())
-        )
+//        terriers_recycler.addItemDecoration(
+//            TerriersRvDecoration(resources.getDimension(com.heske.terriertime.R.dimen.spacing_large).toInt())
+//        )
     }
 
     /**
