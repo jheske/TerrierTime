@@ -1,12 +1,16 @@
 package com.heske.terriertime.utils
 
 import android.app.Activity
+import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.net.ConnectivityManager
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import com.heske.terriertime.database.DatabaseTerrier
+import androidx.core.content.ContextCompat.getSystemService
+
+
 
 //fun Activity.setFullScreen() {
 //    window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
