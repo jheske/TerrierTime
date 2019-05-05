@@ -5,9 +5,9 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.heske.terriertime.database.DataRepository
-import com.heske.terriertime.database.DatabaseTerrier
+import com.heske.terriertime.repositories.WikiDataRepository
 import com.heske.terriertime.database.TerriersDao
+import com.heske.terriertime.database.TerriersTableEntity
 import com.heske.terriertime.database.getDatabase
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -54,36 +54,37 @@ class TerriersViewModel(
     val spinner: LiveData<Boolean>
         get() = _spinner
 
-    private val _correctGuess = MutableLiveData<DatabaseTerrier>()
-    val correctGuess: LiveData<DatabaseTerrier>
+    private val _correctGuess = MutableLiveData<TerriersTableEntity>()
+    val correctGuess: LiveData<TerriersTableEntity>
         get() = _correctGuess
 
     private val _incorrectGuess = MutableLiveData<String>()
     val incorrectGuess: LiveData<String>
         get() = _incorrectGuess
 
-    private val _navigateToFullsizeImage = MutableLiveData<DatabaseTerrier>()
-    val navigateToFullsizeImage: LiveData<DatabaseTerrier>
+    private val _navigateToFullsizeImage = MutableLiveData<TerriersTableEntity>()
+    val navigateToFullsizeImage: LiveData<TerriersTableEntity>
         get() = _navigateToFullsizeImage
 
-    private val _navigateToDetailScreen = MutableLiveData<DatabaseTerrier>()
-    val navigateToDetailScreen: LiveData<DatabaseTerrier>
+    private val _navigateToDetailScreen = MutableLiveData<TerriersTableEntity>()
+    val navigateToDetailScreen: LiveData<TerriersTableEntity>
         get() = _navigateToDetailScreen
 
     private val database = getDatabase(application)
-    private val dataRepository = DataRepository(database.terriersDatabaseDao)
+    private val dataRepository = WikiDataRepository(database.terriersTableDao)
 
     init {
         launchDataLoad {
-            dataRepository.clearData()
-            dataRepository.refreshData()
-
+            // TODO Fix flicker caused by clearData(), probably related to
+            // a LiveData update.
+       //     dataRepository.clearData()
+            dataRepository.refreshWikiData()
         }
     }
 
     /**
      * terrier_recycler listOfTerriers attribute has a data binding to
-     * this LiveData, so it gets reset whenever
+     * this LiveData, so it resets whenever
      * the LiveData changes (when getAllTerriers() retrieves it from the database).
      */
     val listOfTerriers = terriersTableDao.getAllTerriers()
@@ -93,7 +94,7 @@ class TerriersViewModel(
      * set the [_navigateToFullsizeImage] [MutableLiveData]
      * @param terrier The [terrier] that was clicked on.
      */
-    fun displayFullsizeImage(terrier: DatabaseTerrier) {
+    fun displayFullsizeImage(terrier: TerriersTableEntity) {
         _navigateToFullsizeImage.value = terrier
     }
 
@@ -110,7 +111,7 @@ class TerriersViewModel(
      * set the [_navigateToFullsizeImage] [MutableLiveData]
      * @param terrier The [terrier] that was clicked on.
      */
-    fun displayDetailScreen(terrier: DatabaseTerrier) {
+    fun displayDetailScreen(terrier: TerriersTableEntity) {
         _navigateToDetailScreen.value = terrier
     }
 
@@ -134,7 +135,7 @@ class TerriersViewModel(
      * If user's guess is correct, then send the [terrier] back for display.
      * Otherwise send null so [Observer] can provide user feedback.
      */
-    fun processGuess(terrier: DatabaseTerrier, guessText: String) {
+    fun processGuess(terrier: TerriersTableEntity, guessText: String) {
         // Everything lower case for easy comparison
         val breedName = terrier.name.toLowerCase()
         val guess = guessText.toLowerCase()
@@ -152,7 +153,7 @@ class TerriersViewModel(
             try {
                 _spinner.value = true
                 block()
-            } catch (error: DataRepository.RepositoryRefreshError) {
+            } catch (error: WikiDataRepository.RepositoryRefreshError) {
                 _snackBar.value = error.message
             } finally {
                 _spinner.value = false

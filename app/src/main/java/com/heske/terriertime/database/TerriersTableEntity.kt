@@ -31,13 +31,13 @@ import com.heske.terriertime.terriers.Terrier
 import kotlinx.android.parcel.Parcelize
 
 /**
- * An DatabaseTerrier Entity object represents one row in the Terriers table.  Terriers names
+ * An TerriersTableEntity object represents one row in the Terriers table.  Terriers names
  * in the database are treated as Wikipedia tags and are used to retrieve information about the
  * breed, such as summary text, so their exact spelling has to conform to Wiki counterparts.
  */
 @Parcelize
 @Entity
-data class DatabaseTerrier constructor(
+data class TerriersTableEntity constructor(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(index = true, name = "_id")
     var id: Long,
@@ -57,7 +57,7 @@ data class DatabaseTerrier constructor(
     constructor() : this(0, "", "", "", null)
 }
 
-fun List<DatabaseTerrier>.asDomainModel(): List<Terrier> {
+fun List<TerriersTableEntity>.asDomainModel(): List<Terrier> {
     return map {
         Terrier(
             id = it.id,

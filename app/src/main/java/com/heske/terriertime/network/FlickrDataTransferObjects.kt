@@ -1,8 +1,8 @@
-package com.heske.terriertime.detail
+package com.heske.terriertime.network
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.heske.terriertime.database.TerriersTableEntity
+import com.google.gson.annotations.SerializedName
+import com.heske.terriertime.database.FlickrTableEntity
+import com.heske.terriertime.flickr.FlickrImage
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -26,12 +26,31 @@ import com.heske.terriertime.database.TerriersTableEntity
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-class DetailViewModelFactory(private val terrier: TerriersTableEntity) : ViewModelProvider.Factory {
-    @Suppress("unchecked_cast")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
-            return DetailViewModel(terrier) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
+/**
+ * Pojo used by Gson for extracting an [imageList] of Flickr image paths for one breed.
+ * Expects an object called parse.
+ */
+data class FlickrImageListResponse(
+    @SerializedName("items")
+    var imageList: ArrayList<FlickrImageItem>
+)
+
+data class FlickrImageItem(
+    @SerializedName("media")
+    val media: HashMap<String, String>
+)
+
+/***
+ * Return an ArrayList containing string values from [flickrImageList] item
+ * media field.
+ */
+//fun FlickrImageListResponse
+//        .asSimpleList(flickrImageList: ArrayList<FlickrImageItem>): ArrayList<String> {
+fun FlickrImageListResponse.asDatabaseModel(breedName: String): Array<FlickrTableEntity> {
+    return imageList.map {
+        FlickrTableEntity(
+            id=0,
+            breedName = breedName,
+            imageFilePath = it.media.getValue("m"))
+    }.toTypedArray()
 }

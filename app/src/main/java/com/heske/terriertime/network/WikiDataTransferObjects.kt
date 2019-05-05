@@ -1,7 +1,6 @@
 package com.heske.terriertime.network
 
 import com.google.gson.annotations.SerializedName
-import com.heske.terriertime.database.DatabaseTerrier
 import com.heske.terriertime.terriers.Summary
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
@@ -37,12 +36,10 @@ data class WikiBreedSummaryItem(
     @SerializedName("extract") var summary: String
 )
 
-//data class WikiImageItem (@SerializedName("title")
-//                          val imageFileName: String)
-
 /**
  *
- * Create simple List of breed/summary pairs from  ArrayList<WikiBreedSummaryItem>.
+ * Create simple List of breed/summary pairs from  ArrayList<WikiBreedSummaryItem>
+ * for inserting into the database.
  */
 fun WikiSummaryListResponse.asDatabaseModel(): Array<Summary> {
     val listOfSummaries = ArrayList(query.summaryList.values)

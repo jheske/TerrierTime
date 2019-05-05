@@ -11,6 +11,7 @@
                 name="viewModel"
                 type="com.heske.terriertime.terriers.TerriersViewModel"/>
     </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -24,7 +25,7 @@
                 android:paddingLeft="@dimen/spacing_large"
                 android:paddingRight="@dimen/spacing_large"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:terrierRecyclerListData="@{viewModel.listOfTerriers}"
+                app:rvTerriersListItems="@{viewModel.listOfTerriers}"
                 tools:itemCount="16"
                 tools:listitem="@layout/listitem_terriers"/>
 

@@ -1,9 +1,10 @@
-package com.heske.terriertime.database
+package com.heske.terriertime.repositories
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.heske.terriertime.network.WikiApi
-import com.heske.terriertime.network.asDatabaseModel
+import com.heske.terriertime.database.TerriersDao
+import com.heske.terriertime.database.asDomainModel
+import com.heske.terriertime.network.*
 import com.heske.terriertime.terriers.Terrier
 import com.heske.terriertime.utils.TerrierBreeds
 import com.heske.terriertime.utils.buildBreedTagString
@@ -47,7 +48,7 @@ import timber.log.Timber
  *   Query database for data. A Transformations.map maps the LiveData results to a "DomainModel",
  *   which is a UI-friendly list of pojos.
  */
-class DataRepository(val terriersDao: TerriersDao) {
+class WikiDataRepository(val terriersDao: TerriersDao) {
     private var terrierMap = TerrierBreeds.terriersMap
     private val terrierList = ArrayList(terrierMap.values).toTypedArray()
     private val terrierListSize = terrierList.size.toLong()
@@ -55,19 +56,10 @@ class DataRepository(val terriersDao: TerriersDao) {
 
     class RepositoryRefreshError(cause: Throwable) : Throwable(cause.message, cause)
 
-    /**
-     * Map LiveData<List<DatabaseTerrier>> results from the database into
-     * a list of Terrier pojos (List<Terrier>) for display.
-     */
-    val terriers: LiveData<List<Terrier>> =
-        Transformations.map(terriersDao.getAllTerriers()) {
-            it.asDomainModel()
-        }
-
-    suspend fun refreshData() {
+    suspend fun refreshWikiData() {
         refreshLocalData()
         if (rowCount < terrierListSize) {
-            refreshWikiData()
+            refreshWikiNetworkData()
         }
     }
 
@@ -100,25 +92,25 @@ class DataRepository(val terriersDao: TerriersDao) {
      *
      * To actually load the videos for use, observe [videos]
      */
-    private suspend fun refreshWikiData() {
+    private suspend fun refreshWikiNetworkData() {
         val terrierMap = TerrierBreeds.terriersMap
         val terrierList = ArrayList(terrierMap.values)
 
         /**
          * Network delivers a WikiSummaryListResponse. The database
-         * expects a list of DatabaseTerrier objects.
+         * expects a list of TerriersTableEntity objects.
          */
         withContext(Dispatchers.IO) {
             var summaryCount = terriersDao.getSummaryCount()
             if (summaryCount < rowCount) {
                 refreshWikiData()
             }
-            val resultList = WikiApi
+            val resultsList = WikiApi
                 .wikiService
                 .getWikiBreedSummaryList(buildBreedTagString(terrierList))
                 .await()
 
-            val summaries = resultList.asDatabaseModel()
+            val summaries = resultsList.asDatabaseModel()
 
             summaries.forEach {
                 terriersDao.updateSummary(it.breed, it.summary)

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.heske.terriertime.databinding.FragmentFullsizeImageBinding
@@ -22,17 +23,19 @@ class FullsizeImageFragment : Fragment() {
         val binding
                 = FragmentFullsizeImageBinding.inflate(inflater)
 
-//        val terrierBreedName
-//                = FullsizeImageFragmentArgs.fromBundle(arguments!!).breedName
-//
-//        val viewModelFactory = FullsizeImageViewModelFactory(terrierBreedName)
-//        val viewModel =
-//            ViewModelProviders.of(
-//                this, viewModelFactory
-//            ).get(FullsizeImageViewModel::class.java)
-//
-//        binding.viewModel = viewModel
-//        binding.setLifecycleOwner(this)
+        val terrierBreedName
+                = FullsizeImageFragmentArgs.fromBundle(arguments!!).breedName
+
+        (activity as AppCompatActivity).supportActionBar!!.title = terrierBreedName
+
+        val viewModelFactory = FullsizeImageViewModelFactory(terrierBreedName)
+        val viewModel =
+            ViewModelProviders.of(
+                this, viewModelFactory
+            ).get(FullsizeImageViewModel::class.java)
+
+        binding.viewModel = viewModel
+        binding.setLifecycleOwner(this)
         return binding.root
     }
 }

@@ -46,38 +46,8 @@ import androidx.room.*
  * TerrierBreeds.terriersMap, plus a url for the main image (stored in assets),
  * and a list of Flickr image urls.
  */
-@Dao
-interface TerriersDao {
-   // @Insert
-   // fun insertAll(terriers: List<DatabaseTerrier>)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg terriers: DatabaseTerrier)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(terriers: DatabaseTerrier) : Long
-
-    @Query("select summary from databaseterrier where name = :breedName")
-    fun selectSummary(breedName: String): String
-
-    @Query("select * from databaseterrier  ORDER BY name ASC")
-    fun getAllTerriers(): LiveData<List<DatabaseTerrier>>
-
-    @Query("select count(*) from databaseterrier")
-    fun getRowCount(): Long
-
-    @Query("select count(*) from databaseterrier where summary is not null or summary != '' ")
-    fun getSummaryCount(): Int
-
-    @Query("delete from databaseterrier")
-    fun deleteAll(): Int
-
-    @Query("select * from databaseterrier where name = :breedName")
-    fun selectBreed(breedName: String): DatabaseTerrier
-
-    @Query("UPDATE databaseterrier SET summary = :summary WHERE name = :breedName")
-    fun updateSummary(breedName: String, summary: String?): Int
-}
 
 /**
  * A database that stores Terriers information.
@@ -86,9 +56,10 @@ interface TerriersDao {
  * This pattern is pretty much the same for any database,
  * so you can reuse it.
  */
-@Database(entities = [DatabaseTerrier::class], version = 1, exportSchema = false)
+@Database(entities = [TerriersTableEntity::class,FlickrTableEntity::class], version = 1, exportSchema = false)
 abstract class TerriersDatabase : RoomDatabase() {
-   abstract val terriersDatabaseDao: TerriersDao
+   abstract val terriersTableDao: TerriersDao
+   abstract val flickrTableDao: FlickrDao
 }
 
 private lateinit var INSTANCE: TerriersDatabase
@@ -110,7 +81,7 @@ fun getDatabase(context: Context): TerriersDatabase {
                 .databaseBuilder(
                     context.applicationContext,
                     TerriersDatabase::class.java,
-                    "titles_db"
+                    "terriers_db"
                 )
                 .fallbackToDestructiveMigration()
                 .build()

@@ -3,15 +3,12 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- See TerriersRvAdapter.kt for bindingings
-    to this layout and all its Views -->
+    <!-- See BindingAdapters.kt for view bindings.
+         See TerriersRvAdapter.kt for variable assignments. -->
     <data>
         <variable
-                name="database_terrier"
-                type="com.heske.terriertime.database.DatabaseTerrier"/>
-        <variable
-                name="viewModel"
-                type="com.heske.terriertime.terriers.TerriersViewModel"/>
+                name="terrierTableEntity"
+                type="com.heske.terriertime.database.TerriersTableEntity"/>
         <variable
                 name="guess_string"
                 type="String"/>
@@ -25,7 +22,9 @@
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/spacing_medium">
+                android:paddingBottom="@dimen/spacing_medium">
+            <!-- rvTerriersListItemImageUrl binding is in BindingAdapters.kt.
+                 "terrierTableEntity" is assigned in TerriersRvAdapter.kt -->
             <ImageView
                     android:id="@+id/img_photo"
                     android:layout_width="0dp"
@@ -34,7 +33,7 @@
                     android:contentDescription="@string/app_name"
                     android:scaleType="centerCrop"
                     tools:src="@drawable/terrier_placeholder"
-                    app:terrierImageUrl="@{database_terrier.name}"
+                    app:rvTerriersListItemImageUrl="@{terrierTableEntity.name}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
@@ -46,7 +45,7 @@
                     android:layout_marginTop="@dimen/spacing_medium"
                     android:layout_marginLeft="@dimen/spacing_medium"
                     android:layout_marginRight="@dimen/spacing_medium"
-                    android:text="@{database_terrier.fact}"
+                    android:text="@{terrierTableEntity.fact}"
                     android:textSize="@dimen/main_text_size"
                     tools:text="@string/airedale_fact"
                     app:layout_constraintEnd_toEndOf="parent"

@@ -2,7 +2,7 @@
  * Created by Jill Heske on 8/21/2018
  * Copyright (c) All rights reserved
  */
-package com.heske.terriertime.network.wiki
+package com.heske.terriertime.network
 
 import com.google.gson.annotations.SerializedName
 

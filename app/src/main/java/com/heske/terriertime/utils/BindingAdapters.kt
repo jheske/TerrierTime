@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.heske.terriertime.R
-import com.heske.terriertime.database.DatabaseTerrier
+import com.heske.terriertime.database.FlickrTableEntity
+import com.heske.terriertime.database.TerriersTableEntity
 import com.heske.terriertime.flickr.FlickrRvAdapter
 import com.heske.terriertime.terriers.TerriersRvAdapter
 
@@ -34,26 +35,31 @@ import com.heske.terriertime.terriers.TerriersRvAdapter
  */
 
 /**
- *
+ * Binding for the RecyclerView in fragment_terriers.
+ * fragment_terriers has a data binding to TerriersViewModel.
+ * When TerriersViewModel.listOfTerriers LiveData changes,
+ * this gets called to refresh the recycler's data.
  * When there is no data (data is null), hide the [RecyclerView],
  * otherwise show it.
  */
-@BindingAdapter("listData")
-fun bindRecyclerView(recyclerView: RecyclerView, data: List<String>?) {
-    val adapter = recyclerView.adapter as FlickrRvAdapter
+@BindingAdapter("rvTerriersListItems")
+fun bindRvTerriers(recyclerView: RecyclerView, data: List<TerriersTableEntity>?) {
+    val adapter = recyclerView.adapter as TerriersRvAdapter
     adapter.submitList(data)
 }
 
 /**
- * Uses the Glide library to load an image by URL into an [ImageView]
- * See flickr_image_listitem dog_image app:imageUrl attribute
+ * Binding for the ImageView in listitem_terrier.xml.
+ *
+ * Use the Glide library to load an image from assets folder into
+ * an [ImageView] See listitem_terrier app:terrierImageUrl="@{terrier.name}"
  */
-@BindingAdapter("imageUrl")
-fun bindImage(imgView: ImageView, imgUrl: String?) {
-    imgUrl?.let {
-        val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
+@BindingAdapter("rvTerriersListItemImageUrl")
+fun bindRvTerriersItemImage(imgView: ImageView, terrierBreedName: String?) {
+    terrierBreedName?.let {
+        val assetPath = it.toAssetPath()
         Glide.with(imgView.context)
-            .load(imgUri)
+            .load(assetPath)
             .apply(
                 RequestOptions()
                     .placeholder(R.drawable.terrier_placeholder)
@@ -62,6 +68,10 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
             .into(imgView)
     }
 }
+
+/**
+ * Binding for DetailFragment's backdrop image.
+ */
 @BindingAdapter("backdropImageUrl")
 fun bindBackdropImage(imgView: ImageView, terrierBreedName: String?) {
     terrierBreedName?.let {
@@ -78,50 +88,28 @@ fun bindBackdropImage(imgView: ImageView, terrierBreedName: String?) {
 }
 
 /**
- * Adapter for the RecyclerView that displays the list of terriers,
- * a photo for each as well as a fun fact and UI buttons allowing the
- * user to guess the breed, and then display its DetailActivity.
- *
- * Maintains and displays a list of objects containing data downloaded from Wiki.
- *
- * Define button click callbacks: [moreBtnClick], [guessBtnClick], [giveUpBtnClick],
- * and [mainImageClick] to respond to user button clicks.
- */
-
-/**
- * This class implements a [RecyclerView] [ListAdapter] which uses Data Binding to present [List]
- * data, including computing diffs between lists.
- * @param onClick a lambda that takes the
- */
-
-/**
- * This is connected to the RecyclerView in fragment_terriers.
- * The RecyclerView has a data binding to TerriersViewModel.
- * Whenever TerriersViewModel.listOfTerriers LiveData changes,
- * this gets called to refresh the recycler's data.
+ * Binding for the RecyclerView in fragment_flickr.
+ * fragment_flickr has a data binding to FlickrViewModel.
+ * When image list LiveData changes, this gets called to refresh the recycler's data.
  * When there is no data (data is null), hide the [RecyclerView],
  * otherwise show it.
  */
-@BindingAdapter("terrierRecyclerListData")
-fun bindTerriersRecyclerView(recyclerView: RecyclerView, data: List<DatabaseTerrier>?) {
-    val adapter = recyclerView.adapter as TerriersRvAdapter
+@BindingAdapter("rvFlickrListItems")
+fun bindRvFlickr(recyclerView: RecyclerView, data: List<FlickrTableEntity>?) {
+    val adapter = recyclerView.adapter as FlickrRvAdapter
     adapter.submitList(data)
 }
 
-
 /**
- * Bind the image in one row of terriers_recycler (fragment_terriersiers.xml* terrierImageUrl -> is an attribute defined in the img_photo ImageView
- * found in listitem_terrier.xml.
- *
- * Use the Glide library to load an image from assets folder into
- * an [ImageView] See listitem_terrier app:terrierImageUrl="@{terrier.name}"
+ * Uses the Glide library to load an image by URL into an [ImageView]
+ * See flickr_image_listitem  app:imageUrl attribute
  */
-@BindingAdapter("terrierImageUrl")
-fun bindTerrierImage(imgView: ImageView, terrierBreedName: String?) {
-    terrierBreedName?.let {
-        val assetPath = it.toAssetPath()
+@BindingAdapter("rvFlickrListItemImageUrl")
+fun bindImage(imgView: ImageView, imgUrl: String?) {
+    imgUrl?.let {
+        val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
         Glide.with(imgView.context)
-            .load(assetPath)
+            .load(imgUri)
             .apply(
                 RequestOptions()
                     .placeholder(R.drawable.terrier_placeholder)
@@ -132,9 +120,8 @@ fun bindTerrierImage(imgView: ImageView, terrierBreedName: String?) {
 }
 
 /*
- * Bind a fullsize image (its jpg is in the assets folder).
- * fullsizeImageUrl -> is an attribute defined in
- * the img_fullsize ImageView in fragment_fullsize_image.xml
+ * Bind for ImageView in fragment_fullsize_image.xml.
+ * Fullsize image jpgs are in the assets folder).
  */
 @BindingAdapter("fullsizeImageUrl")
 fun bindFullsizeImage(imgView: ImageView, breedName: String?) {
@@ -150,20 +137,3 @@ fun bindFullsizeImage(imgView: ImageView, breedName: String?) {
             .into(imgView)
     }
 }
-
-@BindingAdapter("detailImageUrl")
-fun bindDetailImage(imgView: ImageView, breedName: String?) {
-    breedName?.let {
-        val assetPath = it.toAssetPath()
-        Glide.with(imgView.context)
-            .load(assetPath)
-            .apply(
-                RequestOptions()
-                    .placeholder(R.drawable.terrier_placeholder)
-                    .error(R.drawable.terrier_placeholder)
-            )
-            .into(imgView)
-    }
-}
-
-

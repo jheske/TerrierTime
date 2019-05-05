@@ -1,6 +1,5 @@
 package com.heske.terriertime.network
 
-import com.heske.terriertime.network.flickr.FlickrImageListResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
 import retrofit2.Retrofit

@@ -45,7 +45,6 @@ import timber.log.Timber
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-
 class TerriersFragment : Fragment() {
     private val TAG = TerriersFragment::class.java.simpleName
     lateinit var soundPool: SoundPool
@@ -56,11 +55,9 @@ class TerriersFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // This binding provides access to terriers_recycler in fragment_terriers
-        val binding = FragmentTerriersBinding.inflate(inflater)
 
         val application = requireNotNull(this.activity).application
-        val dataSource = getDatabase(application).terriersDatabaseDao
+        val dataSource = getDatabase(application).terriersTableDao
         val viewModelFactory = TerriersViewModelFactory(dataSource, application)
 
         val viewModel =
@@ -68,6 +65,8 @@ class TerriersFragment : Fragment() {
                 this, viewModelFactory
             ).get(TerriersViewModel::class.java)
 
+        // The binding provides access to terriers_recycler in fragment_terriers
+        val binding = FragmentTerriersBinding.inflate(inflater)
         binding.viewModel = viewModel
 
         setupSoundPool()
@@ -95,14 +94,14 @@ class TerriersFragment : Fragment() {
 
         viewModel.navigateToFullsizeImage.observe(this, Observer {
             if (it != null) {
-//                this.findNavController()
-//                    .navigate(
-//                       TerriersFragmentDirections.actionMainToFullsize(it.name)
-//                    )
+                this.findNavController()
+                    .navigate(
+                       TerriersFragmentDirections.actionMainToFullsize(it.name)
+                    )
                 //After the navigation set nav event to null.
                 //!!!!Otherwise the app will crash when Back button is pressed
                 // from destination Fragment!!!!
-         //       viewModel.displayFullsizeImageComplete()
+                viewModel.displayFullsizeImageComplete()
             }
         })
 
@@ -155,7 +154,6 @@ class TerriersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         terriers_recycler.addItemDecoration(
             TerriersRvDecoration(resources

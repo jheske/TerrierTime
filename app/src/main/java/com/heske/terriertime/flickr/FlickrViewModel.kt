@@ -1,9 +1,14 @@
 package com.heske.terriertime.flickr
 
-import androidx.lifecycle.*
-import com.heske.terriertime.network.FlickrApi
-import com.heske.terriertime.network.flickr.FlickrImageItem
-import kotlinx.coroutines.*
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.heske.terriertime.database.FlickrDao
+import com.heske.terriertime.repositories.FlickrDataRepository
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -26,69 +31,76 @@ import kotlinx.coroutines.*
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-class FlickrViewModel(breedName: String): ViewModel() {
+class FlickrViewModel(
+    breedName: String,
+    flickrDao: FlickrDao,
+    application: Application
+) : AndroidViewModel(application) {
 
-    /** Coroutine vals for running db operations off UI thread. */
+    private val _navigateToFullsizeImage = MutableLiveData<String>()
+    val navigateToFullsizeImage: LiveData<String>
+        get() = _navigateToFullsizeImage
 
-    // Allows us to cancel coroutines
-    private var viewModelJob = Job()
-
-    // the Coroutine runs using the Main (UI) dispatcher
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
-    /** Response backing properties and their external vals */
-
-    // The internal MutableLiveData String that stores the most recent response
-    private val _status = MutableLiveData<String>()
-    // The external immutable LiveData for the response String
-    val status: LiveData<String>
-        get() = _status
-
-    private val _imageUrlList = MutableLiveData<List<String>>()
-    val imageUrlList: LiveData<List<String>>
-        get() = _imageUrlList
+    private val dataRepository = FlickrDataRepository(breedName,flickrDao)
 
     init {
-        uiScope.launch {
-            // List of pix on Flickr can change at any time.
-            getFlickrImages(breedName)
+        launchDataLoad {
+            dataRepository.refreshFlickrkData(breedName)
         }
+    }
+
+    val listOfFlickrImageUrls = flickrDao.getImageUrls(breedName)
+
+    private fun launchDataLoad(block: suspend () -> Unit): Job {
+        return viewModelScope.launch {
+            try {
+                //_spinner.value = true
+                block()
+            } catch (error: FlickrDataRepository.RepositoryRefreshError) {
+                // _snackBar.value = error.message
+            } finally {
+                //  _spinner.value = false
+            }
+        }
+    }
+
+    /**
+     * When the terrier image is clicked,
+     * set the [_navigateToFullsizeImage] [MutableLiveData]
+     * @param terrier The [terrier] that was clicked on.
+     */
+    fun displayFullsizeImage(breed: String) {
+        _navigateToFullsizeImage.value = breed
+    }
+
+    /**
+     * After the navigation has taken place, make sure displayFullsizeImageComplete is set to null.
+     * !!!!Otherwise the app will crash when Back button is pressed from destination Fragment!!!!
+     */
+    fun displayFullsizeImageComplete() {
+        _navigateToFullsizeImage.value = null
     }
 
     /**
      * Sets the value of the response LiveData to the API status or the successful number of
      * objects retrieved.
      */
-    private fun getFlickrImages(breedName: String) {
-        uiScope.launch {
-            // Get the Deferred object for our Retrofit request
-            val getPropertiesDeferred
-                    = FlickrApi.flickrService.getFlickImageList(breedName)
-            try {
-                // Await the completion of our Retrofit request
-                val listResult = getPropertiesDeferred.await()
-
-                _status.value = "Success: ${listResult.imageList.size} Images retrieved"
-                if (listResult.imageList.size > 0) {
-                    _imageUrlList.value = getImageUrlList(listResult.imageList)
-                }
-            } catch (e: Exception) {
-                _status.value = "Failure: ${e.message}"
-            }
-        }
-    }
-
-    /***
-     * Return an ArrayList containing string values from [flickrImageList] item
-     * media field.
-     */
-    fun getImageUrlList(flickrImageList: ArrayList<FlickrImageItem>): ArrayList<String> {
-        val imageList = ArrayList<String>()
-
-        flickrImageList.forEachIndexed { index, flickrListItem ->
-            val imageFileName = flickrListItem.media.getValue("m")
-            imageList.add(imageFileName)
-        }
-        return imageList
-    }
+//    private fun getFlickrImages(breedName: String) {
+//        uiScope.launch {
+//            // Get the Deferred object for our Retrofit request
+//            val getPropertiesDeferred
+//                    = FlickrApi.flickrService.getFlickImageList(breedName)
+//            try {
+//                // Await the completion of our Retrofit request
+//                val listResult = getPropertiesDeferred.await()
+//
+//                _status.value = "Success: ${listResult.imageList.size} Images retrieved"
+//                if (listResult.imageList.size > 0) {
+//                    _imageUrlList.value = getImageUrlList(listResult.imageList)
+//                }
+//            } catch (e: Exception) {
+//                _status.value = "Failure: ${e.message}"
+//            }
+//        }
+//    }
 }

@@ -1,8 +1,10 @@
-package com.heske.terriertime.detail
+package com.heske.terriertime.database
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.heske.terriertime.database.TerriersTableEntity
+import androidx.lifecycle.LiveData
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -26,12 +28,17 @@ import com.heske.terriertime.database.TerriersTableEntity
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-class DetailViewModelFactory(private val terrier: TerriersTableEntity) : ViewModelProvider.Factory {
-    @Suppress("unchecked_cast")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
-            return DetailViewModel(terrier) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
+@Dao
+interface FlickrDao {
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(vararg imageUrls: FlickrTableEntity)
+
+    @Query("select * from flickrtableentity where breed_name = :breedName")
+    fun getImageUrls(breedName: String): LiveData<List<FlickrTableEntity>>
+
+    @Query("select count(*) from flickrtableentity")
+    fun getRowCount(): Long
+
+    @Query("delete from flickrtableentity")
+    fun deleteAll(): Int
 }

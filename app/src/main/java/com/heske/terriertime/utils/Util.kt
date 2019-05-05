@@ -1,14 +1,11 @@
 package com.heske.terriertime.utils
 
 import android.app.Activity
-import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.net.ConnectivityManager
 import android.view.View
-import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
-import com.heske.terriertime.database.DatabaseTerrier
-import androidx.core.content.ContextCompat.getSystemService
+import com.heske.terriertime.database.TerriersTableEntity
 
 
 
@@ -96,7 +93,7 @@ fun Context.hideKeyboard(view: View) {
  * together all the breed names so Wiki can download summaries
  * in one batch.
  */
-fun buildBreedTagString(terrierBreedList: ArrayList<DatabaseTerrier>): String {
+fun buildBreedTagString(terrierBreedList: ArrayList<TerriersTableEntity>): String {
     val sb = StringBuilder()
     val listSize = terrierBreedList.size
     for (i in 0..listSize - 1) {

@@ -1,8 +1,4 @@
-package com.heske.terriertime.detail
-
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.heske.terriertime.database.TerriersTableEntity
+package com.heske.terriertime.flickr
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -25,13 +21,7 @@ import com.heske.terriertime.database.TerriersTableEntity
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
-class DetailViewModelFactory(private val terrier: TerriersTableEntity) : ViewModelProvider.Factory {
-    @Suppress("unchecked_cast")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
-            return DetailViewModel(terrier) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-}
+data class FlickrImage(
+    val breedName: String,
+    val imageUrl: String
+)

@@ -5,12 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.heske.terriertime.databinding.FragmentDetailBinding
-import kotlinx.android.synthetic.main.fragment_detail.*
+import androidx.appcompat.app.AppCompatActivity
+import com.heske.terriertime.R
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -41,31 +44,35 @@ class DetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentDetailBinding.inflate(inflater)
         val terrier = DetailFragmentArgs.fromBundle(arguments!!).terrier
-        terrierBreedName = terrier.name
-
         val viewModelFactory = DetailViewModelFactory(terrier)
-        val viewModel =
+        val terrierViewModel =
             ViewModelProviders.of(
                 this, viewModelFactory
             ).get(DetailViewModel::class.java)
 
-        viewModel.navigateToFlickrPix.observe(this, Observer {
+        val binding = DataBindingUtil.inflate<FragmentDetailBinding>(
+            inflater, R.layout.fragment_detail, container, false).apply {
+            viewModel = terrierViewModel
+            setLifecycleOwner(this@DetailFragment)
+        }
+
+        terrierBreedName = terrier.name
+        // TODO use Databinding
+        (activity as AppCompatActivity).supportActionBar!!.title = terrierBreedName
+
+        terrierViewModel.navigateToFlickrPix.observe(this, Observer {
             if (it != null) {
-//                this.findNavController()
-//                    .navigate(
-//                        DetailFragmentDirections.actionDetailToFlickr(it)
-//                    )
+                this.findNavController()
+                    .navigate(
+                        DetailFragmentDirections.actionDetailToFlickr(it)
+                    )
                 //After the navigation has taken place, set nav event to null.
                 //!!!!Otherwise the app will crash when Back button is pressed
                 // from destination Fragment!!!!
-                viewModel.displayFlickrPixComplete()
+                terrierViewModel.displayFlickrPixComplete()
             }
         })
-
-        binding.viewModel = viewModel
-        binding.setLifecycleOwner(this)
         return binding.root
     }
 }
