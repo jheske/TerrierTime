@@ -37,8 +37,6 @@ class FlickrFragment : Fragment() {
             ViewModelProviders.of(this, viewModelFactory)
                 .get(FlickrViewModel::class.java)
 
-        (activity as AppCompatActivity).supportActionBar!!.title = breedName
-
         val binding = FragmentFlickrBinding.inflate(inflater).apply {
             viewModel = flickrViewModel
             setLifecycleOwner(this@FlickrFragment)
@@ -47,11 +45,6 @@ class FlickrFragment : Fragment() {
                     flickrViewModel.displayFullsizeImage(it.imageFilePath)
                 })
         }
-
-//        binding.photosRecycler.adapter = FlickrRvAdapter(
-//            FlickrRvAdapter.OnImageClickListener {
-//                flickrViewModel.displayFullsizeImage(it)
-//            })
 
         flickrViewModel.navigateToFullsizeImage.observe(this, Observer {
             if (it != null) {

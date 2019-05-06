@@ -45,8 +45,7 @@ class DetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val terrier = DetailFragmentArgs.fromBundle(arguments!!).terrier
-        val viewModelFactory = DetailViewModelFactory(terrier)
+        val viewModelFactory = DetailViewModelFactory(DetailFragmentArgs.fromBundle(arguments!!).terrier)
         val terrierViewModel =
             ViewModelProviders.of(
                 this, viewModelFactory
@@ -57,10 +56,6 @@ class DetailFragment : Fragment() {
             viewModel = terrierViewModel
             setLifecycleOwner(this@DetailFragment)
         }
-
-        terrierBreedName = terrier.name
-        // TODO use Databinding
-        (activity as AppCompatActivity).supportActionBar!!.title = terrierBreedName
 
         terrierViewModel.navigateToFlickrPix.observe(this, Observer {
             if (it != null) {

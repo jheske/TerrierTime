@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.heske.terriertime.databinding.FragmentFullsizeImageBinding
@@ -17,18 +16,17 @@ const val ARG_BREED_NAME = "breed_name"
 class FullsizeImageFragment : Fragment() {
     private val TAG = FullsizeImageFragment::class.java.simpleName
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
 
-        val binding
-                = FragmentFullsizeImageBinding.inflate(inflater)
+        val binding = FragmentFullsizeImageBinding.inflate(inflater)
 
-        val terrierBreedName
-                = FullsizeImageFragmentArgs.fromBundle(arguments!!).breedName
-
-        (activity as AppCompatActivity).supportActionBar!!.title = terrierBreedName
-
-        val viewModelFactory = FullsizeImageViewModelFactory(terrierBreedName)
+        val viewModelFactory = FullsizeImageViewModelFactory(
+            FullsizeImageFragmentArgs
+                .fromBundle(arguments!!).breedName
+        )
         val viewModel =
             ViewModelProviders.of(
                 this, viewModelFactory

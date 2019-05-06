@@ -108,7 +108,7 @@ class TerriersFragment : Fragment() {
             if (it != null) {
                 this.findNavController()
                     .navigate(
-                        TerriersFragmentDirections.actionMainFragmentToDetail(it)
+                        TerriersFragmentDirections.actionMainFragmentToDetail(it,it.name)
                     )
                 viewModel.displayDetailScreenComplete()
             }

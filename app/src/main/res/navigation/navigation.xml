@@ -29,10 +29,12 @@
     <fragment
             android:id="@+id/detailFragment"
             android:name="com.heske.terriertime.detail.DetailFragment"
-            android:label="DetailFragment"
+            android:label="{breedName}"
             tools:layout="@layout/fragment_detail">
         <argument android:name="terrier"
                   app:argType="com.heske.terriertime.database.TerriersTableEntity"/>
+        <argument android:name="breedName"
+                  app:argType="string"/>
         <action android:id="@+id/action_detail_to_flickr"
                 app:destination="@id/flickrFragment"
                 app:popUpTo="@+id/detailFragment"/>
@@ -40,18 +42,16 @@
 
     <fragment android:id="@+id/fullsizeImageFragment"
               android:name="com.heske.terriertime.fullsize.FullsizeImageFragment"
-              android:label="FullsizeImageFragment">
-        <argument
-                android:name="breedName"
-                app:argType="string"/>
+              android:label="{breedName}">
+        <argument android:name="breedName"
+                  app:argType="string"/>
     </fragment>
 
     <fragment android:id="@+id/flickrFragment"
               android:name="com.heske.terriertime.flickr.FlickrFragment"
-              android:label="FlickrFragment">
-        <argument
-                android:name="breedName"
-                app:argType="string"/>
+              android:label="{breedName}">
+        <argument android:name="breedName"
+                  app:argType="string"/>
         <action android:id="@+id/action_flickr_to_fullsize"
                 app:destination="@id/fullsizeImageFragment"
                 app:popUpTo="@+id/flickrFragment">
