@@ -13,6 +13,7 @@
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/layout_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -20,10 +21,8 @@
                 android:id="@+id/terriers_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:clipToPadding="false"
+                android:clipToPadding="true"
                 android:background="@color/colorWhite"
-                android:paddingLeft="@dimen/spacing_large"
-                android:paddingRight="@dimen/spacing_large"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:rvTerriersListItems="@{viewModel.listOfTerriers}"
                 tools:itemCount="16"

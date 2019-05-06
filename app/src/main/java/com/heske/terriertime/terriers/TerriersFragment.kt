@@ -18,7 +18,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.heske.terriertime.database.getDatabase
 import com.heske.terriertime.databinding.FragmentTerriersBinding
-import kotlinx.android.synthetic.main.fragment_splash.*
 import kotlinx.android.synthetic.main.fragment_terriers.*
 import kotlinx.android.synthetic.main.listitem_terriers.*
 import timber.log.Timber
