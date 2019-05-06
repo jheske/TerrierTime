@@ -67,7 +67,6 @@ class TerriersFragment : Fragment() {
         // The binding provides access to terriers_recycler in fragment_terriers
         val binding = FragmentTerriersBinding.inflate(inflater)
         binding.viewModel = viewModel
-
         setupSoundPool()
 
         // TODO Can I replace the onClickListeners with DataBindings in the xml file?

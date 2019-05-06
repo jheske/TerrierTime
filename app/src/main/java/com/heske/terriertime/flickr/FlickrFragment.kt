@@ -9,14 +9,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.heske.terriertime.database.getDatabase
 import com.heske.terriertime.databinding.FragmentFlickrBinding
-import com.heske.terriertime.terriers.TerriersViewModelFactory
 
 /**
  * Retrieve the list of paths to Flickr images and display
@@ -29,10 +27,9 @@ class FlickrFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val application = requireNotNull(this.activity).application
-        val dataSource = getDatabase(application).flickrTableDao
-
+        val flickrDao = getDatabase(application).flickrTableDao
         val breedName = FlickrFragmentArgs.fromBundle(arguments!!).breedName
-        val viewModelFactory = FlickrViewModelFactory(breedName,dataSource,application)
+        val viewModelFactory = FlickrViewModelFactory(breedName, flickrDao, application)
         val flickrViewModel =
             ViewModelProviders.of(this, viewModelFactory)
                 .get(FlickrViewModel::class.java)

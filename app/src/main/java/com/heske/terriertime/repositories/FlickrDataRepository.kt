@@ -1,14 +1,9 @@
 package com.heske.terriertime.repositories
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import com.heske.terriertime.database.FlickrDao
-import com.heske.terriertime.database.asDomainModel
-import com.heske.terriertime.flickr.FlickrImage
 import com.heske.terriertime.network.FlickrApi
 import com.heske.terriertime.network.asDatabaseModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -34,8 +29,29 @@ import kotlinx.coroutines.withContext
 class FlickrDataRepository(val breedName: String, val flickrDao: FlickrDao) {
 
     class RepositoryRefreshError(cause: Throwable) : Throwable(cause.message, cause)
+    private val viewModelJob = SupervisorJob()
+    private val uiScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    // TODO schedule refreshes in a Worker
+    init {
+        uiScope.launch {
+            // It's cheating, but it will have to do until I implement a Worker.
+         //   deleteFlickrData(breedName)
+        }
+    }
+
+    suspend fun deleteFlickrData(breedName: String) {
+        withContext(Dispatchers.IO) {
+            try {
+                flickrDao.delete(breedName)
+            } catch (e: Exception) {
+                // _status.value = "Failure: ${e.message}"
+            }
+        }
+    }
+
+    // TODO Retrieve refresh in a Worker
+    //val request= OneTimeWorkRequestBuilder<DatabaseWorker>().build()
+    //WorkManager.getInstance(context).enqueue(request)
     suspend fun refreshFlickrkData(breedName: String) {
         withContext(Dispatchers.IO) {
             try {

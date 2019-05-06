@@ -36,12 +36,12 @@ interface FlickrDao {
     @Query("select * from flickrtableentity where breed_name = :breedName")
     fun getImageUrls(breedName: String): LiveData<List<FlickrTableEntity>>
 
-    @Query("select * from flickrtableentity where breed_name = :breedName")
-    fun getFlickrImageUrls(breedName: String): List<FlickrTableEntity>
-
     @Query("select count(*) from flickrtableentity")
     fun getRowCount(): Long
 
     @Query("delete from flickrtableentity")
     fun deleteAll(): Int
+
+    @Query("delete from flickrtableentity where breed_name = :breedName")
+    fun delete(breedName: String): Int
 }

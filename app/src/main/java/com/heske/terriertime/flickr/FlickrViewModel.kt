@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.heske.terriertime.database.FlickrDao
+import com.heske.terriertime.database.FlickrTableEntity
 import com.heske.terriertime.repositories.FlickrDataRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -43,13 +44,13 @@ class FlickrViewModel(
 
     private val dataRepository = FlickrDataRepository(breedName,flickrDao)
 
+    val listOfFlickrImageUrls = flickrDao.getImageUrls(breedName)
+
     init {
         launchDataLoad {
             dataRepository.refreshFlickrkData(breedName)
         }
     }
-
-    val listOfFlickrImageUrls = flickrDao.getImageUrls(breedName)
 
     private fun launchDataLoad(block: suspend () -> Unit): Job {
         return viewModelScope.launch {
