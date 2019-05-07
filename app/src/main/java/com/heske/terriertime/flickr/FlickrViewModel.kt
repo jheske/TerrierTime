@@ -2,6 +2,7 @@ package com.heske.terriertime.flickr
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import com.heske.terriertime.repositories.FlickrDataRepository
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
@@ -26,9 +27,8 @@ import com.heske.terriertime.repositories.FlickrDataRepository
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 class FlickrViewModel(
-    flickrRespository: FlickrDataRepository,
-    application: Application
-) : AndroidViewModel(application) {
+    flickrRespository: FlickrDataRepository
+) : ViewModel() {
 
     val listOfFlickrImageUrls = flickrRespository.getFlickrImageUrls()
 }

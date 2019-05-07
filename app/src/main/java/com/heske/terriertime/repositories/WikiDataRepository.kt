@@ -1,10 +1,8 @@
 package com.heske.terriertime.repositories
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import com.heske.terriertime.database.*
 import com.heske.terriertime.network.*
-import com.heske.terriertime.terriers.Terrier
 import com.heske.terriertime.utils.TerrierBreeds
 import com.heske.terriertime.utils.buildBreedTagString
 import kotlinx.coroutines.Dispatchers

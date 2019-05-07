@@ -1,10 +1,6 @@
 package com.heske.terriertime.repositories
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.heske.terriertime.database.FlickrDao
-import com.heske.terriertime.database.FlickrTableEntity
-import com.heske.terriertime.flickr.FlickrImage
 import com.heske.terriertime.network.FlickrApi
 import com.heske.terriertime.network.asDatabaseModel
 import kotlinx.coroutines.Dispatchers
@@ -50,8 +46,6 @@ class FlickrDataRepository(
                 instance ?: FlickrDataRepository(breedName, flickrDao).also { instance = it }
             }
     }
-
-    val listOfFlickrImages = MutableLiveData<List<FlickrImage>>()
 
     fun getFlickrImageUrls() = flickrDao.getImageUrls(breedName)
 

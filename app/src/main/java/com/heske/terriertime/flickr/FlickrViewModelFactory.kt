@@ -1,6 +1,5 @@
 package com.heske.terriertime.flickr
 
-import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.heske.terriertime.repositories.FlickrDataRepository
@@ -32,14 +31,13 @@ import com.heske.terriertime.repositories.FlickrDataRepository
  * Provides the TerriersTableDao and context to the ViewModel.
  */
 class FlickrViewModelFactory(
-    private val repository: FlickrDataRepository,
-    private val application: Application
+    private val repository: FlickrDataRepository
 ) : ViewModelProvider.Factory {
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(FlickrViewModel::class.java)) {
-            return FlickrViewModel(repository,application) as T
+            return FlickrViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

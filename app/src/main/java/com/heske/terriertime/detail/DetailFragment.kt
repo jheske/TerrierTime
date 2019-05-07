@@ -1,22 +1,16 @@
 package com.heske.terriertime.detail
 
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.heske.terriertime.databinding.FragmentDetailBinding
-import androidx.appcompat.app.AppCompatActivity
 import com.heske.terriertime.R
-import com.heske.terriertime.flickr.FlickrViewModel
-import com.heske.terriertime.terriers.TerriersViewModel
 import com.heske.terriertime.utils.InjectorUtils
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
@@ -49,7 +43,6 @@ class DetailFragment : Fragment() {
     ): View? {
 
         val terrierEntity = DetailFragmentArgs.fromBundle(arguments!!).terrier
-        val application = requireNotNull(this.activity).application
         val factory
                 = InjectorUtils.provideDetailViewModelFactory(terrierEntity,requireContext())
 
