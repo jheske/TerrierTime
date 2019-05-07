@@ -63,7 +63,6 @@ fun bindRvTerriersItemImage(imgView: ImageView, terrierBreedName: String?) {
             .load(assetPath)
             .apply(
                 RequestOptions()
-                    .placeholder(R.drawable.terrier_placeholder)
                     .error(R.drawable.terrier_placeholder)
             )
             .into(imgView)
@@ -81,7 +80,6 @@ fun bindBackdropImage(imgView: ImageView, terrierBreedName: String?) {
             .load(assetPath)
             .apply(
                 RequestOptions()
-                    .placeholder(R.drawable.terrier_placeholder)
                     .error(R.drawable.terrier_placeholder)
             )
             .into(imgView)
@@ -113,7 +111,6 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
             .load(imgUri)
             .apply(
                 RequestOptions()
-                    .placeholder(R.drawable.terrier_placeholder)
                     .error(R.drawable.terrier_placeholder)
             )
             .into(imgView)
@@ -125,14 +122,13 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
  * Fullsize image jpgs are in the assets folder).
  */
 @BindingAdapter("fullsizeImageUrl")
-fun bindFullsizeImage(imgView: ImageView, breedName: String?) {
-    breedName?.let {
-        val assetPath = it.toAssetPath()
+fun bindFullsizeImage(imgView: ImageView, imageUrl: String?) {
+    imageUrl?.let {
+       // val assetPath = it.toAssetPath()
         Glide.with(imgView.context)
-            .load(assetPath)
+            .load(imageUrl)
             .apply(
                 RequestOptions()
-                    .placeholder(R.drawable.terrier_placeholder)
                     .error(R.drawable.terrier_placeholder)
             )
             .into(imgView)

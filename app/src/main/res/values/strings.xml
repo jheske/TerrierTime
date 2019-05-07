@@ -4,7 +4,6 @@
     <string name="txt_breed">Breed</string>
     <string name="txt_guess">Guess what kind of terrier this is</string>
     <string name="txt_guess_hint">Enter terrier breed</string>
-    <string name="txt_more_pix">{terrier}s on Flickr</string>
     <string name="txt_no_summary">There is no additional information for this terriers. It\'s possible
         there was an error connecting to or retrieving the data from Wiki.
         Make sure you are connected to the network and try rerunning the app.

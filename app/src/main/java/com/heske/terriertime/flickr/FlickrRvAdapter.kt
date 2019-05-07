@@ -20,13 +20,12 @@ class FlickrRvAdapter :
 
     /**
      * The FlickrRvAdapterViewHolder constructor takes the binding variable from the associated
-     * GridViewItem, which nicely gives it access to the full object information,
-     * in this case it's just a String.
+     * GridViewItem, which nicely gives it access to the full object information.
      */
     class FlickrRvAdapterViewHolder(private var binding: ListitemFlickrImageBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(listener: View.OnClickListener,listItem: FlickrTableEntity) {
+        fun bind(listener: View.OnClickListener, listItem: FlickrTableEntity) {
             binding.apply {
                 // Binding variables are in listitem_flickr_image.xml.
                 clickListener = listener
@@ -55,16 +54,19 @@ class FlickrRvAdapter :
         getItem(position).let { flickrTableEntity ->
             with(holder) {
                 itemView.tag = flickrTableEntity
-                val listener = createOnClickListener(flickrTableEntity.breedName)
-                bind(listener, flickrTableEntity)
+                val clickListener = createOnClickListener(flickrTableEntity)
+                bind(clickListener, flickrTableEntity)
             }
         }
     }
 
-    private fun createOnClickListener(breedName: String): View.OnClickListener {
+    private fun createOnClickListener(flickrTableEntity: FlickrTableEntity): View.OnClickListener {
         return View.OnClickListener {
             val direction =
-                FlickrFragmentDirections.actionFlickrToFullsize(breedName)
+                FlickrFragmentDirections.actionFlickrToFullsize(
+                    flickrTableEntity.breedName,
+                    flickrTableEntity.imageFilePath
+                )
             it.findNavController().navigate(direction)
         }
     }

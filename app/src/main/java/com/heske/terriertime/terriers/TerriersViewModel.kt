@@ -62,9 +62,9 @@ class TerriersViewModel(
     val incorrectGuess: LiveData<String>
         get() = _incorrectGuess
 
-    private val _navigateToFullsizeImage = MutableLiveData<TerriersTableEntity>()
-    val navigateToFullsizeImage: LiveData<TerriersTableEntity>
-        get() = _navigateToFullsizeImage
+//    private val _navigateToFullsizeImage = MutableLiveData<TerriersTableEntity>()
+//    val navigateToFullsizeImage: LiveData<TerriersTableEntity>
+//        get() = _navigateToFullsizeImage
 
     private val _navigateToDetailScreen = MutableLiveData<TerriersTableEntity>()
     val navigateToDetailScreen: LiveData<TerriersTableEntity>
@@ -94,26 +94,26 @@ class TerriersViewModel(
      * set the [_navigateToFullsizeImage] [MutableLiveData]
      * @param terrier The [terrier] that was clicked on.
      */
-    fun displayFullsizeImage(terrier: TerriersTableEntity) {
-        _navigateToFullsizeImage.value = terrier
-    }
+//    fun displayFullsizeImage(terrier: TerriersTableEntity) {
+//        _navigateToFullsizeImage.value = terrier
+//    }
 
     /**
      * After the navigation has taken place, make sure displayFullsizeImageComplete is set to null.
      * !!!!Otherwise the app will crash when Back button is pressed from destination Fragment!!!!
      */
-    fun displayFullsizeImageComplete() {
-        _navigateToFullsizeImage.value = null
-    }
+//    fun displayFullsizeImageComplete() {
+//        _navigateToFullsizeImage.value = null
+//    }
 
     /**
      * When the terrier image is clicked,
      * set the [_navigateToFullsizeImage] [MutableLiveData]
      * @param terrier The [terrier] that was clicked on.
      */
-    fun displayDetailScreen(terrier: TerriersTableEntity) {
-        _navigateToDetailScreen.value = terrier
-    }
+//    fun displayDetailActivity(terrier: TerriersTableEntity) {
+//        _navigateToDetailScreen.value = terrier
+//    }
 
     /**
      * After the navigation has taken place, make sure displayFullsizeImageComplete is set to null.

@@ -10,8 +10,14 @@
                 name="terrierTableEntity"
                 type="com.heske.terriertime.database.TerriersTableEntity"/>
         <variable
-                name="guess_string"
+                name="guess_text"
                 type="String"/>
+        <variable
+                name="buttonClickListener"
+                type="android.view.View.OnClickListener"/>
+        <variable
+                name="imageClickListener"
+                type="android.view.View.OnClickListener"/>
     </data>
     <androidx.cardview.widget.CardView
             android:id="@+id/card_list_item"
@@ -33,6 +39,7 @@
                     android:contentDescription="@string/app_name"
                     android:scaleType="centerCrop"
                     tools:src="@drawable/terrier_placeholder"
+                    android:onClick="@{imageClickListener}"
                     app:rvTerriersListItemImageUrl="@{terrierTableEntity.name}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -76,7 +83,7 @@
                     android:inputType="textPersonName"
                     tools:text="@string/txt_guess"
                     android:ems="20"
-                    android:text="@{guess_string}"
+                    android:text="@{guess_text}"
                     android:hint="@string/txt_guess"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -98,16 +105,18 @@
                     android:text="@string/txt_btn_give_up"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{buttonClickListener}"
                     app:layout_constraintTop_toTopOf="@+id/btn_guess"
                     app:layout_constraintStart_toEndOf="@+id/btn_guess"
                     app:layout_constraintEnd_toStartOf="@+id/btn_more"/>
             <Button
-                    android:visibility="gone"
                     android:id="@+id/btn_more"
+                    android:visibility="gone"
                     android:text="@string/txt_btn_more"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/spacing_medium"
+                    android:onClick="@{buttonClickListener}"
                     app:layout_constraintTop_toTopOf="@+id/btn_give_up"
                     app:layout_constraintStart_toEndOf="@+id/btn_give_up"
                     app:layout_constraintEnd_toEndOf="parent"/>

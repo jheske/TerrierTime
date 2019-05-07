@@ -1,12 +1,15 @@
 package com.heske.terriertime.terriers
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.heske.terriertime.database.TerriersTableEntity
 import com.heske.terriertime.databinding.ListitemTerriersBinding
+import com.heske.terriertime.utils.toAssetPath
 import kotlinx.android.synthetic.main.listitem_terriers.view.*
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
@@ -35,12 +38,7 @@ import kotlinx.android.synthetic.main.listitem_terriers.view.*
  * This class implements a [RecyclerView] [ListAdapter] which uses Data Binding
  * to present [List] of [TerriersTableEntity] data, including computing diffs between lists.
  */
-class TerriersRvAdapter(
-    val onImageClickListener: OnImageClickListener,
-    val onGiveUpClickListener: OnGiveUpClickListener,
-    val onGuessClickListener: OnGuessClickListener,
-    val onMoreClickListener: OnMoreClickListener
-) :
+class TerriersRvAdapter(val onGuessClickListener: OnGuessClickListener) :
     ListAdapter<TerriersTableEntity, TerriersRvAdapter.TerrierViewHolder>(DiffCallback()) {
 
     /**
@@ -56,10 +54,16 @@ class TerriersRvAdapter(
     class TerrierViewHolder(private val binding: ListitemTerriersBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(listItem: TerriersTableEntity) {
+        fun bind(
+            onButtonClickListener: View.OnClickListener,
+            onImageClickListener: View.OnClickListener,
+            listItem: TerriersTableEntity
+        ) {
             binding.apply {
-                // Binding variable name="terrierTableEntity" is in listitem_terriers.xml.
+                // Binding variables are in listitem_terriers.xml.
                 terrierTableEntity = listItem
+                buttonClickListener = onButtonClickListener
+                imageClickListener = onImageClickListener
                 executePendingBindings()
             }
         }
@@ -80,25 +84,47 @@ class TerriersRvAdapter(
      */
 
     override fun onBindViewHolder(holder: TerrierViewHolder, position: Int) {
-        val listItem = getItem(position)
+        //val listItem = getItem(position)
 
-        holder.itemView.apply {
-            img_photo.setOnClickListener {
-                onImageClickListener.onImageClick(listItem)
+        getItem(position).let { terrierEntity ->
+            with(holder) {
+                itemView.tag = terrierEntity
+                itemView.btn_guess.setOnClickListener {
+                    val guess = holder.itemView.et_guess_txt.text.toString()
+                    onGuessClickListener.onGuessButtonClick(terrierEntity, guess)
+                }
+                val buttonClickListener = createOnButtonClickListener(terrierEntity)
+                val imageClickListener = createOnImageClickListener(terrierEntity)
+                bind(buttonClickListener,imageClickListener,terrierEntity)
             }
-            btn_give_up.setOnClickListener {
-                onGiveUpClickListener.onGiveUpButtonClick(listItem)
-            }
-            btn_guess.setOnClickListener {
-                val guess = holder.itemView.et_guess_txt.text.toString()
-                onGuessClickListener.onGuessButtonClick(listItem, guess)
-            }
-            btn_more.setOnClickListener {
-                onMoreClickListener.onMoreButtonClick(listItem)
-            }
-            tag = listItem
         }
-        holder.bind(listItem)
+    }
+
+    /**
+     * The MORE and GIVE UP buttons both display the Detail activity.
+     */
+    private fun createOnButtonClickListener(terriersTableEntity: TerriersTableEntity): View.OnClickListener {
+        return View.OnClickListener {
+            val fragmentTitle = terriersTableEntity.name
+            val direction =
+                TerriersFragmentDirections.actionMainFragmentToDetail(
+                    terriersTableEntity,
+                    fragmentTitle
+                )
+            it.findNavController().navigate(direction)
+        }
+    }
+
+    private fun createOnImageClickListener(terriersTableEntity: TerriersTableEntity): View.OnClickListener {
+        return View.OnClickListener {
+            val imageFilePath = terriersTableEntity.name.toAssetPath()
+            val direction =
+                TerriersFragmentDirections.actionMainToFullsize(
+                    terriersTableEntity.name,
+                    imageFilePath
+                )
+            it.findNavController().navigate(direction)
+        }
     }
 
     /**
@@ -108,23 +134,11 @@ class TerriersRvAdapter(
      * This listener displays a full-screen image.  It has nothing to do with the
      * three Buttons. Those have their own listeners.
      */
-    class OnImageClickListener(val clickListener: (terrierListItem: TerriersTableEntity) -> Unit) {
-        fun onImageClick(terrierListItem: TerriersTableEntity) = clickListener(terrierListItem)
-    }
-
-    class OnGiveUpClickListener(val clickListener: (terrierListItem: TerriersTableEntity) -> Unit) {
-        fun onGiveUpButtonClick(terrierListItem: TerriersTableEntity) = clickListener(terrierListItem)
-    }
-
-    class OnMoreClickListener(val clickListener: (terrierListItem: TerriersTableEntity) -> Unit) {
-        fun onMoreButtonClick(terrierListItem: TerriersTableEntity) = clickListener(terrierListItem)
-    }
-
-    class OnGuessClickListener(val clickListener: (terrierListItem: TerriersTableEntity, guess: String) -> Unit) {
-        fun onGuessButtonClick(terrierListItem: TerriersTableEntity, guess: String) = clickListener(terrierListItem, guess)
+    class OnGuessClickListener(val clickListener: (terrierEntity: TerriersTableEntity, guess: String) -> Unit) {
+        fun onGuessButtonClick(terrierEntity: TerriersTableEntity, guess: String)
+                = clickListener(terrierEntity, guess)
     }
 }
-
 
 /**
  * Allows the RecyclerView to determine which items have changed

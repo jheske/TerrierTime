@@ -25,7 +25,7 @@ class FullsizeImageFragment : Fragment() {
 
         val viewModelFactory = FullsizeImageViewModelFactory(
             FullsizeImageFragmentArgs
-                .fromBundle(arguments!!).breedName
+                .fromBundle(arguments!!).imagePath
         )
         val viewModel =
             ViewModelProviders.of(

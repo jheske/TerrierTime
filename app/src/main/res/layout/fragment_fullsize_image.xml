@@ -24,7 +24,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/txt_img_photo"
-                    app:fullsizeImageUrl="@{viewModel.terrierBreedName}"
+                    app:fullsizeImageUrl="@{viewModel.imageUrl}"
                     tools:src="@drawable/splash_image"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -14,7 +14,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.heske.terriertime.database.getDatabase
 import com.heske.terriertime.databinding.FragmentTerriersBinding
@@ -59,77 +58,47 @@ class TerriersFragment : Fragment() {
         val dataSource = getDatabase(application).terriersTableDao
         val viewModelFactory = TerriersViewModelFactory(dataSource, application)
 
-        val viewModel =
+        val terriersViewModel =
             ViewModelProviders.of(
                 this, viewModelFactory
             ).get(TerriersViewModel::class.java)
 
         // The binding provides access to terriers_recycler in fragment_terriers
         val binding = FragmentTerriersBinding.inflate(inflater)
-        binding.viewModel = viewModel
         setupSoundPool()
 
-        // TODO Can I replace the onClickListeners with DataBindings in the xml file?
+        // TODO Replace the onClickListeners with DataBindings in the xml file.
         //    as in android:onClick=@{() -> terriersViewModel.displayFullsizeImage???
         // Sets the adapter of the photosGrid RecyclerView with clickHandler lambda that
         // tells the viewModel when our property is clicked
-        binding.terriersRecycler.adapter =
-            TerriersRvAdapter(TerriersRvAdapter.OnImageClickListener {
-                viewModel.displayFullsizeImage(it)
-            }, TerriersRvAdapter.OnGiveUpClickListener {
-                viewModel.displayDetailScreen(it)
-            }, TerriersRvAdapter.OnGuessClickListener { terrier, guessText ->
-                viewModel.processGuess(terrier, guessText)
-            }, TerriersRvAdapter.OnMoreClickListener {
-                viewModel.displayDetailScreen(it)
-            })
-
-        viewModel.listOfTerriers.observe(this, Observer {
+        binding.terriersRecycler.adapter = TerriersRvAdapter(
+            TerriersRvAdapter.OnGuessClickListener { terrier, guessText ->
+                terriersViewModel.processGuess(terrier, guessText)
+            }
+        )
+        terriersViewModel.listOfTerriers.observe(this, Observer {
             if (it != null) {
                 Timber.d(TAG, "There are ${it.size} terriers")
             }
         })
 
-        viewModel.navigateToFullsizeImage.observe(this, Observer {
-            if (it != null) {
-                this.findNavController()
-                    .navigate(
-                       TerriersFragmentDirections.actionMainToFullsize(it.name)
-                    )
-                //After the navigation set nav event to null.
-                //!!!!Otherwise the app will crash when Back button is pressed
-                // from destination Fragment!!!!
-                viewModel.displayFullsizeImageComplete()
-            }
-        })
-
-        viewModel.navigateToDetailScreen.observe(this, Observer {
-            if (it != null) {
-                this.findNavController()
-                    .navigate(
-                        TerriersFragmentDirections.actionMainFragmentToDetail(it,it.name)
-                    )
-                viewModel.displayDetailScreenComplete()
-            }
-        })
-
-        viewModel.correctGuess.observe(this, Observer {
+        terriersViewModel.correctGuess.observe(this, Observer {
             if (it != null) {
                 playSound(barkSound)
                 setButtons(true)
             }
         })
 
-        viewModel.incorrectGuess.observe(this, Observer {
+        terriersViewModel.incorrectGuess.observe(this, Observer {
             if (it != null) {
                 playSound(growlSound)
                 showHintDialog(it)
                 setButtons(false)
-                viewModel.guessComplete()
+                terriersViewModel.guessComplete()
             }
         })
 
-        viewModel.spinner.observe(viewLifecycleOwner, Observer { value ->
+        terriersViewModel.spinner.observe(viewLifecycleOwner, Observer { value ->
             value?.let { show ->
                 if (show)
                     pv_circular.visibility = VISIBLE
@@ -138,14 +107,15 @@ class TerriersFragment : Fragment() {
             }
         })
 
-        viewModel.snackBar.observe(viewLifecycleOwner, Observer { text ->
+        terriersViewModel.snackBar.observe(viewLifecycleOwner, Observer { text ->
             text?.let {
                 Snackbar.make(layout_container, text, Snackbar.LENGTH_SHORT)
                     .show()
-                viewModel.onSnackbarShown()
+                terriersViewModel.onSnackbarShown()
             }
         })
 
+        binding.viewModel = terriersViewModel
         binding.setLifecycleOwner(this)
         return binding.root
     }
@@ -154,9 +124,11 @@ class TerriersFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         terriers_recycler.addItemDecoration(
-            TerriersRvDecoration(resources
-                .getDimension(com.heske.terriertime.R.dimen.spacing_large)
-                .toInt())
+            TerriersRvDecoration(
+                resources
+                    .getDimension(com.heske.terriertime.R.dimen.spacing_large)
+                    .toInt()
+            )
         )
     }
 

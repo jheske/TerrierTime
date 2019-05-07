@@ -45,7 +45,7 @@ class DetailViewModel(
         get() = _terrierBreedName
 
     val morePixString = Transformations.map(terrierBreedName) {
-        "More " + it + "s"
+        it + "s on Flickr"
     }
 
     private val _navigateToFlickrPix = MutableLiveData<String>()

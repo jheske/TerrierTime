@@ -45,6 +45,8 @@
               android:label="{breedName}">
         <argument android:name="breedName"
                   app:argType="string"/>
+        <argument android:name="imagePath"
+                  app:argType="string"/>
     </fragment>
 
     <fragment android:id="@+id/flickrFragment"

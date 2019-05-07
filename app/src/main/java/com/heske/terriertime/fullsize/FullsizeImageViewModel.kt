@@ -25,14 +25,12 @@ import androidx.lifecycle.ViewModel
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-class FullsizeImageViewModel(breedName: String) : ViewModel() {
-
-    private val _terrierBreedName = MutableLiveData<String>()
-
-    val terrierBreedName: LiveData<String>
-        get() = _terrierBreedName
+class FullsizeImageViewModel(fullsizeImageUrl: String) : ViewModel() {
+    private val _imageUrl = MutableLiveData<String>()
+    val imageUrl: LiveData<String>
+        get() = _imageUrl
 
     init {
-        _terrierBreedName.value = breedName
+        _imageUrl.value = fullsizeImageUrl
     }
 }

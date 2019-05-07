@@ -25,11 +25,11 @@ import androidx.lifecycle.ViewModelProvider
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-class FullsizeImageViewModelFactory(private val terrierBreedName: String) : ViewModelProvider.Factory {
+class FullsizeImageViewModelFactory(private val imageUrl: String) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(FullsizeImageViewModel::class.java)) {
-            return FullsizeImageViewModel(terrierBreedName) as T
+            return FullsizeImageViewModel(imageUrl) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
