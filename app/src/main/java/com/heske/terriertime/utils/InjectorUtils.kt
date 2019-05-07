@@ -1,9 +1,12 @@
-package com.heske.terriertime.detail
+package com.heske.terriertime.utils
 
 import android.app.Application
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import android.content.Context
+import com.heske.terriertime.TerrierApp
 import com.heske.terriertime.database.TerriersTableEntity
+import com.heske.terriertime.database.getDatabase
+import com.heske.terriertime.detail.DetailViewModelFactory
+import com.heske.terriertime.flickr.FlickrViewModelFactory
 import com.heske.terriertime.repositories.FlickrDataRepository
 import com.heske.terriertime.repositories.WikiDataRepository
 import com.heske.terriertime.terriers.Terrier
@@ -29,17 +32,34 @@ import com.heske.terriertime.terriers.Terrier
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+object InjectorUtils {
+    private fun getFlickrRepository(context: Context): FlickrDataRepository {
+        return FlickrDataRepository.getInstance(
+            "Airedale Terrier",
+            getDatabase(context.applicationContext).flickrTableDao
+        )
+    }
 
-class DetailViewModelFactory(
-    private val terrierEntity: TerriersTableEntity,
-    private val wikiRespository: WikiDataRepository,
-    private val flickrRepository: FlickrDataRepository
-) : ViewModelProvider.Factory {
-    @Suppress("unchecked_cast")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
-            return DetailViewModel(terrierEntity,wikiRespository,flickrRepository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
+    fun provideFlickrViewModelFactory(
+        context: Context,
+        application: Application
+    ): FlickrViewModelFactory {
+        val repository = getFlickrRepository(context)
+        return FlickrViewModelFactory(repository, application)
+    }
+
+    private fun getWikiRepository(context: Context): WikiDataRepository {
+        return WikiDataRepository.getInstance(
+            getDatabase(context.applicationContext).terriersTableDao
+        )
+    }
+
+    fun provideDetailViewModelFactory(
+        terrierEntity: TerriersTableEntity,
+        context: Context
+    ): DetailViewModelFactory {
+        val wikiRepository = getWikiRepository(context)
+        val flickrRepository = getFlickrRepository(context)
+        return DetailViewModelFactory(terrierEntity,wikiRepository,flickrRepository)
     }
 }

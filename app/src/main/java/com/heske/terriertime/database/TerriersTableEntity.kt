@@ -23,6 +23,7 @@ package com.heske.terriertime.database
  */
 
 import android.os.Parcelable
+import androidx.lifecycle.Transformations.map
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
@@ -67,4 +68,3 @@ fun List<TerriersTableEntity>.asDomainModel(): List<Terrier> {
             imageList = it.imageList)
     }
 }
-

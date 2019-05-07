@@ -1,9 +1,15 @@
 package com.heske.terriertime.repositories
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.heske.terriertime.database.FlickrDao
+import com.heske.terriertime.database.FlickrTableEntity
+import com.heske.terriertime.flickr.FlickrImage
 import com.heske.terriertime.network.FlickrApi
 import com.heske.terriertime.network.asDatabaseModel
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -26,33 +32,49 @@ import kotlinx.coroutines.*
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-class FlickrDataRepository(val breedName: String, val flickrDao: FlickrDao) {
+class FlickrDataRepository(
+    val breedName: String,
+    val flickrDao: FlickrDao
+) {
+    var rowCount = 0L
 
     class RepositoryRefreshError(cause: Throwable) : Throwable(cause.message, cause)
-    private val viewModelJob = SupervisorJob()
-    private val uiScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    init {
-        uiScope.launch {
-            // It's cheating, but it will have to do until I implement a Worker.
-         //   deleteFlickrData(breedName)
+    companion object {
+        // For Singleton instantiation
+        @Volatile
+        private var instance: FlickrDataRepository? = null
+
+        fun getInstance(breedName: String, flickrDao: FlickrDao) =
+            instance ?: synchronized(this) {
+                instance ?: FlickrDataRepository(breedName, flickrDao).also { instance = it }
+            }
+    }
+
+    val listOfFlickrImages = MutableLiveData<List<FlickrImage>>()
+
+    fun getFlickrImageUrls() = flickrDao.getImageUrls(breedName)
+
+
+    suspend fun deleteAll() {
+        withContext(Dispatchers.IO) {
+            flickrDao.deleteAll()
+            val rowCount = flickrDao.getRowCount()
+            Timber.d("There are $rowCount rows")
         }
     }
 
-    suspend fun deleteFlickrData(breedName: String) {
+    suspend fun getRowCount() {
         withContext(Dispatchers.IO) {
-            try {
-                flickrDao.delete(breedName)
-            } catch (e: Exception) {
-                // _status.value = "Failure: ${e.message}"
-            }
+             rowCount = flickrDao.getRowCount()
+            Timber.d("There are $rowCount rows")
         }
     }
 
     // TODO Retrieve refresh in a Worker
     //val request= OneTimeWorkRequestBuilder<DatabaseWorker>().build()
     //WorkManager.getInstance(context).enqueue(request)
-    suspend fun refreshFlickrkData(breedName: String) {
+    suspend fun refreshFlickrkData() {
         withContext(Dispatchers.IO) {
             try {
                 // Request a list of Urls from Flickr

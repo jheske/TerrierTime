@@ -1,12 +1,7 @@
-package com.heske.terriertime.detail
+package com.heske.terriertime.flickr
 
-import android.app.Application
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.heske.terriertime.database.TerriersTableEntity
-import com.heske.terriertime.repositories.FlickrDataRepository
-import com.heske.terriertime.repositories.WikiDataRepository
-import com.heske.terriertime.terriers.Terrier
+import androidx.room.Embedded
+import androidx.room.Relation
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -29,17 +24,10 @@ import com.heske.terriertime.terriers.Terrier
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
-class DetailViewModelFactory(
-    private val terrierEntity: TerriersTableEntity,
-    private val wikiRespository: WikiDataRepository,
-    private val flickrRepository: FlickrDataRepository
-) : ViewModelProvider.Factory {
-    @Suppress("unchecked_cast")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
-            return DetailViewModel(terrierEntity,wikiRespository,flickrRepository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
+/**
+ * This class captures the relationship between a [Plant] and a user's [GardenPlanting], which is
+ * used by Room to fetch the related entities.
+ */
+class FlickrImageListData {
+    var flickerImageList: List<FlickrImage> = arrayListOf()
 }

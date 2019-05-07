@@ -15,6 +15,9 @@ import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.heske.terriertime.databinding.FragmentDetailBinding
 import androidx.appcompat.app.AppCompatActivity
 import com.heske.terriertime.R
+import com.heske.terriertime.flickr.FlickrViewModel
+import com.heske.terriertime.terriers.TerriersViewModel
+import com.heske.terriertime.utils.InjectorUtils
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -39,25 +42,27 @@ import com.heske.terriertime.R
  */
 
 class DetailFragment : Fragment() {
-    var terrierBreedName: String = "Airedale Terrier"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val viewModelFactory = DetailViewModelFactory(DetailFragmentArgs.fromBundle(arguments!!).terrier)
-        val terrierViewModel =
-            ViewModelProviders.of(
-                this, viewModelFactory
-            ).get(DetailViewModel::class.java)
+
+        val terrierEntity = DetailFragmentArgs.fromBundle(arguments!!).terrier
+        val application = requireNotNull(this.activity).application
+        val factory
+                = InjectorUtils.provideDetailViewModelFactory(terrierEntity,requireContext())
+
+        val detailViewModel = ViewModelProviders.of(this, factory)
+            .get(DetailViewModel::class.java)
 
         val binding = DataBindingUtil.inflate<FragmentDetailBinding>(
             inflater, R.layout.fragment_detail, container, false).apply {
-            viewModel = terrierViewModel
+            viewModel = detailViewModel
             setLifecycleOwner(this@DetailFragment)
         }
 
-        terrierViewModel.navigateToFlickrPix.observe(this, Observer {
+        detailViewModel.navigateToFlickrPix.observe(this, Observer {
             if (it != null) {
                 this.findNavController()
                     .navigate(
@@ -66,7 +71,7 @@ class DetailFragment : Fragment() {
                 //After the navigation has taken place, set nav event to null.
                 //!!!!Otherwise the app will crash when Back button is pressed
                 // from destination Fragment!!!!
-                terrierViewModel.displayFlickrPixComplete()
+                detailViewModel.displayFlickrPixComplete()
             }
         })
         return binding.root

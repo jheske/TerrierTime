@@ -22,7 +22,9 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+                name="clickListener"
+                type="android.view.View.OnClickListener"/>
         <variable
                 name="flickrTableEntity"
                 type="com.heske.terriertime.database.FlickrTableEntity"/>
@@ -33,10 +35,11 @@
             android:layout_height="@dimen/flickr_image_size"
             android:layout_gravity="center"
             android:background="@color/colorDivider"
-            android:gravity="center">
+            android:gravity="center"
+            android:onClick="@{clickListener}">
 
         <!-- rvFlickrListItemImageUrl binding is in BindingAdapters.kt
-             flickr_image_url is assigned FlickrRvAdapter.kt -->
+             imageUrl is assigned FlickrRvAdapter.kt -->
         <ImageView
                 android:id="@+id/dog_image"
                 android:layout_width="match_parent"

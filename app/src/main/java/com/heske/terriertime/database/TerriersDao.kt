@@ -52,7 +52,7 @@ interface TerriersDao {
     fun deleteAll(): Int
 
     @Query("select * from terrierstableentity where name = :breedName")
-    fun selectBreed(breedName: String): TerriersTableEntity
+    fun getTerrier(breedName: String): LiveData<TerriersTableEntity>
 
     @Query("UPDATE terrierstableentity SET summary = :summary WHERE name = :breedName")
     fun updateSummary(breedName: String, summary: String?): Int

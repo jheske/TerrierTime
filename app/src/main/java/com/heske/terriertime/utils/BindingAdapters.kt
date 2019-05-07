@@ -9,6 +9,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.heske.terriertime.R
 import com.heske.terriertime.database.FlickrTableEntity
 import com.heske.terriertime.database.TerriersTableEntity
+import com.heske.terriertime.flickr.FlickrImage
 import com.heske.terriertime.flickr.FlickrRvAdapter
 import com.heske.terriertime.terriers.TerriersRvAdapter
 

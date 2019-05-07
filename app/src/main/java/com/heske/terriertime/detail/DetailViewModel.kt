@@ -1,10 +1,12 @@
 package com.heske.terriertime.detail
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.*
 import com.heske.terriertime.database.TerriersTableEntity
+import com.heske.terriertime.repositories.FlickrDataRepository
+import com.heske.terriertime.repositories.WikiDataRepository
+import com.heske.terriertime.terriers.Terrier
+import kotlinx.coroutines.launch
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -27,10 +29,14 @@ import com.heske.terriertime.database.TerriersTableEntity
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-class DetailViewModel(terrierDetails: TerriersTableEntity) : ViewModel() {
-    private val _terrier = MutableLiveData<TerriersTableEntity>()
+class DetailViewModel(
+    private val terrierEntity: TerriersTableEntity,
+    private val wikiRepository: WikiDataRepository,
+    private val flickrRepository: FlickrDataRepository
+) : ViewModel() {
 
-    // This is bound to binding variable in fragment_detail.xml.
+    private val _terrier = MutableLiveData<TerriersTableEntity>()
+        // This is bound to binding variable in fragment_detail.xml.
     val terrier: LiveData<TerriersTableEntity>
         get() = _terrier
 
@@ -39,7 +45,7 @@ class DetailViewModel(terrierDetails: TerriersTableEntity) : ViewModel() {
         get() = _terrierBreedName
 
     val morePixString = Transformations.map(terrierBreedName) {
-        "More " + it +"s"
+        "More " + it + "s"
     }
 
     private val _navigateToFlickrPix = MutableLiveData<String>()
@@ -47,8 +53,13 @@ class DetailViewModel(terrierDetails: TerriersTableEntity) : ViewModel() {
         get() = _navigateToFlickrPix
 
     init {
-        _terrier.value = terrierDetails
-        _terrierBreedName.value = terrierDetails.name
+        _terrier.value = terrierEntity
+        _terrierBreedName.value = terrierEntity.name
+        // Populate the database with Flickr Urls.
+        viewModelScope.launch {
+            flickrRepository.deleteAll()
+            flickrRepository.refreshFlickrkData()
+        }
     }
 
     /**

@@ -1,7 +1,9 @@
 package com.heske.terriertime.flickr
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -13,8 +15,7 @@ import com.heske.terriertime.databinding.ListitemFlickrImageBinding
  * data, including computing diffs between lists.
  * @param onClick a lambda that takes the
  */
-class FlickrRvAdapter(val onImageClickListener: OnImageClickListener) :
-
+class FlickrRvAdapter :
     ListAdapter<FlickrTableEntity, FlickrRvAdapter.FlickrRvAdapterViewHolder>(DiffCallback()) {
 
     /**
@@ -24,9 +25,11 @@ class FlickrRvAdapter(val onImageClickListener: OnImageClickListener) :
      */
     class FlickrRvAdapterViewHolder(private var binding: ListitemFlickrImageBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(listItem: FlickrTableEntity) {
+
+        fun bind(listener: View.OnClickListener,listItem: FlickrTableEntity) {
             binding.apply {
-                // Binding variable name="flickr_image_url" is in listitem_flickr_image.xml.
+                // Binding variables are in listitem_flickr_image.xml.
+                clickListener = listener
                 flickrTableEntity = listItem
                 executePendingBindings()
             }
@@ -48,19 +51,22 @@ class FlickrRvAdapter(val onImageClickListener: OnImageClickListener) :
      * Replaces the contents of a view (invoked by the layout manager)
      */
     override fun onBindViewHolder(holder: FlickrRvAdapterViewHolder, position: Int) {
-        val listItem = getItem(position)
 
-        holder.itemView.apply {
-            setOnClickListener {
-                onImageClickListener.onImageClick(listItem)
+        getItem(position).let { flickrTableEntity ->
+            with(holder) {
+                itemView.tag = flickrTableEntity
+                val listener = createOnClickListener(flickrTableEntity.breedName)
+                bind(listener, flickrTableEntity)
             }
-            tag = listItem
         }
-        holder.bind(listItem)
     }
 
-    class OnImageClickListener(val clickListener: (imageUrl: FlickrTableEntity) -> Unit) {
-        fun onImageClick(imageUrl: FlickrTableEntity) = clickListener(imageUrl)
+    private fun createOnClickListener(breedName: String): View.OnClickListener {
+        return View.OnClickListener {
+            val direction =
+                FlickrFragmentDirections.actionFlickrToFullsize(breedName)
+            it.findNavController().navigate(direction)
+        }
     }
 }
 

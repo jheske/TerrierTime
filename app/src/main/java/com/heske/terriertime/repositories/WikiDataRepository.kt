@@ -2,8 +2,7 @@ package com.heske.terriertime.repositories
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.heske.terriertime.database.TerriersDao
-import com.heske.terriertime.database.asDomainModel
+import com.heske.terriertime.database.*
 import com.heske.terriertime.network.*
 import com.heske.terriertime.terriers.Terrier
 import com.heske.terriertime.utils.TerrierBreeds
@@ -56,11 +55,24 @@ class WikiDataRepository(val terriersDao: TerriersDao) {
 
     class RepositoryRefreshError(cause: Throwable) : Throwable(cause.message, cause)
 
+    companion object {
+        // For Singleton instantiation
+        @Volatile private var instance: WikiDataRepository? = null
+        fun getInstance(terriersDao: TerriersDao) =
+            instance ?: synchronized(this) {
+                instance ?: WikiDataRepository(terriersDao).also { instance = it }
+            }
+    }
+
     suspend fun refreshWikiData() {
         refreshLocalData()
         if (rowCount < terrierListSize) {
             refreshWikiNetworkData()
         }
+    }
+
+    fun getTerrier(breedName: String) : LiveData<TerriersTableEntity> {
+        return terriersDao.getTerrier(breedName)
     }
 
     /**
