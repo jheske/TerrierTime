@@ -39,7 +39,7 @@
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
                         android:fitsSystemWindows="true"
-                        app:backdropImageUrl="@{viewModel.terrierBreedName}"
+                        app:backdropImageUrl="@{viewModel.terrier.name}"
                         app:layout_collapseMode="parallax"
                         tools:src="@drawable/terrier_placeholder"/>
 
@@ -51,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_container"
@@ -78,7 +78,7 @@
                         android:text="@string/txt_flickr_pix"
                         android:layout_marginStart="@dimen/spacing_medium"
                         android:visibility="visible"
-                        android:onClick="@{() -> viewModel.displayFlickrPix(viewModel.terrierBreedName)}"
+                        android:onClick="@{() -> viewModel.displayFlickrPix(viewModel.terrier.name)}"
                         app:layout_constraintTop_toTopOf="@id/tv_more_pix"
                         app:layout_constraintBottom_toBottomOf="@id/tv_more_pix"
                         app:layout_constraintLeft_toRightOf="@id/tv_more_pix"/>

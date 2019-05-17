@@ -26,8 +26,8 @@
                 name="clickListener"
                 type="android.view.View.OnClickListener"/>
         <variable
-                name="flickrTableEntity"
-                type="com.heske.terriertime.database.FlickrTableEntity"/>
+                name="flickr"
+                type="com.heske.terriertime.database.FlickrImage"/>
     </data>
 
     <LinearLayout
@@ -46,7 +46,7 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:adjustViewBounds="true"
-                app:rvFlickrListItemImageUrl="@{flickrTableEntity.imageFilePath}"
+                app:rvFlickrListItemImageUrl="@{flickr.imageFilePath}"
                 tools:src="@drawable/terrier_placeholder"/>
     </LinearLayout>
 </layout>

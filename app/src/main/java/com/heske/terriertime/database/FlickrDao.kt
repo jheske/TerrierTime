@@ -31,17 +31,17 @@ import androidx.room.Query
 @Dao
 interface FlickrDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg imageUrls: FlickrTableEntity)
+    fun insertAll(vararg imageUrls: FlickrImage)
 
-    @Query("select * from flickrtableentity where breed_name = :breedName")
-    fun getImageUrls(breedName: String): LiveData<List<FlickrTableEntity>>
+    @Query("select * from flickrimage where breed_name = :breedName")
+    fun getImageUrls(breedName: String): LiveData<List<FlickrImage>>
 
-    @Query("select count(*) from flickrtableentity")
+    @Query("select count(*) from flickrimage")
     fun getRowCount(): Long
 
-    @Query("delete from flickrtableentity")
+    @Query("delete from flickrimage")
     fun deleteAll(): Int
 
-    @Query("delete from flickrtableentity where breed_name = :breedName")
+    @Query("delete from flickrimage where breed_name = :breedName")
     fun delete(breedName: String): Int
 }

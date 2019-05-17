@@ -29,5 +29,5 @@ import androidx.room.Relation
  * used by Room to fetch the related entities.
  */
 class FlickrImageListData {
-    var flickerImageList: List<FlickrImage> = arrayListOf()
+    var flickerImageList: List<FlickrImageData> = arrayListOf()
 }

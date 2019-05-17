@@ -31,8 +31,6 @@
             android:name="com.heske.terriertime.detail.DetailFragment"
             android:label="{breedName}"
             tools:layout="@layout/fragment_detail">
-        <argument android:name="terrier"
-                  app:argType="com.heske.terriertime.database.TerriersTableEntity"/>
         <argument android:name="breedName"
                   app:argType="string"/>
         <action android:id="@+id/action_detail_to_flickr"

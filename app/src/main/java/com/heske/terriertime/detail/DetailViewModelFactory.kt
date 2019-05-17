@@ -1,12 +1,9 @@
 package com.heske.terriertime.detail
 
-import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.heske.terriertime.database.TerriersTableEntity
+import com.heske.terriertime.database.TerriersDao
 import com.heske.terriertime.repositories.FlickrDataRepository
-import com.heske.terriertime.repositories.WikiDataRepository
-import com.heske.terriertime.terriers.Terrier
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -31,14 +28,14 @@ import com.heske.terriertime.terriers.Terrier
  */
 
 class DetailViewModelFactory(
-    private val terrierEntity: TerriersTableEntity,
-    private val wikiRespository: WikiDataRepository,
-    private val flickrRepository: FlickrDataRepository
+    private val terriersDao: TerriersDao,
+    private val flickrRepository: FlickrDataRepository,
+    private val breedName: String
 ) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
-            return DetailViewModel(terrierEntity,wikiRespository,flickrRepository) as T
+            return DetailViewModel(terriersDao,flickrRepository,breedName) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

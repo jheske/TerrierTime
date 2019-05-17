@@ -86,6 +86,7 @@ class TerriersFragment : Fragment() {
             if (it != null) {
                 playSound(barkSound)
                 setButtons(true)
+                terriersViewModel.correctGuessComplete()
             }
         })
 
@@ -94,7 +95,7 @@ class TerriersFragment : Fragment() {
                 playSound(growlSound)
                 showHintDialog(it)
                 setButtons(false)
-                terriersViewModel.guessComplete()
+                terriersViewModel.incorrectGuessComplete()
             }
         })
 

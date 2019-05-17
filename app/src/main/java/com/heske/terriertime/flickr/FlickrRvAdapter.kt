@@ -7,7 +7,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.heske.terriertime.database.FlickrTableEntity
+import com.heske.terriertime.database.FlickrImage
 import com.heske.terriertime.databinding.ListitemFlickrImageBinding
 
 /**
@@ -16,7 +16,7 @@ import com.heske.terriertime.databinding.ListitemFlickrImageBinding
  * @param onClick a lambda that takes the
  */
 class FlickrRvAdapter :
-    ListAdapter<FlickrTableEntity, FlickrRvAdapter.FlickrRvAdapterViewHolder>(DiffCallback()) {
+    ListAdapter<FlickrImage, FlickrRvAdapter.FlickrRvAdapterViewHolder>(DiffCallback()) {
 
     /**
      * The FlickrRvAdapterViewHolder constructor takes the binding variable from the associated
@@ -25,11 +25,11 @@ class FlickrRvAdapter :
     class FlickrRvAdapterViewHolder(private var binding: ListitemFlickrImageBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(listener: View.OnClickListener, listItem: FlickrTableEntity) {
+        fun bind(listener: View.OnClickListener, listItem: FlickrImage) {
             binding.apply {
                 // Binding variables are in listitem_flickr_image.xml.
                 clickListener = listener
-                flickrTableEntity = listItem
+                flickr = listItem
                 executePendingBindings()
             }
         }
@@ -51,21 +51,21 @@ class FlickrRvAdapter :
      */
     override fun onBindViewHolder(holder: FlickrRvAdapterViewHolder, position: Int) {
 
-        getItem(position).let { flickrTableEntity ->
+        getItem(position).let { flickrImage ->
             with(holder) {
-                itemView.tag = flickrTableEntity
-                val clickListener = createOnClickListener(flickrTableEntity)
-                bind(clickListener, flickrTableEntity)
+                itemView.tag = flickrImage
+                val clickListener = createOnClickListener(flickrImage)
+                bind(clickListener, flickrImage)
             }
         }
     }
 
-    private fun createOnClickListener(flickrTableEntity: FlickrTableEntity): View.OnClickListener {
+    private fun createOnClickListener(flickrImage: FlickrImage): View.OnClickListener {
         return View.OnClickListener {
             val direction =
                 FlickrFragmentDirections.actionFlickrToFullsize(
-                    flickrTableEntity.breedName,
-                    flickrTableEntity.imageFilePath
+                    flickrImage.breedName,
+                    flickrImage.imageFilePath
                 )
             it.findNavController().navigate(direction)
         }
@@ -76,12 +76,12 @@ class FlickrRvAdapter :
  * Allows the RecyclerView to determine which items have changed when the [List] of
  * images has been updated.
  */
-class DiffCallback : DiffUtil.ItemCallback<FlickrTableEntity>() {
-    override fun areItemsTheSame(oldItem: FlickrTableEntity, newItem: FlickrTableEntity): Boolean {
+class DiffCallback : DiffUtil.ItemCallback<FlickrImage>() {
+    override fun areItemsTheSame(oldItem: FlickrImage, newItem: FlickrImage): Boolean {
         return oldItem === newItem
     }
 
-    override fun areContentsTheSame(oldItem: FlickrTableEntity, newItem: FlickrTableEntity): Boolean {
+    override fun areContentsTheSame(oldItem: FlickrImage, newItem: FlickrImage): Boolean {
         return oldItem == newItem
     }
 }

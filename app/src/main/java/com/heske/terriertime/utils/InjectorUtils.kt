@@ -1,7 +1,6 @@
 package com.heske.terriertime.utils
 
 import android.content.Context
-import com.heske.terriertime.database.TerriersTableEntity
 import com.heske.terriertime.database.getDatabase
 import com.heske.terriertime.detail.DetailViewModelFactory
 import com.heske.terriertime.flickr.FlickrViewModelFactory
@@ -30,7 +29,7 @@ import com.heske.terriertime.repositories.WikiDataRepository
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 object InjectorUtils {
-    private fun getFlickrRepository(context: Context,breedName: String): FlickrDataRepository {
+    private fun getFlickrRepository(context: Context, breedName: String): FlickrDataRepository {
         return FlickrDataRepository.getInstance(
             breedName,
             getDatabase(context.applicationContext).flickrTableDao
@@ -41,7 +40,7 @@ object InjectorUtils {
         context: Context,
         breedName: String
     ): FlickrViewModelFactory {
-        val repository = getFlickrRepository(context,breedName)
+        val repository = getFlickrRepository(context, breedName)
         return FlickrViewModelFactory(repository)
     }
 
@@ -52,11 +51,13 @@ object InjectorUtils {
     }
 
     fun provideDetailViewModelFactory(
-        terrierEntity: TerriersTableEntity,
+        breedName: String,
         context: Context
     ): DetailViewModelFactory {
-        val wikiRepository = getWikiRepository(context)
-        val flickrRepository = getFlickrRepository(context,terrierEntity.name)
-        return DetailViewModelFactory(terrierEntity,wikiRepository,flickrRepository)
+        val flickrRepository = getFlickrRepository(context, breedName)
+        return DetailViewModelFactory(
+            getDatabase(context.applicationContext).terriersTableDao,
+            flickrRepository, breedName
+        )
     }
 }

@@ -1,4 +1,4 @@
-package com.heske.terriertime.terriers
+package com.heske.terriertime.flickr
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -21,14 +21,7 @@ package com.heske.terriertime.terriers
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-data class Terrier(
-    val id: Long,
-    val name: String,
-    val fact: String,
-    val summary: String? = null,
-    val imageList: ArrayList<String>? = null)
-
-data class Summary(
-    val breed: String,
-    val summary: String
+data class FlickrImageData(
+    val breedName: String,
+    val imageUrl: String
 )

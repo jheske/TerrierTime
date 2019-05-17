@@ -31,29 +31,29 @@ import androidx.room.Query
 @Dao
 interface TerriersDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg terriers: TerriersTableEntity)
+    fun insertAll(vararg terriers: Terrier)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(terriers: TerriersTableEntity) : Long
+    fun insert(terriers: Terrier) : Long
 
-    @Query("select summary from terrierstableentity where name = :breedName")
+    @Query("select summary from terrier where name = :breedName")
     fun selectSummary(breedName: String): String
 
-    @Query("select * from terrierstableentity  ORDER BY name ASC")
-    fun getAllTerriers(): LiveData<List<TerriersTableEntity>>
+    @Query("select * from terrier  ORDER BY name ASC")
+    fun getAllTerriers(): LiveData<List<Terrier>>
 
-    @Query("select count(*) from terrierstableentity")
+    @Query("select count(*) from terrier")
     fun getRowCount(): Long
 
-    @Query("select count(*) from terrierstableentity where summary is not null or summary != '' ")
+    @Query("select count(*) from terrier where summary is not null or summary != '' ")
     fun getSummaryCount(): Int
 
-    @Query("delete from terrierstableentity")
+    @Query("delete from terrier")
     fun deleteAll(): Int
 
-    @Query("select * from terrierstableentity where name = :breedName")
-    fun getTerrier(breedName: String): LiveData<TerriersTableEntity>
+    @Query("select * from terrier where name = :breedName")
+    fun getTerrier(breedName: String): LiveData<Terrier>
 
-    @Query("UPDATE terrierstableentity SET summary = :summary WHERE name = :breedName")
+    @Query("UPDATE terrier SET summary = :summary WHERE name = :breedName")
     fun updateSummary(breedName: String, summary: String?): Int
 }

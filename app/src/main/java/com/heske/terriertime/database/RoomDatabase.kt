@@ -16,7 +16,6 @@
 package com.heske.terriertime.database
 
 import android.content.Context
-import androidx.lifecycle.LiveData
 import androidx.room.*
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
@@ -56,7 +55,7 @@ import androidx.room.*
  * This pattern is pretty much the same for any database,
  * so you can reuse it.
  */
-@Database(entities = [TerriersTableEntity::class,FlickrTableEntity::class], version = 1, exportSchema = false)
+@Database(entities = [Terrier::class,FlickrImage::class], version = 1, exportSchema = false)
 abstract class TerriersDatabase : RoomDatabase() {
    abstract val terriersTableDao: TerriersDao
    abstract val flickrTableDao: FlickrDao

@@ -42,9 +42,9 @@ class DetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val terrierEntity = DetailFragmentArgs.fromBundle(arguments!!).terrier
+        val breedName = DetailFragmentArgs.fromBundle(arguments!!).breedName
         val factory
-                = InjectorUtils.provideDetailViewModelFactory(terrierEntity,requireContext())
+                = InjectorUtils.provideDetailViewModelFactory(breedName,requireContext())
 
         val detailViewModel = ViewModelProviders.of(this, factory)
             .get(DetailViewModel::class.java)

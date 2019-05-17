@@ -1,11 +1,8 @@
 package com.heske.terriertime.detail
 
-import android.app.Application
 import androidx.lifecycle.*
-import com.heske.terriertime.database.TerriersTableEntity
+import com.heske.terriertime.database.TerriersDao
 import com.heske.terriertime.repositories.FlickrDataRepository
-import com.heske.terriertime.repositories.WikiDataRepository
-import com.heske.terriertime.terriers.Terrier
 import kotlinx.coroutines.launch
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
@@ -30,15 +27,14 @@ import kotlinx.coroutines.launch
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 class DetailViewModel(
-    private val terrierEntity: TerriersTableEntity,
-    private val wikiRepository: WikiDataRepository,
-    private val flickrRepository: FlickrDataRepository
+    terriersDao: TerriersDao,
+    private val flickrRepository: FlickrDataRepository,
+    breedName: String
 ) : ViewModel() {
 
-    private val _terrier = MutableLiveData<TerriersTableEntity>()
-        // This is bound to binding variable in fragment_detail.xml.
-    val terrier: LiveData<TerriersTableEntity>
-        get() = _terrier
+   // private val _terrier = MutableLiveData<Terrier>()
+    // This is bound to binding variable in fragment_detail.xml.
+    val terrier = terriersDao.getTerrier(breedName)
 
     private val _terrierBreedName = MutableLiveData<String>()
     val terrierBreedName: LiveData<String>
@@ -53,8 +49,7 @@ class DetailViewModel(
         get() = _navigateToFlickrPix
 
     init {
-        _terrier.value = terrierEntity
-        _terrierBreedName.value = terrierEntity.name
+        _terrierBreedName.value = breedName
         // Populate the database with Flickr Urls.
         viewModelScope.launch {
             flickrRepository.deleteAll()

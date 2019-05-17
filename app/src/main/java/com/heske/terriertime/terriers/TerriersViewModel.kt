@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.heske.terriertime.repositories.WikiDataRepository
 import com.heske.terriertime.database.TerriersDao
-import com.heske.terriertime.database.TerriersTableEntity
+import com.heske.terriertime.database.Terrier
 import com.heske.terriertime.database.getDatabase
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -54,21 +54,21 @@ class TerriersViewModel(
     val spinner: LiveData<Boolean>
         get() = _spinner
 
-    private val _correctGuess = MutableLiveData<TerriersTableEntity>()
-    val correctGuess: LiveData<TerriersTableEntity>
+    private val _correctGuess = MutableLiveData<Terrier>()
+    val correctGuess: LiveData<Terrier>
         get() = _correctGuess
 
     private val _incorrectGuess = MutableLiveData<String>()
     val incorrectGuess: LiveData<String>
         get() = _incorrectGuess
 
-//    private val _navigateToFullsizeImage = MutableLiveData<TerriersTableEntity>()
-//    val navigateToFullsizeImage: LiveData<TerriersTableEntity>
+//    private val _navigateToFullsizeImage = MutableLiveData<Terrier>()
+//    val navigateToFullsizeImage: LiveData<Terrier>
 //        get() = _navigateToFullsizeImage
 
-    private val _navigateToDetailScreen = MutableLiveData<TerriersTableEntity>()
-    val navigateToDetailScreen: LiveData<TerriersTableEntity>
-        get() = _navigateToDetailScreen
+//    private val _navigateToDetailScreen = MutableLiveData<Terrier>()
+//    val navigateToDetailScreen: LiveData<Terrier>
+//        get() = _navigateToDetailScreen
 
     private val database = getDatabase(application)
     private val dataRepository = WikiDataRepository(database.terriersTableDao)
@@ -90,52 +90,30 @@ class TerriersViewModel(
     val listOfTerriers = terriersTableDao.getAllTerriers()
 
     /**
-     * When the terrier image is clicked,
-     * set the [_navigateToFullsizeImage] [MutableLiveData]
-     * @param terrier The [terrier] that was clicked on.
-     */
-//    fun displayFullsizeImage(terrier: TerriersTableEntity) {
-//        _navigateToFullsizeImage.value = terrier
-//    }
-
-    /**
      * After the navigation has taken place, make sure displayFullsizeImageComplete is set to null.
      * !!!!Otherwise the app will crash when Back button is pressed from destination Fragment!!!!
      */
-//    fun displayFullsizeImageComplete() {
-//        _navigateToFullsizeImage.value = null
+//    fun displayDetailScreenComplete() {
+//        _navigateToDetailScreen.value = null
+//        _correctGuess.value = null
 //    }
 
     /**
-     * When the terrier image is clicked,
-     * set the [_navigateToFullsizeImage] [MutableLiveData]
-     * @param terrier The [terrier] that was clicked on.
+     * Null LiveData so it won't get called multiple times.
      */
-//    fun displayDetailActivity(terrier: TerriersTableEntity) {
-//        _navigateToDetailScreen.value = terrier
-//    }
-
-    /**
-     * After the navigation has taken place, make sure displayFullsizeImageComplete is set to null.
-     * !!!!Otherwise the app will crash when Back button is pressed from destination Fragment!!!!
-     */
-    fun displayDetailScreenComplete() {
-        _navigateToDetailScreen.value = null
-        _correctGuess.value = null
+    fun incorrectGuessComplete() {
+        _incorrectGuess.value = null
     }
 
-    /**
-     * Observer calls this so it won't get called multiple times.
-     */
-    fun guessComplete() {
-        _incorrectGuess.value = null
+    fun correctGuessComplete() {
+        _correctGuess.value = null
     }
 
     /**
      * If user's guess is correct, then send the [terrier] back for display.
      * Otherwise send null so [Observer] can provide user feedback.
      */
-    fun processGuess(terrier: TerriersTableEntity, guessText: String) {
+    fun processGuess(terrier: Terrier, guessText: String) {
         // Everything lower case for easy comparison
         val breedName = terrier.name.toLowerCase()
         val guess = guessText.toLowerCase()

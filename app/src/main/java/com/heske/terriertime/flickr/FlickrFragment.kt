@@ -24,7 +24,6 @@ class FlickrFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val breedName = FlickrFragmentArgs.fromBundle(arguments!!).breedName
 
         val factory = InjectorUtils

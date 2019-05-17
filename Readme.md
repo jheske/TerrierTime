@@ -18,6 +18,21 @@ Material Design conforms to Google's latest UI/UX standards.
 
 Features the latest Jetpack UI, Architecture, and Foundation components:
 
+
+Jetpack:
+
+* Coroutines
+* Navigation
+* Databinding
+* ViewModels
+* Observers
+* LiveData
+* Room Database
+* Android KTX
+* Fragments
+* AppCompat
+
+
 Views and Widgets:
 
 * CoordinatorLayout
@@ -28,18 +43,6 @@ Views and Widgets:
 * NestedScrollView
 * RecyclerView
 * CardView
-
-Jetpack:
-
-* Navigation
-* Databinding
-* ViewModels
-* Observers
-* LiveData
-* Room Database
-* Android KTX
-* Fragments
-* AppCompat
 
 
 Retrofit 2.0 and Gson to retrieve and parse breed summaries from wikipedia.org and images from flickr.com.

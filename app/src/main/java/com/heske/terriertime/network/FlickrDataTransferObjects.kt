@@ -1,8 +1,7 @@
 package com.heske.terriertime.network
 
 import com.google.gson.annotations.SerializedName
-import com.heske.terriertime.database.FlickrTableEntity
-import com.heske.terriertime.flickr.FlickrImage
+import com.heske.terriertime.database.FlickrImage
 
 /* Copyright (c) 2019 Jill Heske All rights reserved.
  * 
@@ -40,15 +39,9 @@ data class FlickrImageItem(
     val media: HashMap<String, String>
 )
 
-/***
- * Return an ArrayList containing string values from [flickrImageList] item
- * media field.
- */
-//fun FlickrImageListResponse
-//        .asSimpleList(flickrImageList: ArrayList<FlickrImageItem>): ArrayList<String> {
-fun FlickrImageListResponse.asDatabaseModel(breedName: String): Array<FlickrTableEntity> {
+fun FlickrImageListResponse.asDatabaseModel(breedName: String): Array<FlickrImage> {
     return imageList.map {
-        FlickrTableEntity(
+        FlickrImage(
             id=0,
             breedName = breedName,
             imageFilePath = it.media.getValue("m"))

@@ -7,8 +7,8 @@
          See TerriersRvAdapter.kt for variable assignments. -->
     <data>
         <variable
-                name="terrierTableEntity"
-                type="com.heske.terriertime.database.TerriersTableEntity"/>
+                name="terrier"
+                type="com.heske.terriertime.database.Terrier"/>
         <variable
                 name="guess_text"
                 type="String"/>
@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/spacing_medium">
             <!-- rvTerriersListItemImageUrl binding is in BindingAdapters.kt.
-                 "terrierTableEntity" is assigned in TerriersRvAdapter.kt -->
+                 "terrier" is assigned in TerriersRvAdapter.kt -->
             <ImageView
                     android:id="@+id/img_photo"
                     android:layout_width="0dp"
@@ -40,7 +40,7 @@
                     android:scaleType="centerCrop"
                     tools:src="@drawable/terrier_placeholder"
                     android:onClick="@{imageClickListener}"
-                    app:rvTerriersListItemImageUrl="@{terrierTableEntity.name}"
+                    app:rvTerriersListItemImageUrl="@{terrier.name}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
@@ -52,7 +52,7 @@
                     android:layout_marginTop="@dimen/spacing_medium"
                     android:layout_marginLeft="@dimen/spacing_medium"
                     android:layout_marginRight="@dimen/spacing_medium"
-                    android:text="@{terrierTableEntity.fact}"
+                    android:text="@{terrier.fact}"
                     android:textSize="@dimen/main_text_size"
                     tools:text="@string/airedale_fact"
                     app:layout_constraintEnd_toEndOf="parent"

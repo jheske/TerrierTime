@@ -5,7 +5,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import com.heske.terriertime.database.TerriersTableEntity
+import com.heske.terriertime.database.Terrier
 
 /**
  * Return boolean indicating network availability.
@@ -55,7 +55,7 @@ fun Context.hideKeyboard(view: View) {
  * together all the breed names so Wiki can download summaries
  * in one batch.
  */
-fun buildBreedTagString(terrierBreedList: ArrayList<TerriersTableEntity>): String {
+fun buildBreedTagString(terrierBreedList: ArrayList<Terrier>): String {
     val sb = StringBuilder()
     val listSize = terrierBreedList.size
     for (i in 0..listSize - 1) {

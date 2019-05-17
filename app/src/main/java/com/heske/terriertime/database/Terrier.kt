@@ -28,17 +28,16 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import com.heske.terriertime.terriers.Terrier
 import kotlinx.android.parcel.Parcelize
 
 /**
- * An TerriersTableEntity object represents one row in the Terriers table.  Terriers names
+ * An Terrier object represents one row in the Terriers table.  Terriers names
  * in the database are treated as Wikipedia tags and are used to retrieve information about the
  * breed, such as summary text, so their exact spelling has to conform to Wiki counterparts.
  */
 @Parcelize
 @Entity
-data class TerriersTableEntity constructor(
+data class Terrier constructor(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(index = true, name = "_id")
     var id: Long,
@@ -58,13 +57,13 @@ data class TerriersTableEntity constructor(
     constructor() : this(0, "", "", "", null)
 }
 
-fun List<TerriersTableEntity>.asDomainModel(): List<Terrier> {
-    return map {
-        Terrier(
-            id = it.id,
-            name = it.name,
-            fact = it.fact,
-            summary = it.summary,
-            imageList = it.imageList)
-    }
-}
+//fun List<Terrier>.asDomainModel(): List<Terrier> {
+//    return map {
+//        Terrier(
+//            id = it.id,
+//            name = it.name,
+//            fact = it.fact,
+//            summary = it.summary,
+//            imageList = it.imageList)
+//    }
+//}

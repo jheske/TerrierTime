@@ -7,7 +7,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.heske.terriertime.database.TerriersTableEntity
+import com.heske.terriertime.database.Terrier
 import com.heske.terriertime.databinding.ListitemTerriersBinding
 import com.heske.terriertime.utils.toAssetPath
 import kotlinx.android.synthetic.main.listitem_terriers.view.*
@@ -36,15 +36,14 @@ import kotlinx.android.synthetic.main.listitem_terriers.view.*
 
 /**
  * This class implements a [RecyclerView] [ListAdapter] which uses Data Binding
- * to present [List] of [TerriersTableEntity] data, including computing diffs between lists.
- */
-class TerriersRvAdapter(val onGuessClickListener: OnGuessClickListener) :
-    ListAdapter<TerriersTableEntity, TerriersRvAdapter.TerrierViewHolder>(DiffCallback()) {
+ * to present [List] of [Terrier] data, including computing diffs between lists.
+ */class TerriersRvAdapter(val onGuessClickListener: OnGuessClickListener) :
+    ListAdapter<Terrier, TerriersRvAdapter.TerrierViewHolder>(DiffCallback()) {
 
     /**
      * The TerrierViewHolder constructor takes the binding variable from the associated
      * list item, which nicely gives it access to the full object information,
-     * in this case it's a [TerriersTableEntity] object.
+     * in this case it's a [Terrier] object.
      * See listitem_terrier.xml for all the views associated with each
      * row in terriers_recycler.
      *
@@ -57,11 +56,11 @@ class TerriersRvAdapter(val onGuessClickListener: OnGuessClickListener) :
         fun bind(
             onButtonClickListener: View.OnClickListener,
             onImageClickListener: View.OnClickListener,
-            listItem: TerriersTableEntity
+            listItem: Terrier
         ) {
             binding.apply {
                 // Binding variables are in listitem_terriers.xml.
-                terrierTableEntity = listItem
+                terrier = listItem
                 buttonClickListener = onButtonClickListener
                 imageClickListener = onImageClickListener
                 executePendingBindings()
@@ -84,18 +83,16 @@ class TerriersRvAdapter(val onGuessClickListener: OnGuessClickListener) :
      */
 
     override fun onBindViewHolder(holder: TerrierViewHolder, position: Int) {
-        //val listItem = getItem(position)
-
-        getItem(position).let { terrierEntity ->
+        getItem(position).let { terrier ->
             with(holder) {
-                itemView.tag = terrierEntity
+                itemView.tag = terrier
                 itemView.btn_guess.setOnClickListener {
                     val guess = holder.itemView.et_guess_txt.text.toString()
-                    onGuessClickListener.onGuessButtonClick(terrierEntity, guess)
+                    onGuessClickListener.onGuessButtonClick(terrier, guess)
                 }
-                val buttonClickListener = createOnButtonClickListener(terrierEntity)
-                val imageClickListener = createOnImageClickListener(terrierEntity)
-                bind(buttonClickListener,imageClickListener,terrierEntity)
+                val buttonClickListener = createOnButtonClickListener(terrier)
+                val imageClickListener = createOnImageClickListener(terrier)
+                bind(buttonClickListener,imageClickListener,terrier)
             }
         }
     }
@@ -103,24 +100,23 @@ class TerriersRvAdapter(val onGuessClickListener: OnGuessClickListener) :
     /**
      * The MORE and GIVE UP buttons both display the Detail activity.
      */
-    private fun createOnButtonClickListener(terriersTableEntity: TerriersTableEntity): View.OnClickListener {
+    private fun createOnButtonClickListener(terrier: Terrier): View.OnClickListener {
         return View.OnClickListener {
-            val fragmentTitle = terriersTableEntity.name
+            val breedName = terrier.name
             val direction =
                 TerriersFragmentDirections.actionMainFragmentToDetail(
-                    terriersTableEntity,
-                    fragmentTitle
+                    breedName
                 )
             it.findNavController().navigate(direction)
         }
     }
 
-    private fun createOnImageClickListener(terriersTableEntity: TerriersTableEntity): View.OnClickListener {
+    private fun createOnImageClickListener(terrier: Terrier): View.OnClickListener {
         return View.OnClickListener {
-            val imageFilePath = terriersTableEntity.name.toAssetPath()
+            val imageFilePath = terrier.name.toAssetPath()
             val direction =
                 TerriersFragmentDirections.actionMainToFullsize(
-                    terriersTableEntity.name,
+                    terrier.name,
                     imageFilePath
                 )
             it.findNavController().navigate(direction)
@@ -134,9 +130,9 @@ class TerriersRvAdapter(val onGuessClickListener: OnGuessClickListener) :
      * This listener displays a full-screen image.  It has nothing to do with the
      * three Buttons. Those have their own listeners.
      */
-    class OnGuessClickListener(val clickListener: (terrierEntity: TerriersTableEntity, guess: String) -> Unit) {
-        fun onGuessButtonClick(terrierEntity: TerriersTableEntity, guess: String)
-                = clickListener(terrierEntity, guess)
+    class OnGuessClickListener(val clickListener: (terrier: Terrier, guess: String) -> Unit) {
+        fun onGuessButtonClick(terrier: Terrier, guess: String)
+                = clickListener(terrier, guess)
     }
 }
 
@@ -144,12 +140,12 @@ class TerriersRvAdapter(val onGuessClickListener: OnGuessClickListener) :
  * Allows the RecyclerView to determine which items have changed
  * when the list has been updated.
  */
-private class DiffCallback : DiffUtil.ItemCallback<TerriersTableEntity>() {
-    override fun areItemsTheSame(oldItem: TerriersTableEntity, newItem: TerriersTableEntity): Boolean {
+private class DiffCallback : DiffUtil.ItemCallback<Terrier>() {
+    override fun areItemsTheSame(oldItem: Terrier, newItem: Terrier): Boolean {
         return oldItem === newItem
     }
 
-    override fun areContentsTheSame(oldItem: TerriersTableEntity, newItem: TerriersTableEntity): Boolean {
+    override fun areContentsTheSame(oldItem: Terrier, newItem: Terrier): Boolean {
         return oldItem == newItem
     }
 }

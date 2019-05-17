@@ -69,7 +69,7 @@ class WikiDataRepository(val terriersDao: TerriersDao) {
         }
     }
 
-    fun getTerrier(breedName: String) : LiveData<TerriersTableEntity> {
+    fun getTerrier(breedName: String) : LiveData<Terrier> {
         return terriersDao.getTerrier(breedName)
     }
 
@@ -108,7 +108,7 @@ class WikiDataRepository(val terriersDao: TerriersDao) {
 
         /**
          * Network delivers a WikiSummaryListResponse. The database
-         * expects a list of TerriersTableEntity objects.
+         * expects a list of Terrier objects.
          */
         withContext(Dispatchers.IO) {
             var summaryCount = terriersDao.getSummaryCount()
